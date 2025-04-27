@@ -1,0 +1,19 @@
+[book]
+authors = ["yosheng"]
+language = "en"
+multilingual = false
+src = "src"
+title = "C# 面试笔记"
+
+[preprocessor]
+
+[preprocessor.admonish]
+command = "mdbook-admonish"
+assets_version = "3.0.3" # do not edit: managed by `mdbook-admonish install`
+
+[output]
+
+[output.html]
+no-section-label = false
+additional-css = ["theme/pagetoc.css", "./mdbook-admonish.css"]
+additional-js = ["theme/pagetoc.js"]
