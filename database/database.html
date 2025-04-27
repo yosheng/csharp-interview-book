@@ -1,0 +1,489 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>数据库 - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+        <link rel="stylesheet" href=".././mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="数据库"><a class="header" href="#数据库">数据库</a></h1>
+<h2 id="为什么要一定要设置主键"><a class="header" href="#为什么要一定要设置主键">为什么要一定要设置主键?</a></h2>
+<p>其实这个不是一定的，有些场景下，小系统或者没什么用的表，不设置主键也没关系，mysql最好是用自增主键，主要是以下两个原因：如果定义了主键，那么InnoDB会选择主键作为聚集索引、如果没有显式定义主键，则innodb 会选择第一个不包含有NULL值的唯一索引作为主键索引、如果也没有这样的唯一索引，则innodb 会选择内置6字节长的ROWID作为隐含的聚集索引。所以，反正都要生成一个主键，那你还不如自己指定一个主键，提高查询效率！</p>
+<h2 id="自增主键用完了怎么办"><a class="header" href="#自增主键用完了怎么办">自增主键用完了怎么办?</a></h2>
+<p>在mysql中，Int整型的范围（-2147483648~2147483648），约20亿！因此不用考虑自增ID达到最大值这个问题。而且数据达到千万级的时候就应该考虑分库分表了。</p>
+<h2 id="为什么不直接存储图片音频视频等大容量内容"><a class="header" href="#为什么不直接存储图片音频视频等大容量内容">为什么不直接存储图片、音频、视频等大容量内容?</a></h2>
+<p>我们在实际应用中，都是文件形式存储的。mysql中，只存文件的存放路径。虽然mysql中blob类型可以用来存放大容量文件，但是，我们在生产中，基本不用！主要有如下几个原因：</p>
+<ul>
+<li>Mysql内存临时表不支持TEXT、BLOB这样的大数据类型，如果查询中包含这样的数据，查询效率会非常慢。</li>
+<li>数据库特别大，内存占用高，维护也比较麻烦。</li>
+<li>binlog太大，如果是主从同步的架构，会导致主从同步效率问题！因此，不推荐使用blob等类型！</li>
+</ul>
+<h2 id="有几种不同的join"><a class="header" href="#有几种不同的join">有几种不同的join?</a></h2>
+<p>Inner join, left join, right join, full join.</p>
+<p>Inner join, 就是只要有一个列能够匹配， 就简单的返回两个table中所有的对应行。</p>
+<pre><code class="language-sql">select columnnames from tablename1 inner join tablename2 on columnname1=columnname2
+</code></pre>
+<p>Left join也就是left outer join。当有一个列能够匹配时就返回左边表中所有的行。</p>
+<pre><code class="language-sql">select columnnames from tablename1 left join tablename2 on columnname1=columnname2
+</code></pre>
+<p>Right join也就是right outer join，当有列匹配时，返回右边表格中所有的行。</p>
+<pre><code class="language-sql">select columnnames from tablename1 right join tablename2 on columnname1=columnname2
+</code></pre>
+<p>Full join也就是full outer join, 当有匹配时， 会返回左边表格和右边表格任意情况下的行组合。</p>
+<h2 id="sql和my-sql的区别是什么"><a class="header" href="#sql和my-sql的区别是什么">Sql和my sql的区别是什么?</a></h2>
+<p>Sql是结构化查询语言，my sql是一个关系型数据库。</p>
+<h2 id="delete和truncate的区别是什么"><a class="header" href="#delete和truncate的区别是什么">Delete和truncate的区别是什么?</a></h2>
+<p>Delete是dml，truncate是ddl。</p>
+<p>Delete是用来删除一行或者多行。Truncate是用来删除一个表中的所有行。</p>
+<p>我们可以用where跟delete结合使用。Truncate不可以。</p>
+<h2 id="drop跟truncate的区别是什么"><a class="header" href="#drop跟truncate的区别是什么">Drop跟truncate的区别是什么?</a></h2>
+<p>truncate是删除表中所有的行，drop是删除整张表。这两个操作都不可以回撤。</p>
+<h2 id="什么是关系有几种关系"><a class="header" href="#什么是关系有几种关系">什么是关系？有几种关系?</a></h2>
+<p>关系是指多表在数据库中的关联。</p>
+<p>有4种关系。</p>
+<p>1对1，多对一，多对多，一对多。</p>
+<h2 id="什么是主键"><a class="header" href="#什么是主键">什么是主键？</a></h2>
+<p>唯一标识一条记录，不能有重复的，不允许为空。</p>
+<h2 id="什么是外键"><a class="header" href="#什么是外键">什么是外键？</a></h2>
+<p>表的外键是另一表的主键, 外键可以有重复的, 可以是空值。</p>
+<h2 id="如何随机的从表中取行"><a class="header" href="#如何随机的从表中取行">如何随机的从表中取行?</a></h2>
+<p>select * from tablename sample 10</p>
+<h2 id="sql-server的tcpip端口是什么"><a class="header" href="#sql-server的tcpip端口是什么">Sql server的TCP/ip端口是什么?</a></h2>
+<p>1433</p>
+<h2 id="什么是sql"><a class="header" href="#什么是sql">什么是SQL？</a></h2>
+<p>SQL（结构化查询语言）是一种设计用于检索和操作数据的数据库。它属于美国国家标准协会（ANSI）的一种标准，可用于执行Select（选择）、Update（更新）、Delete（删除）和Insert（插入）等数据任务。</p>
+<h2 id="sql中的constraints约束是什么"><a class="header" href="#sql中的constraints约束是什么">SQL中的Constraints(约束)是什么？</a></h2>
+<p>它可用于设置表中数据类型的限制。在创建或更新表语句时，可以使用约束。一些限制是：</p>
+<p>NOT NULL、PRIMARY KEY、FOREIGN KEY、UNIQUE、CHECK、DEFAULT</p>
+<h2 id="什么是index索引"><a class="header" href="#什么是index索引">什么是Index（索引）？</a></h2>
+<p>索引用于加速查询的性能。它可以更快地从表中检索数据。可以在一组列上创建索引。</p>
+<h2 id="clustered群集和non-clustered-index非群集索引之间有什么区别"><a class="header" href="#clustered群集和non-clustered-index非群集索引之间有什么区别">Clustered（群集）和Non-Clustered Index（非群集）索引之间有什么区别？</a></h2>
+<ul>
+<li>聚集索引——有助于轻松检索数据，并且只有一个聚集索引与一个表一起分配。它会更改记录在数据库中的保存方式。</li>
+<li>非聚集索引——与聚集索引相比，非聚集索引很慢。并且在非集群索引的情况下，该表可以具有多个索引，为表创建一个对象，该表是搜索后指向表的一个点。</li>
+</ul>
+<h2 id="什么是aggregate-functions聚合函数"><a class="header" href="#什么是aggregate-functions聚合函数">什么是Aggregate Functions（聚合函数）？</a></h2>
+<p>它是一个返回单个值的数学函数。SQL中的聚合函数是：</p>
+<ul>
+<li>AVG（）——返回平均值</li>
+<li>COUNT（）——返回行数</li>
+<li>MAX（）——返回最大值</li>
+<li>MIN（）——返回最小值</li>
+<li>ROUND（）——基于十进制规范，此函数对数字字段进行舍入</li>
+<li>SUM（）——返回总和</li>
+</ul>
+<h2 id="主键是用自增还是uuid"><a class="header" href="#主键是用自增还是uuid">主键是用自增还是UUID?</a></h2>
+<p>最好是用自增主键，主要是以下两个原因：</p>
+<ol>
+<li>如果表使用自增主键，那么每次插入新的记录，记录就会顺序添加到当前索引节点的后续位置，当一页写满，就会自动开辟一个新的页。</li>
+<li>如果使用非自增主键（如uuid），由于每次插入主键的值近似于随机，因此每次新纪录都要被插到索引页的随机某个位置，此时MySQL为了将新记录插到合适位置而移动数据，甚至目标页面可能已经被回写到磁盘上而从缓存中清掉，此时又要从磁盘上读回来，这增加了很多开销，同时频繁的移动、分页操作造成索引碎片，得到了不够紧凑的索引结构，后续不得不通过OPTIMIZE TABLE来重建表并优化填充页面。</li>
+</ol>
+<p>不过，也不是所有的场景下都得使用自增主键，可能场景下，主键必须自己生成，不在乎那些性能的开销。那也没有问题。</p>
+<h2 id="char-和-varchar-的区别"><a class="header" href="#char-和-varchar-的区别">CHAR 和 VARCHAR 的区别？</a></h2>
+<p>char和varchar类型声明长度表示用户想保存的最大字符数，其中char(M)定义的列的长度为固定的，M的取值可以0-255之间，当保存char值时，在它们的右边填充空格以达到指定的长度。</p>
+<p>当检索到char值时，尾部的空格被删除掉。在存储或检索过程中不进行大小写转换。char存储定长数据很方便，char字段上的索引效率很高。</p>
+<p>varchar(M)定义的列的长度是可变长度字符串，在MySQL5.0以上的版本中，varchar的数据类型长度支持到了65535，因为起始位和结束位占去了3个字节，所以其整体最大长度为65532字节（varchar的最大有效长度由最大行大小和使用的字符集确定）。</p>
+<p>同样在char和varchar尾部加空格，检索时char类型后的被删掉，而varchar类型的保存。</p>
+<h2 id="主键为什么不推荐有业务含义"><a class="header" href="#主键为什么不推荐有业务含义">主键为什么不推荐有业务含义?</a></h2>
+<p>最好是主键是无意义的自增ID，然后另外创建一个业务主键ID， 因为任何有业务含义的列都有改变的可能性,主键一旦带上了业务含义，那么主键就有可能发生变更。主键一旦发生变更，该数据在磁盘上的存储位置就会发生变更，有可能会引发页分裂，产生空间碎片。</p>
+<p>还有就是，带有业务含义的主键，不一定是顺序自增的。那么就会导致数据的插入顺序，并不能保证后面插入数据的主键一定比前面的数据大。如果出现了，后面插入数据的主键比前面的小，就有可能引发页分裂，产生空间碎片。</p>
+<h2 id="货币字段用什么类型"><a class="header" href="#货币字段用什么类型">货币字段用什么类型?</a></h2>
+<p>货币字段一般都用 Decimal类型， float和double是以二进制存储的，数据大的时候，可能存在误差。</p>
+<h2 id="索引应该建在那些列上"><a class="header" href="#索引应该建在那些列上">索引应该建在那些列上？</a></h2>
+<ul>
+<li>在经常需要搜索的列上，可以加快搜索的速度；</li>
+<li>在作为主键的列上，强制该列的唯一性和组织表中数据的排列结构；</li>
+<li>在经常用在连接的列上，这些列主要是一些外键，可以加快连接的速度；</li>
+<li>在经常需要根据范围进行搜索的列上创建索引，因为索引已经排序，其指定的范围是连续的；</li>
+<li>在经常需要排序的列上创建索引，因为索引已经排序，这样查询可以利用索引的排序，加快排序查询时间；</li>
+<li>在经常使用在WHERE子句中的列上面创建索引，加快条件的判断速度。</li>
+</ul>
+<h2 id="什么是存储过程有哪些优缺点"><a class="header" href="#什么是存储过程有哪些优缺点">什么是存储过程？有哪些优缺点？</a></h2>
+<p>存储过程就像我们编程语言中的函数一样，封装了我们的代码(PLSQL、T-SQL)</p>
+<p>存储过程的优点</p>
+<ul>
+<li>能够将代码封装起来</li>
+<li>保存在数据库之中</li>
+<li>让编程语言进行调用</li>
+<li>存储过程是一个预编译的代码块，执行效率比较高</li>
+<li>一个存储过程替代大量T_SQL语句 ，可以降低网络通信量，提高通信速率</li>
+</ul>
+<p>存储过程的缺点：</p>
+<ul>
+<li>每个数据库的存储过程语法几乎都不一样，十分难以维护（不通用）</li>
+<li>业务逻辑放在数据库上，难以迭代</li>
+</ul>
+<h2 id="字段为什么要定义为not-null"><a class="header" href="#字段为什么要定义为not-null">字段为什么要定义为NOT NULL?</a></h2>
+<p>一般情况，都会设置一个默认值，不会出现字段里面有null，又有空的情况。主要有以下几个原因：</p>
+<ol>
+<li>
+<p>索引性能不好，Mysql难以优化引用可空列查询，它会使索引、索引统计和值更加复杂。可空列需要更多的存储空间，还需要mysql内部进行特殊处理。可空列被索引后，每条记录都需要一个额外的字节，还能导致MYisam 中固定大小的索引变成可变大小的索引。</p>
+</li>
+<li>
+<p>如果某列存在null的情况，可能导致count() 等函数执行不对的情况。</p>
+</li>
+<li>
+<p>sql 语句写着也麻烦，既要判断是否为空，又要判断是否为null等。</p>
+</li>
+</ol>
+<h2 id="索引的分类有哪些"><a class="header" href="#索引的分类有哪些">索引的分类有哪些？</a></h2>
+<ul>
+<li>唯一索引：唯一索引不允许两行具有相同的索引值</li>
+<li>主键索引：为表定义一个主键将自动创建主键索引，主键索引是唯一索引的特殊类型。主键索引要求主键中的每个值是唯一的，并且不能为空</li>
+<li>聚集索引(Clustered)：表中各行的物理顺序与键值的逻辑（索引）顺序相同，每个表只能有一个</li>
+<li>非聚集索引(Non-clustered)：非聚集索引指定表的逻辑顺序。数据存储在一个位置，索引存储在另一个位置，索引中包含指向数据存储位置的指针。可以有多个，小于249个</li>
+</ul>
+<h2 id="时间字段用什么类型"><a class="header" href="#时间字段用什么类型">时间字段用什么类型?</a></h2>
+<p>这个看具体情况和实际场景，timestamp ，datatime ，bigint 都行！把理由讲清楚就行！</p>
+<p>timestamp，该类型是四个字节的整数，它能表示的时间范围为1970-01-01 08:00:01到2038-01-19 11:14:07。2038年以后的时间，是无法用timestamp类型存储的。但是它有一个优势，timestamp类型是带有时区信息的。一旦你系统中的时区发生改变，例如你修改了时区，该字段的值会自动变更。这个特性用来做一些国际化大项目，跨时区的应用时，特别注意！</p>
+<p>datetime，占用8个字节，它存储的时间范围为1000-01-01 00:00:00 ~ 9999-12-31 23:59:59。显
+然，存储时间范围更大。但是它坑的地方在于，它存储的是时间绝对值，不带有时区信息。如果你改变
+数据库的时区，该项的值不会自己发生变更！</p>
+<p>bigint，也是8个字节，自己维护一个时间戳，查询效率高，不过数据写入，显示都需要做转换。</p>
+<h2 id="什么是最左前缀原则"><a class="header" href="#什么是最左前缀原则">什么是最左前缀原则？</a></h2>
+<p>最左前缀原则指的是，如果查询的时候查询条件精确匹配索引的左边连续一列或几列，则此列就可以被用到。如下：</p>
+<pre><code class="language-sql">select * from user where name=xx and city=xx ; // 可以命中索引
+select * from user where name=xx ; // 可以命中索引
+select * from user where city=xx ; // 无法命中索引
+</code></pre>
+<p>这里需要注意的是，查询的时候如果两个条件都用上了，但是顺序不同，如 city= xx and name ＝xx，那么现在的查询引擎会自动优化为匹配联合索引的顺序，这样是能够命中索引的。</p>
+<p>由于最左前缀原则，在创建联合索引时，索引字段的顺序需要考虑字段值去重之后的个数，较多的放前面。ORDER BY子句也遵循此规则。</p>
+<h2 id="什么是事务"><a class="header" href="#什么是事务">什么是事务？</a></h2>
+<p>事务简单来说：一个Session中所进行所有的操作，要么同时成功，要么同时失败</p>
+<p>ACID — 数据库事务正确执行的四个基本要素包含：
+原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。</p>
+<p>一个支持事务（Transaction）中的数据库系统，必需要具有这四种特性，否则在事务过程（Transaction processing）当中无法保证数据的正确性，交易过程极可能达不到交易。</p>
+<p>举个例子:A向B转账，转账这个流程中如果出现问题，事务可以让数据恢复成原来一样【A账户的钱没变，B账户的钱也没变】。</p>
+<h2 id="mysql有关权限的表都有哪几个"><a class="header" href="#mysql有关权限的表都有哪几个">mysql有关权限的表都有哪几个?</a></h2>
+<p>MySQL服务器通过权限表来控制用户对数据库的访问，权限表存放在mysql数据库里，由mysql_install_db脚本初始化。这些权限表分别user，db，table_priv，columns_priv和host。下面分别介绍一下这些表的结构和内容：</p>
+<ul>
+<li>user权限表：记录允许连接到服务器的用户帐号信息，里面的权限是全局级的。</li>
+<li>db权限表：记录各个帐号在各个数据库上的操作权限。</li>
+<li>table_priv权限表：记录数据表级的操作权限。</li>
+<li>columns_priv权限表：记录数据列级的操作权限。</li>
+<li>host权限表：配合db权限表对给定主机上数据库级操作权限作更细致的控制。这个权限表不受GRANT和REVOKE语句的影响。</li>
+</ul>
+<h2 id="什么情况下应不建或少建索引"><a class="header" href="#什么情况下应不建或少建索引">什么情况下应不建或少建索引?</a></h2>
+<ul>
+<li>表记录太少</li>
+<li>经常插入、删除、修改的表</li>
+<li>数据重复且分布平均的表字段，假如一个表有10万行记录，有一个字段A只有T和F两种值，且每个值的分布概率大约为50%，那么对这种表A字段建索引一般不会提高数据库的查询速度。</li>
+<li>经常和主字段一块查询但主字段索引值比较多的表字段</li>
+</ul>
+<h2 id="数据表损坏的修复方式有哪些"><a class="header" href="#数据表损坏的修复方式有哪些">数据表损坏的修复方式有哪些？</a></h2>
+<p>使用 myisamchk 来修复，具体步骤：</p>
+<ol>
+<li>修复前将mysql服务停止。</li>
+<li>打开命令行方式，然后进入到mysql的/bin目录。</li>
+<li>执行myisamchk –recover 数据库所在路径/*.MYI</li>
+</ol>
+<p>使用repair table 或者 OPTIMIZE table命令来修复，REPAIR TABLE table_name 修复表 OPTIMIZE TABLE table_name 优化表 REPAIR TABLE 用于修复被破坏的表。</p>
+<p>OPTIMIZE TABLE 用于回收闲置的数据库空间，当表上的数据行被删除时，所占据的磁盘空间并没有立即被回收，使用了OPTIMIZE TABLE命令后这些空间将被回收，并且对磁盘上的数据行进行重排（注意：是磁盘上，而非数据库）</p>
+<h2 id="mysql数据库cpu飙升到100的话他怎么处理"><a class="header" href="#mysql数据库cpu飙升到100的话他怎么处理">MySQL数据库cpu飙升到100%的话他怎么处理？</a></h2>
+<p>列出所有进程 show processlist 观察所有进程 多秒没有状态变化的(干掉)</p>
+<p>查看慢查询，找出执行时间长的sql；</p>
+<p>explain分析sql是否走索引，sql优化；</p>
+<p>检查其他子系统是否正常，是否缓存失效引起，需要查看buffer命中率；</p>
+<h2 id="维护数据库的完整性和一致性你喜欢用触发器还是自写业务逻辑为什么"><a class="header" href="#维护数据库的完整性和一致性你喜欢用触发器还是自写业务逻辑为什么">维护数据库的完整性和一致性，你喜欢用触发器还是自写业务逻辑？为什么？</a></h2>
+<p>尽可能使用约束，如check,主键，外键，非空字段等来约束，这样做效率最高，也最方便。其次是使用触发器，这种方法可以保证，无论什么业务系统访问数据库都可以保证数据的完整新和一致性。</p>
+<p>最后考虑的是自写业务逻辑，但这样做麻烦，编程复杂，效率低下。</p>
+<h2 id="游标是什么"><a class="header" href="#游标是什么">游标是什么？</a></h2>
+<p>是对查询出来的结果集作为一个单元来有效的处理。游标可以定在该单元中的特定行，从结果集的当前行检索一行或多行。可以对结果集当前行做修改。一般不使用游标，但是需要逐条处理数据的时候，游标显得十分重要。</p>
+<h2 id="数据库null是什么意思"><a class="header" href="#数据库null是什么意思">数据库NULL是什么意思?</a></h2>
+<p>NULL(空)这个值是数据库世界里一个非常难缠的东西。</p>
+<p>NULL这个值表示UNKNOWN(未知):它不表示“”(空字符串)。假设您的SQL Server数据库里有ANSI_NULLS，当然在默认情况下会有，对NULL这个值的任何比较都会生产一个NULL值。您不能把任何值与一个 UNKNOWN值进行比较，并在逻辑上希望获得一个答案。您必须使用IS NULL操作符。</p>
+<h2 id="关系型数据库和非关系型数据库区别"><a class="header" href="#关系型数据库和非关系型数据库区别">关系型数据库和非关系型数据库区别？</a></h2>
+<p>关系型数据库的优点：</p>
+<ol>
+<li>容易理解：二维表结构是非常贴近逻辑世界一个概念，关系模型相对网状、层次等其他模型来说更容易理解；</li>
+<li>使用方便：通用的SQL语言使得操作关系型数据库非常方便；</li>
+<li>易于维护：丰富的完整性(实体完整性、参照完整性和用户定义的完整性)大大减低了数据冗余和数据不一致的概率；</li>
+<li>支持SQL，可用于复杂的查询。</li>
+<li>支持事务</li>
+</ol>
+<p>关系型数据库的缺点：</p>
+<ol>
+<li>为了维护一致性所付出的巨大代价就是其读写性能比较差；</li>
+<li>固定的表结构；</li>
+<li>不支持高并发读写需求；</li>
+<li>不支持海量数据的高效率读写</li>
+</ol>
+<p>非关系型数据库优点：</p>
+<ol>
+<li>无需经过sql层的解析，读写性能很高</li>
+<li>基于键值对，数据没有耦合性，容易扩展</li>
+<li>存储数据的格式：nosql的存储格式是key,value形式</li>
+</ol>
+<p>非关系型数据库缺点：不提供sql</p>
+<h2 id="查询语句的执行先后顺序"><a class="header" href="#查询语句的执行先后顺序">查询语句的执行先后顺序？</a></h2>
+<p>查询中用到的关键词主要包含六个，并且他们的顺序依次为 select--from--where--group by--having--order by</p>
+<p>其中select和from是必须的，其他关键词是可选的，这六个关键词的执行顺序 与sql语句的书写顺序并不是一样的，而是按照下面的顺序来执行</p>
+<ul>
+<li>from:需要从哪个数据表检索数据</li>
+<li>where:过滤表中数据的条件</li>
+<li>group by:如何将上面过滤出的数据分组</li>
+<li>having:对上面已经分组的数据进行过滤的条件</li>
+<li>select:查看结果集中的哪个列，或列的计算结果</li>
+<li>order by :按照什么样的顺序来查看返回的数据</li>
+</ul>
+<h2 id="什么情况下会造成死锁"><a class="header" href="#什么情况下会造成死锁">什么情况下会造成死锁？</a></h2>
+<p>所谓死锁: 是指两个或两个以上的进程在执行过程中。因争夺资源而造成的一种互相等待的现象,若无外力作用,它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁,这些永远在互相等竺的进程称为死锁进程。表级锁不会产生死锁.所以解决死锁主要还是针对于最常用的InnoDB。</p>
+<p>死锁的关键在于：两个(或以上)的Session加锁的顺序不一致。</p>
+<p>那么对应的解决死锁问题的关键就是：让不同的session加锁有次序。</p>
+<h2 id="死锁如何解决"><a class="header" href="#死锁如何解决">死锁如何解决？</a></h2>
+<p>查出的线程杀死 kill</p>
+<pre><code class="language-sql">SELECT trx_MySQL_thread_id FROM information_schema.INNODB_TRX;
+</code></pre>
+<p>设置锁的超时时间 Innodb 行锁的等待时间，单位秒。可在会话级别设置，RDS 实例该参数的默认值为 50（秒）。</p>
+<p>生产环境不推荐使用过大的 innodb_lock_wait_timeout参数值</p>
+<p>该参数支持在会话级别修改，方便应用在会话级别单独设置某些特殊操作的行锁等待超时时间，如下：</p>
+<pre><code class="language-sql">set innodb_lock_wait_timeout=1000; —设置当前会话 Innodb 行锁等待超时时间，单位秒。
+</code></pre>
+<h2 id="触发器的作用"><a class="header" href="#触发器的作用">触发器的作用？</a></h2>
+<p>触发器是一中特殊的存储过程，主要是通过事件来触发而被执行的。它可以强化约束，来维护数据的完整性和一致性，可以跟踪数据库内的操作从而不允许未经许可的更新和变化。可以联级运算。如，某表上的触发器上包含对另一个表的数据操作，而该操作又会导致该表触发器被触发。</p>
+<h2 id="在数据库中查询语句速度很慢如何优化"><a class="header" href="#在数据库中查询语句速度很慢如何优化">在数据库中查询语句速度很慢，如何优化？</a></h2>
+<ol>
+<li>建索引</li>
+<li>减少表之间的关联</li>
+<li>优化sql，尽量让sql很快定位数据，不要让sql做全表查询，应该走索引，把数据 量大的表排在前面</li>
+<li>简化查询字段，没用的字段不要，已经对返回结果的控制，尽量返回少量数据</li>
+<li>尽量用PreparedStatement来查询，不要用Statement</li>
+</ol>
+<h2 id="什么是plsql"><a class="header" href="#什么是plsql">什么是PL/SQL？</a></h2>
+<p>PL/SQL是一种程序语言，叫做过程化SQL语言（Procedural Language/SQL）。PL/SQL是Oracle数据库对SQL语句的扩展。在普通SQL语句的使用上增加了编程语言的特点，所以PL/SQL把数据操作和查询语句组织在PL/SQL代码的过程性单元中，通过逻辑判断、循环等操作实现复杂的功能或者计算。PL/SQL 只有 Oracle 数据库有。 MySQL 目前不支持 PL/SQL 的。</p>
+<h2 id="使用sql命令将教师表teacher中工资salary字段的值增加500应该使用的命令"><a class="header" href="#使用sql命令将教师表teacher中工资salary字段的值增加500应该使用的命令">使用SQL命令将教师表teacher中工资salary字段的值增加500，应该使用的命令?</a></h2>
+<pre><code class="language-sql">Update teacher set salary=salary+500
+</code></pre>
+<h2 id="mdfldftif-ndf哪个不是sql-数据库文件的后缀"><a class="header" href="#mdfldftif-ndf哪个不是sql-数据库文件的后缀">mdf、.ldf、.tif 、.ndf哪个不是sql 数据库文件的后缀？</a></h2>
+<p>.tif</p>
+<h2 id="sql语言中条件年龄between-40-and-50表示年龄在40至50之间更准确的描述是"><a class="header" href="#sql语言中条件年龄between-40-and-50表示年龄在40至50之间更准确的描述是">SQL语言中，条件“年龄BETWEEN 40 AND 50”表示年龄在40至50之间更准确的描述是?</a></h2>
+<p>包括40岁和50岁</p>
+<h2 id="dropdelete与truncate分别在什么场景之下使用"><a class="header" href="#dropdelete与truncate分别在什么场景之下使用">drop、delete与truncate分别在什么场景之下使用？</a></h2>
+<p>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别</p>
+<p>delete和truncate只删除表的数据不删除表的结构
+速度一般来说: drop&gt; truncate &gt;delete</p>
+<p>delete语句是dml,这个操作会放到rollback segement中,事务提交之后才生效;</p>
+<p>如果有相应的trigger,执行的时候将被触发. truncate,drop是ddl, 操作立即生效,原数据不放到rollback segment中,不能回滚. 操作不触发trigger.</p>
+<p>不再需要一张表的时候，用drop</p>
+<p>想删除部分数据行时候，用delete，并且带上where子句</p>
+<p>保留表而删除所有数据的时候用truncate</p>
+<h2 id="myisam索引与innodb索引的区别"><a class="header" href="#myisam索引与innodb索引的区别">MyISAM索引与InnoDB索引的区别？</a></h2>
+<p>InnoDB索引是聚簇索引，MyISAM索引是非聚簇索引。</p>
+<p>InnoDB的主键索引的叶子节点存储着行数据，因此主键索引非常高效。</p>
+<p>MyISAM索引的叶子节点存储的是行数据地址，需要再寻址一次才能得到数据。</p>
+<p>InnoDB非主键索引的叶子节点存储的是主键和其他带索引的列数据，因此查询时做到覆盖索引会非常高效</p>
+<h2 id="有哪几种类型的sql命令"><a class="header" href="#有哪几种类型的sql命令">有哪几种类型的SQL命令？</a></h2>
+<p>SQL命令分为以下类型：</p>
+<ul>
+<li>DDL（数据定义语言） - 用于定义数据库的结构。</li>
+<li>DCL（数据控制语言） - 用于为用户提供权限。</li>
+<li>DML（数据操作语言） - 用于管理数据。</li>
+<li>DQL（数据查询语言） - 所有命令都在SQL中，用于检索DQL中的数据。</li>
+<li>TCL（事务控制语言） - 用于管理DML所做的更改。</li>
+</ul>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../algorithm.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../database/database-search.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../algorithm.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../database/database-search.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

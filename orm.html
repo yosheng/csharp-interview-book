@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>对象关系映射 - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="对象关系映射"><a class="header" href="#对象关系映射">对象关系映射</a></h1>
+<h2 id="efentity-framework是什么"><a class="header" href="#efentity-framework是什么">EF(Entity Framework)是什么？</a></h2>
+<p>实体框架EF是http://ADO.NET中的一组支持开发面向数据的软件应用程序的技术，是微软的一个ORM框架。</p>
+<p>主要有三种方式：</p>
+<p>Database FirstDatabase First”模式，我们称之为“数据库优先”，前提是你的应用已经有相应的数据库，你可以使用EF设计工具根据数据库生成数据数据类，你可以使用Visual Studio模型设计器修改这些模型之间对应关系。</p>
+<p>Model FirstModel First我们称之为“模型优先”，这里的模型指的是“ADO.NET Entity Framework Data Model”，此时你的应用并没有设计相关数据库，在Visual Studio中我们通过设计对于的数据模型来生成数据库和数据类。</p>
+<p>Code FirstCode First模式我们称之为“代码优先”模式，是从EF4.1开始新建加入的功能。使用Code First模式进行EF开发时开发人员只需要编写对应的数据类（其实就是领域模型的实现过程），然后自动生成数据库。这样设计的好处在于我们可以针对概念模型进行所有数据操作而不必关心数据的存储关系，使我们可以更加自然的采用面向对象的方式进行面向数据的应用程序开发。</p>
+<h2 id="什么是orm"><a class="header" href="#什么是orm">什么是ORM?</a></h2>
+<p>ORM指的是面向对象的对象模型和关系型数据库的数据结构之间的互相转换。(表实体跟表之间的相互转换)</p>
+<p>ORM框架有很多，EF框架是ORM框架的其中一种，是实现了ORM思想的框架。</p>
+<p>O=&gt;表实体、M=&gt;映射关系、R=&gt;数据库.表</p>
+<h2 id="为什么用ef而不用原生的adonet"><a class="header" href="#为什么用ef而不用原生的adonet">为什么用EF而不用原生的ADO.NET?</a></h2>
+<ol>
+<li>极大的提高开发效率:EF是微软自己的产品,开发中代码都是强类型的,写代码效率非常高,自动化程度非常高,命令式的编程.</li>
+<li>EF提供的模型设计器非常强大,不仅仅带来了设计数据库的革命,也附带来的自动化模型代码的功能也极大的提高开发和架构设计的效率.</li>
+<li>EF跨数据支持的是ORM框架主要功能点之一,带来的是可以通过仅仅改变配置就可以做到跨数据库的能力</li>
+</ol>
+<h2 id="如何提高linq性能问题"><a class="header" href="#如何提高linq性能问题">如何提高LINQ性能问题？</a></h2>
+<p>提升从数据库中拿数据的速度，可以参考以下几种方法：</p>
+<ol>
+<li>在数据库中的表中定义合适的索引和键</li>
+<li>只获得你需要的列（使用ViewModel或者改进你的查询）和行（使用IQueryable）</li>
+<li>尽可能使用一条查询而不是多条</li>
+<li>只为了展示数据，而不进行后续修改时，可以使用AsNoTracking。它不会影响生成的SQL，但它可以令系统少维护很多数据，从而提高性能</li>
+<li>使用Reshaper等工具，它可能会在你写出较差的代码时给出提醒</li>
+</ol>
+<h2 id="除了ef列举出你知道的orm框架"><a class="header" href="#除了ef列举出你知道的orm框架">除了EF，列举出你知道的ORM框架？</a></h2>
+<p>dapper、EntityFramework、 EJB、Hibernate、IBATIS、TopLink、OJB</p>
+<h2 id="如何如何获取ef生成的sql脚本"><a class="header" href="#如何如何获取ef生成的sql脚本">如何如何获取EF生成的Sql脚本？</a></h2>
+<ol>
+<li>可以调试起来通过SqlServerProfiler 来获取Sql</li>
+<li>EF Dbcontext 注册日志事件输出日志查看Sql</li>
+</ol>
+<h2 id="在哪些类型额项目中你会选择ef-为什么"><a class="header" href="#在哪些类型额项目中你会选择ef-为什么">在哪些类型额项目中你会选择EF? 为什么？</a></h2>
+<p>这个要结合EF的特点来说：EF主要是以面向对象的思想来做数据库数据操作，对Sql语句能力没什么要求，开发使用效率高！便于上手，一般来说，使用EF框架，肯定会比直接使用ADO.NET，消耗的时间多一些。 所以在一般企业级开发，管理型系统，对数据性能要求不是特别高的情况下，优先选择EF,这样可以大大的推进开发效率！如果像一些互联网项目中，对性能要求精度很高！可以另外做技术选型，选择原生ADO.NET。</p>
+<h2 id="请说明ef中映射实体对象的几种状态"><a class="header" href="#请说明ef中映射实体对象的几种状态">请说明EF中映射实体对象的几种状态？</a></h2>
+<ul>
+<li>Detached：该实体未由上下文跟踪。刚使用新运算符或某个 System.Data.Entity.DbSet Create 方法创建实体后，实体就处于此状态。</li>
+<li>Unchanged：实体将由上下文跟踪并存在于数据库中，其属性值与数据库中的值相同。</li>
+<li>Added：实体将由上下文跟踪，但是在数据库中还不存在。</li>
+<li>Deleted：实体将由上下文跟踪并存在于数据库中，但是已被标记为在下次调用 SaveChanges 时从数据库中删除。</li>
+<li>Modified：实体将由上下文跟踪并存在于数据库中，已修改其中的一些或所有属性值。</li>
+</ul>
+<h2 id="如果实体名称和数据库表名不一致该如何处理"><a class="header" href="#如果实体名称和数据库表名不一致该如何处理">如果实体名称和数据库表名不一致，该如何处理？</a></h2>
+<p>实体名称和数据库表名称不一致：可以通过使用TableAttribute 特性；</p>
+<h2 id="datareader与dataset有什么区别"><a class="header" href="#datareader与dataset有什么区别">DataReader与Dataset有什么区别？</a></h2>
+<p>一个是只能向前的只读游标，一个是内存中虚拟的数据库。</p>
+<h2 id="adonet中读写数据库需要使用哪些对象作用是什么"><a class="header" href="#adonet中读写数据库需要使用哪些对象作用是什么">ADO.NET中读写数据库需要使用哪些对象？作用是什么？</a></h2>
+<p>Connection连接对象，Command执行命令和存储过程，DataReader向前只读的数据流，DataAdapter适配器，支持增删查询，DataSet数据级对象，相当与内存里的一张或多张表。</p>
+<h2 id="什么是sql注入应该如何防止"><a class="header" href="#什么是sql注入应该如何防止">什么是SQL注入，应该如何防止?</a></h2>
+<p>利用sql关键字对网站进行攻击,用参数化的SQL就可以避免SQL注入!</p>
+<h2 id="executescalar-和-executenonquery-的区别"><a class="header" href="#executescalar-和-executenonquery-的区别">ExecuteScalar 和 ExecuteNonQuery 的区别?</a></h2>
+<p>ExecuteNonQuery：返回受影响的行数。</p>
+<p>ExecuteScalar：返回结果集的第一行第一列，忽略其他行。</p>
+<h2 id="何时创建连接池"><a class="header" href="#何时创建连接池">何时创建连接池？</a></h2>
+<p>当第一个连接请求到来时创建连接池；连接池的建立由数据库连接的连接字符创来决定。每一个连接池都与一个不同的连接字符串相关。当一个新的连接请求到来时如果连接字符串和连接池使用的字符串相同，就从连接池取出一个连接；如果不相同，就新建一个连接池。</p>
+<h2 id="何时关闭连接池"><a class="header" href="#何时关闭连接池">何时关闭连接池？</a></h2>
+<p>当连接池中的所有连接都已经关闭时关闭连接池。</p>
+<h2 id="当连接池中的连接都已经用完而有新的连接请求到来时会发生什么"><a class="header" href="#当连接池中的连接都已经用完而有新的连接请求到来时会发生什么">当连接池中的连接都已经用完，而有新的连接请求到来时会发生什么？</a></h2>
+<p>当连接池已经达到它的最大连接数目时，有新的连接请求到来时，新的连接请求将放置到连接队列中。当有连接释放给连接池时，连接池将新释放的连接分配给在队列中排队的连接请求。你可以调用close和dispose将连接归还给连接池。</p>
+<h2 id="如何允许连接池"><a class="header" href="#如何允许连接池">如何允许连接池？</a></h2>
+<p>对于.NET应用程序而言，默认为允许连接池。（这意味着你可以不必为这件事情做任何的事情）当然，如果你可以在SQLConnection对象的连接字符串中加进Pooling=true;确保你的应用程序允许连接池的使用。</p>
+<h2 id="应该如何禁止连接池"><a class="header" href="#应该如何禁止连接池">应该如何禁止连接池？</a></h2>
+<p>ADO.NET默认为允许数据库连接池，如果你希望禁止连接池，可以使用如下的方式：</p>
+<ol>
+<li>使用SQLConnection对象时，往连接字符串加入如下内容：Pooling=False;</li>
+<li>使用OLEDBConnection对象时，往连接字符串加入如下内容：OLE DB Services=-4;</li>
+</ol>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="web-communication.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="thread-async.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="web-communication.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="thread-async.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

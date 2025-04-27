@@ -1,0 +1,333 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>异常 - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="异常"><a class="header" href="#异常">异常</a></h1>
+<h2 id="c异常类有哪些信息"><a class="header" href="#c异常类有哪些信息">C#异常类有哪些信息？</a></h2>
+<p>C#中，所有异常都继承自System.Exception类，Exception类定义了C#异常应该具有的信息和方法。值得注意的属性有：</p>
+<pre><code class="language-csharp">public virtual string Message { get; }// 错误的信息，文字描述
+public virtual string StackTrace { get; }// 发生异常的调用堆栈信息
+public System.Reflection.MethodBase TargetSite { get; }//引发这个错误的方法
+public Exception InnerException { get; }// 子异常
+</code></pre>
+<h2 id="如何创建一个自定义异常"><a class="header" href="#如何创建一个自定义异常">如何创建一个自定义异常?</a></h2>
+<p>根据类继承原则和异常处理原则，我们可以使用以下方式来自定义一个类：</p>
+<pre><code class="language-csharp">public class CustomException : Exception
+{
+}
+</code></pre>
+<h2 id="如何针对不同的异常进行捕捉"><a class="header" href="#如何针对不同的异常进行捕捉">如何针对不同的异常进行捕捉？</a></h2>
+<pre><code class="language-csharp">public class Program
+{
+	public static void Main(string[] args)
+	{
+        Program p = new Program();
+        p.RiskWork();
+        Console.ReadKey();
+	}
+	public void RiskWork()
+    {
+        try
+        {
+        	// 一些可能会出现异常的代码
+        }
+        catch (NullReferenceException ex)
+        {
+        	HandleExpectedException(ex);
+        }
+        catch (ArgumentException ex)
+        {
+        	HandleExpectedException(ex);
+        }
+        catch (FileNotFoundException ex)
+        {
+        	HandlerError(ex);
+        }
+        catch (Exception ex)
+        {
+        	HandleCrash(ex);
+        }
+	}
+    // 这里处理预计可能会发生的，不属于错误范畴的异常
+    private void HandleExpectedException(Exception ex)
+    {
+        // 这里可以借助log4net写入日志
+        Console.WriteLine(ex.Message);
+    }
+    // 这里处理在系统出错时可能会发生的，比较严重的异常
+    private void HandlerError(Exception ex)
+    {
+    	// 这里可以借助log4net写入日志
+        Console.WriteLine(ex.Message);
+    	// 严重的异常需要抛到上层处理
+    	throw ex;
+    }
+    // 这里处理可能会导致系统崩溃时的异常
+    private void HandleCrash(Exception ex)
+    {
+        // 这里可以借助log4net写入日志
+        Console.WriteLine(ex.Message);
+        // 关闭当前程序
+        System.Threading.Thread.CurrentThread.Abort();
+    }
+}
+</code></pre>
+<h2 id="如何避免类型转换时的异常"><a class="header" href="#如何避免类型转换时的异常">如何避免类型转换时的异常？</a></h2>
+<p>其中有些是确定可以转换的（比如将一个子类类型转为父类类型），而有些则是尝试性的（比如将基类引用的对象转换成子类）。当执行常识性转换时，我们就应该做好捕捉异常的准备。</p>
+<p>当一个不正确的类型转换发生时，会产生InvalidCastException异常，有时我们会用try-catch块做一些尝试性的类型转换，这样的代码没有任何错误，但是性能却相当糟糕，为什么呢？异常是一种耗费资源的机制，每当异常被抛出时，异常堆栈将会被建立，异常信息将被加载，而通常这些工作的成本相对较高，并且在尝试性类型转换时，这些信息都没有意义。</p>
+<p>在.NET中提供了另外一种语法来进行尝试性的类型转换，那就是关键字 is 和 as 所做的工作。</p>
+<p>（1）is 只负责检查类型的兼容性，并返回结果：true 和 false。→ 进行类型判断</p>
+<pre><code class="language-csharp">public static void Main(string[] args)
+{
+    object o = new object();
+    // 执行类型兼容性检查
+    if(o is ISample)
+    {
+        // 执行类型转换
+        ISample sample = (ISample)o;
+        sample.SampleShow();
+    }
+    Console.ReadKey();
+}
+</code></pre>
+<p>（2）as 不仅负责检查兼容性还会进行类型转换，并返回结果，如果不兼容则返回 null 。→ 用于类型转型</p>
+<pre><code class="language-cs">public static void Main(string[] args)
+{
+    object o = new object();
+    // 执行类型兼容性检查
+    ISample sample = o as ISample;
+    if(sample != null)
+    {
+    sample.SampleShow();
+    }
+    Console.ReadKey();
+}
+</code></pre>
+<p>两者的共同之处都在于：不会抛出异常！综上比较，as 较 is 在执行效率上会好一些，在实际开发中应该量才而用，在只进行类型判断的应用场景时，应该多使用 is 而不是 as。</p>
+<h2 id="try-里有一个return语句那么紧跟在这个try后的finally-里的code会不会被执行什么时候被执行在return前还是后"><a class="header" href="#try-里有一个return语句那么紧跟在这个try后的finally-里的code会不会被执行什么时候被执行在return前还是后">try {}里有一个return语句，那么紧跟在这个try后的finally {}里的code会不会被执行，什么时候被执行，在return前还是后?</a></h2>
+<p>会执行，在return前执行。</p>
+<h2 id="c-中的异常类有哪些"><a class="header" href="#c-中的异常类有哪些">C# 中的异常类有哪些？</a></h2>
+<p>C# 异常是使用类来表示的，异常类主要是直接或间接地派生于 System.Exception 类。</p>
+<ul>
+<li>System.ApplicationException 和 System.SystemException 类是派生于 System.Exception 类的异常类。</li>
+<li>System.ApplicationException 类支持由应用程序生成的异常，所以我们自己定义的异常都应派生自该类。</li>
+<li>System.SystemException 类是所有预定义的系统异常的基类。</li>
+<li>System.IO.IOException 用于处理 I/O 错误(读写文件)。</li>
+<li>System.IndexOutOfRangeException 用于处理当方法指向超出范围的数组索引时生成的错误。</li>
+<li>System.ArrayTypeMismatchException 用于处理当数组类型不匹配时生成的错误。</li>
+<li>System.NullReferenceException 用于处理当依从一个空对象时生成的错误。</li>
+<li>System.DivideByZeroException 用于处理当除以零时生成的错误。例如：100/0就会报这个错误。</li>
+<li>System.InvalidCastException 用于处理在类型转换期间生成的错误。</li>
+<li>System.OutOfMemoryException 用于处理空闲内存不足生成的错误。</li>
+<li>System.StackOverflowException 用于处理栈溢出生成的错误。</li>
+</ul>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="generics.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="memory.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="generics.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="memory.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

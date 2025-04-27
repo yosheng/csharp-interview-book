@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>网路与通信 - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="网路与通信"><a class="header" href="#网路与通信">网路与通信</a></h1>
+<h2 id="serializable特性有什么作用"><a class="header" href="#serializable特性有什么作用">Serializable特性有什么作用？</a></h2>
+<p>通过上面的流类型可以方便地操作各种字节流，但是如何把现有的实例对象转换为方便传输的字节流，就需要使用序列化技术。对象实例的序列化，是指将实例对象转换为可方便存储、传输和交互的流。</p>
+<p>在.NET中，通过Serializable特性提供了序列化对象实例的机制，当一个类型被申明为Serializable后，它就能被诸如BinaryFormatter等实现了IFormatter接口的类型进行序列化和反序列化。</p>
+<h2 id="netremoting-的工作原理是什么"><a class="header" href="#netremoting-的工作原理是什么">.netRemoting 的工作原理是什么？</a></h2>
+<p>服务器端向客户端发送一个进程编号，一个程序域编号，以确定对象的位置</p>
+<h2 id="什么是xml"><a class="header" href="#什么是xml">什么是XML？</a></h2>
+<p>XML即可扩展标记语言。eXtensible Markup Language.标记是指计算机所能 理解的信息符号，通过此种标记，计算机之间可以处理包含各种信息的文章等。如何定义这些标记，即可以选择国际通用的标记语言，比如HTML，也可以使用象XML这样由相关人士自由决定的标记语言，这就是语言的可扩展性。XML是从SGML中简化修改出来的。它主要用到的有XML、XSL和XPath等。</p>
+<h2 id="什么是webserviceuddi"><a class="header" href="#什么是webserviceuddi">什么是WebService？UDDI？</a></h2>
+<p>Web Service便是基于网络的、分布式的模块化组件，它执行特定的任务，遵守具体的技术规范，这些规范使得Web Service能与其他兼容的组件进行互操作。UDDI的目的是为电子商务建立标准；UDDI是一套基于Web的、分布式的、为WebService提供的、信息注册中心的实现标准规范，同时也包含一组使企业能将自身提供的Web Service注册，以使别的企业能够发现的访问协议的实现标准。</p>
+<h2 id="列举一下你所了解的xml技术及其应用"><a class="header" href="#列举一下你所了解的xml技术及其应用">列举一下你所了解的XML技术及其应用</a></h2>
+<p>xml用于配置,用于保存静态数据类型.接触XML最多的是web Services..和config</p>
+<h2 id="什么是soap有哪些应用"><a class="header" href="#什么是soap有哪些应用">什么是SOAP,有哪些应用？</a></h2>
+<p>simple object access protocal,简单对象接受协议.以xml为基本编码结构,建立在已有通信协议上(如http,不过据说ms在搞最底层的架构在tcp/ip上的soap)的一种规范WebService使用的协议。</p>
+<h2 id="xml与-html-的主要区别"><a class="header" href="#xml与-html-的主要区别">XML与 HTML 的主要区别？</a></h2>
+<ol>
+<li>XML是区分大小写字母的，HTML不区分。</li>
+<li>在HTML中，如果上下文清楚地显示出段落或者列表键在何处结尾</li>
+<li>在XML中，拥有单个标记而没有匹配的结束标记的元素必须用一个 / 字符作为结尾。这样分析器就知道不用查找结束标记了。</li>
+<li>在XML中，属性值必须分装在引号中。在HTML中，引号是可用可不用的。</li>
+<li>在HTML中，可以拥有不带值的属性名。在XML中，所有的属性都必须带有相应的值。</li>
+</ol>
+<h2 id="postget的区别"><a class="header" href="#postget的区别">post、get的区别?</a></h2>
+<ul>
+<li>get的参数会显示在浏览器地址栏中，而post的参数不会显示在浏览器地址栏中；</li>
+<li>使用post提交的页面在点击【刷新】按钮的时候浏览器一般会提示“是否重新提交”，而get则不会；</li>
+<li>使用get的页面可以被搜索引擎抓取，而用post的则不可以；</li>
+<li>使用post可以提交的数据量非常大，而用get可以提交的数据量则非常小(2k)，受限于网页地址的长度。</li>
+<li>使用post可以进行文件的提交，而用get则不可以。</li>
+</ul>
+<h2 id="http-响应码-301-和-302-代表的是什么有什么区别"><a class="header" href="#http-响应码-301-和-302-代表的是什么有什么区别">http 响应码 301 和 302 代表的是什么？有什么区别？</a></h2>
+<p>301：永久重定向；302：暂时重定向。</p>
+<p>它们的区别是，301 对搜索引擎优化（SEO）更加有利；302 有被提示为网络拦截的风险。</p>
+<h2 id="什么是-xss-攻击如何避免"><a class="header" href="#什么是-xss-攻击如何避免">什么是 XSS 攻击，如何避免？</a></h2>
+<p>XSS 攻击：即跨站脚本攻击，它是 Web 程序中常见的漏洞。原理是攻击者往 Web 页面里插入恶意的脚本代码（css 代码、Javascript 代码等），当用户浏览该页面时，嵌入其中的脚本代码会被执行，从而达到恶意攻击用户的目的，如盗取用户 cookie、破坏页面结构、重定向到其他网站等。 预防 XSS 的核心是必须对输入的数据做过滤处理。</p>
+<h2 id="http-fetch发送2次请求的原因"><a class="header" href="#http-fetch发送2次请求的原因">HTTP fetch发送2次请求的原因？</a></h2>
+<p>fetch发送post请求的时候，总是发送2次，第一次状态码是204，第二次才成功？</p>
+<p>原因很简单，因为你用fetch的post请求的时候，导致fetch 第一次发送了一个Options请求，询问服务器是否支持修改的请求头，如果服务器支持，则在第二次中发送真正的请求。</p>
+<h2 id="http常见的的头部有哪些"><a class="header" href="#http常见的的头部有哪些">HTTP常见的的头部有哪些？</a></h2>
+<p>可以将http首部分为通用首部，请求首部，响应首部，实体首部</p>
+<p>通用首部表示一些通用信息，比如date表示报文创建时间，</p>
+<p>请求首部就是请求报文中独有的，如cookie，和缓存相关的如if-Modified-Since</p>
+<p>响应首部就是响应报文中独有的，如set-cookie，和重定向相关的location，</p>
+<p>实体首部用来描述实体部分，如allow用来描述可执行的请求方法，content-type描述主题类型，content-Encoding描述主体的编码方式</p>
+<h2 id="什么是-csrf-攻击如何避免"><a class="header" href="#什么是-csrf-攻击如何避免">什么是 CSRF 攻击，如何避免？</a></h2>
+<p>CSRF：Cross-Site Request Forgery（中文：跨站请求伪造），可以理解为攻击者盗用了你的身份，以你的名义发送恶意请求，比如：以你名义发送邮件、发消息、购买商品，虚拟货币转账等。 防御手段：</p>
+<p>验证请求来源地址； 关键操作添加验证码； 在请求地址添加 token 并验证。</p>
+<h2 id="http-状态码-304-的含义什么时候用304"><a class="header" href="#http-状态码-304-的含义什么时候用304">HTTP 状态码 304 的含义？什么时候用304？</a></h2>
+<p>304：如果客户端发送了一个带条件的GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个304状态码。</p>
+<h2 id="ajax的底层实现原理"><a class="header" href="#ajax的底层实现原理">AJAX的底层实现原理?</a></h2>
+<p>Ajax核心—-----XMLHttpRequest
+上面我们大概感受了一下Ajax的过程，我们发现发送异步请求才是核心，事实上它就是XMLHttpRequest，整个Ajax之所以能完成异步请求完全是因为这个对应可以发送异步请求的缘故。</p>
+<p>而且我们又发现上面那个事件就是整个处理过程的核心，可以根据不同状态执行不同操作，其实它就是XMLHttpRequest的方法onreadystatechange，它在每次状态发生改变时都会触发。那么是谁取得的返回信息呢？它就是XMLHttpRequest的另一个方法responseText（当然还有responseXML）。</p>
+<p>我们还没有说发送给谁以及执行发送操作，这两个就是XMLHttpRequest的open和send方法。其他的当然还有了，我们直接列出来吧：</p>
+<p>XMLHttpRequest对象属性</p>
+<ul>
+<li>readyState：请求状态，开始请求时值为0直到请求完成这个值增长到4</li>
+<li>responseText：目前为止接收到的响应体,readyState&lt;3此属性为空字符串，=3为当前响应体，=4则为完整响应体</li>
+<li>responseXML：服务器端相应，解析为xml并作为Document对象返回</li>
+<li>status：服务器端返回的状态码，=200成功，=404表示“Not Found”</li>
+<li>statusText：用名称表示的服务器端返回状态，对于“OK”为200，“Not Found”为400</li>
+</ul>
+<p>方法</p>
+<ul>
+<li>setRequestHeader()：向一个打开但是未发生的请求设置头信息</li>
+<li>open()：初始化请求参数但是不发送</li>
+<li>send()：发送Http请求</li>
+<li>abort()：取消当前相应</li>
+<li>getAllResponseHeaders()：把http相应头作为未解析的字符串返回</li>
+<li>getResponseHeader()：返回http相应头的值</li>
+</ul>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="delegate.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="orm.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="delegate.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="orm.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

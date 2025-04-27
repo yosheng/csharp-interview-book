@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>面向对象 - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="面向对象"><a class="header" href="#面向对象">面向对象</a></h1>
+<h2 id="什么是构造函数"><a class="header" href="#什么是构造函数">什么是构造函数？</a></h2>
+<ul>
+<li>概念：构造函数的方法名与类型相同、没有返回类型</li>
+<li>作用：完成对类的对象初始化</li>
+</ul>
+<p>创建一个类的新对象时，系统会自动调用该构造函数初始化新对象， 如果没有写定义，那么系统会自动提供一个不带任何参数的public 构造函数</p>
+<h2 id="class和struct的区别"><a class="header" href="#class和struct的区别">class和struct的区别?</a></h2>
+<p>相同点 都可以实现接口</p>
+<p>不同点</p>
+<ol>
+<li>class是引用类型，struct是值类型</li>
+<li>class允许继承、被继承，struct不允许，只能继承接口</li>
+<li>class可以初始化变量，struct不可以</li>
+<li>class可以有无参的构造函数，struct不可以，必须是有参的构造函数，而且在有参的构造函数必须初始化所有成员</li>
+</ol>
+<p>使用场景</p>
+<ol>
+<li>Class比较适合大的和复杂的数据，表现抽象和多级别的对象层次时。</li>
+<li>Struct适用于作为经常使用的一些数据组合成的新类型，表示诸如点、矩形等主要用来存储数据的轻量级对象时，偏简单值。</li>
+<li>Struct有性能优势，Class有面向对象的扩展优势。</li>
+</ol>
+<h2 id="简述一下面向对象的三大特性"><a class="header" href="#简述一下面向对象的三大特性">简述一下面向对象的三大特性？</a></h2>
+<p>封装、继承、多态。</p>
+<ul>
+<li>封装：是通过把对象的属性的实现细节隐藏起来，仅对外提供公共的访问方法。</li>
+<li>继承：是通过子类继承基类、继承抽象类、继承接口实现的。</li>
+<li>多态：是通过重写基类的override 方法、重写虚方法实现的。 好处是：方便维护、易扩展。 缺点是：比面向过程性能低。</li>
+</ul>
+<h2 id="构造函数是否能被重写"><a class="header" href="#构造函数是否能被重写">构造函数是否能被重写？</a></h2>
+<p>构造器Constructor不能被继承，因此不能重写，但可以被重载</p>
+<h2 id="抽象类和接口有什么区别"><a class="header" href="#抽象类和接口有什么区别">抽象类和接口有什么区别？</a></h2>
+<p>相同点：都不能直接实例化</p>
+<p>不同点：</p>
+<ol>
+<li>抽象类用abstract修饰、接口用interface修饰</li>
+<li>抽象类中的方法可以实现，也可以不实现，有抽象方法的类一定要用abstract修饰，接口中的方法不允许实现</li>
+<li>抽象类只能单继承，接口支持多实现</li>
+<li>抽象类有构造方法，接口不能有构造方法</li>
+<li>接口只负责功能的定义，通过接口来规范类的，（有哪些功能），而抽象类即负责功能的定义有可以实现功能（实现了哪些功能）</li>
+</ol>
+<h2 id="类的执行顺序"><a class="header" href="#类的执行顺序">类的执行顺序？</a></h2>
+<p>执行顺序：父类，子类，静态块，静态字段，非静态块，非静态字段，构造器，方法</p>
+<h2 id="接口是否可继承接口抽象类是否可实现implements接口抽象类是否可继承实现类concrete-class"><a class="header" href="#接口是否可继承接口抽象类是否可实现implements接口抽象类是否可继承实现类concrete-class">接口是否可继承接口？抽象类是否可实现（implements）接口？抽象类是否可继承实现类（concrete class）？</a></h2>
+<p>接口可以继承接口，抽象类可以实现接口，抽象类可以继承实现类，但前提是实现类必须有明确的构造函数。</p>
+<h2 id="继承最大的好处"><a class="header" href="#继承最大的好处">继承最大的好处？</a></h2>
+<p>对父类成员进行重用，增加代码的可读性、灵活性。</p>
+<h2 id="请说说引用和对象"><a class="header" href="#请说说引用和对象">请说说引用和对象?</a></h2>
+<p>对象和引用时分不开的，对象生成一个地址，放在堆里面，引用则指向这个地址，放在栈里面</p>
+<h2 id="什么是匿名类有什么好处"><a class="header" href="#什么是匿名类有什么好处">什么是匿名类，有什么好处？</a></h2>
+<p>不用定义、没有名字的类，使用一次便可丢弃。好处是简单、随意、临时的。</p>
+<h2 id="重写和重载的区别"><a class="header" href="#重写和重载的区别">重写和重载的区别?</a></h2>
+<ul>
+<li>重写方法：关键字用override修饰，派生类重写基类的方法，方法命名、返回类型，参数必须相同</li>
+<li>重载方法：方法名必须相同，参数列表必须不相同，返回类型可以不相同。</li>
+<li>作用：重写主要是实现面向对象的多态性、重载主要是实现实例化不同的对象</li>
+</ul>
+<h2 id="什么时候用重载什么时候用重写"><a class="header" href="#什么时候用重载什么时候用重写">什么时候用重载？什么时候用重写？</a></h2>
+<p>当一个类需要用不同的实现来做同一件事情，此时应该用重写，而重载是用不同的输入做同一件事情</p>
+<h2 id="c中有没有静态构造函数如果有是做什么用的"><a class="header" href="#c中有没有静态构造函数如果有是做什么用的">C#中有没有静态构造函数，如果有是做什么用的？</a></h2>
+<p>特点： 静态构造函数既没有访问修饰符，也没有参数。在创建第一个实例或引用任何静态成员之前，将自动调用静态构造函数来初始化类。无法直接调用静态构造函数。在程序中，用户无法控制何时执行静态构造函数。</p>
+<p>用途 : 当类使用日志文件时，将使用这种构造函数向日志文件中写入项。</p>
+<h2 id="怎样理解静态变量静态成员和非静态成员的区别"><a class="header" href="#怎样理解静态变量静态成员和非静态成员的区别">怎样理解静态变量？静态成员和非静态成员的区别？</a></h2>
+<p>静态变量属于类，而不属于对象；并对所有对象所享；静态成员在加类的时候就被加载。</p>
+<h2 id="属性能在接口中声明吗"><a class="header" href="#属性能在接口中声明吗">属性能在接口中声明吗？</a></h2>
+<p>可以，不能有访问修饰符，不能初始化赋值。</p>
+<h2 id="在项目中为什么使用接口接口的好处是什么什么是面向接口开发"><a class="header" href="#在项目中为什么使用接口接口的好处是什么什么是面向接口开发">在项目中为什么使用接口？接口的好处是什么？什么是面向接口开发？</a></h2>
+<p>接口是一种约束，描述类的公共方法/公共属性，不能有任何的实现</p>
+<p>好处是：结构清晰，类之间通信简单易懂，扩展性好，提高复用性。</p>
+<p>面向interface编程，原意是指面向抽象协议编程，实现者在实现时要严格按协议来办。</p>
+<h2 id="静态方法可以访问非静态变量吗如果不可以为什么"><a class="header" href="#静态方法可以访问非静态变量吗如果不可以为什么">静态方法可以访问非静态变量吗？如果不可以为什么？</a></h2>
+<p>静态方法和非静态变量不是同一生命周期，静态方法属于类，非静态变量属于具体的对象，静态方法和具体的对象没有任何关联</p>
+<h2 id="在net中所有可序列化的类都被标记为_"><a class="header" href="#在net中所有可序列化的类都被标记为_">在.Net中所有可序列化的类都被标记为_?</a></h2>
+<p>[serializable]</p>
+<h2 id="c中-property-与-attribute的区别他们各有什么用处这种机制的好处在哪里"><a class="header" href="#c中-property-与-attribute的区别他们各有什么用处这种机制的好处在哪里">C#中 property 与 attribute的区别，他们各有什么用处，这种机制的好处在哪里？</a></h2>
+<p>一个是属性，用于存取类的字段，一个是特性，用来标识类，方法等的附加性质</p>
+<h2 id="当使用new-b创建b的实例时产生什么输出"><a class="header" href="#当使用new-b创建b的实例时产生什么输出">当使用new B()创建B的实例时，产生什么输出？</a></h2>
+<pre><code class="language-csharp">using System;
+class A
+{
+    public A()
+    {
+    	PrintFields();
+    }
+    public virtual void PrintFields(){}
+}    
+class B:A
+{
+    int x=1;
+    int y;
+    public B()
+    {
+        y=-1;
+    }
+    public override void PrintFields()
+    {
+        Console.WriteLine("x={0},y={1}",x,y);
+    }
+}
+</code></pre>
+<p>答：X=1,Y=0;</p>
+<h2 id="能够将非静态的方法覆写成静态方法吗"><a class="header" href="#能够将非静态的方法覆写成静态方法吗">能够将非静态的方法覆写成静态方法吗？</a></h2>
+<p>答：不能，覆写方法的签名必须与被覆写方法的签名保持一致，除了将virtual改为override。</p>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="basic.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="collection.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="basic.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="collection.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

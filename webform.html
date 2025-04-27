@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>WebForm - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="webform"><a class="header" href="#webform">WebForm</a></h1>
+<h2 id="列举aspnet页面之间传递值的几种方式"><a class="header" href="#列举aspnet页面之间传递值的几种方式">列举ASP.NET页面之间传递值的几种方式。</a></h2>
+<ul>
+<li>1).使用QueryString, 如....?id=1; response. Redirect()....</li>
+<li>2).使用Session变量</li>
+<li>3).使用Server.Transfer</li>
+</ul>
+<h2 id="什么是code-behind技术"><a class="header" href="#什么是code-behind技术">什么是Code-Behind技术？</a></h2>
+<p>代码后植。</p>
+<h2 id="什么是aspnet中的用户控件"><a class="header" href="#什么是aspnet中的用户控件">什么是ASP.net中的用户控件？</a></h2>
+<p>用户控件一般用在内容多为静态,或者少许会改变的情况下..用的比较大..类似ASP中的include..但是功能要强大的多。</p>
+<h2 id="什么是code-behind技术-1"><a class="header" href="#什么是code-behind技术-1">什么是code-Behind技术？</a></h2>
+<p>ASPX,RESX和CS三个后缀的文件，这个就是代码分离.实现了HTML代码和服务器代码分离.方便代码编写和整理。</p>
+<h2 id="在net中类systemwebuipage-可以被继承么"><a class="header" href="#在net中类systemwebuipage-可以被继承么">在.Net中，类System.Web.UI.Page 可以被继承么？</a></h2>
+<p>可以。</p>
+<h2 id="--和---有什么区别"><a class="header" href="#--和---有什么区别">&lt;%# %&gt; 和 &lt;% %&gt; 有什么区别？</a></h2>
+<ul>
+<li>&lt;%# %&gt;表示绑定的数据源</li>
+<li>&lt;%%&gt;是服务器端代码块</li>
+</ul>
+<h2 id="说出一些常用的类接口请各举5个"><a class="header" href="#说出一些常用的类接口请各举5个">说出一些常用的类、接口，请各举5个?</a></h2>
+<p>要让人家感觉你对.Net开发很熟，所以，不能仅仅只列谁都能想到的那些东西，要多列你在做项目中涉及的那些东西。就写你最近写的那些程序中涉及的那些类。</p>
+<p>常用的类：StreamReader、WebClient、Dictionary&lt;K,V&gt;、StringBuilder、SqlConnection、FileStream、File、Regex、List</p>
+<p>常用的接口：IDisposable、IEnumerable、IDbConnection、IComparable、ICollection、IList、IDictionary</p>
+<h2 id="aspnet和asp有什么区别"><a class="header" href="#aspnet和asp有什么区别">ASP.NET和ASP有什么区别?</a></h2>
+<p>ASP.NET的脚本是与HTML分离的，代码被编译成了DLL, DLL可以在server端执行。</p>
+<p>ASP的脚本是与HTML在一起的，每次都会进行解释执行。</p>
+<h2 id="简述-applicationsessioncookiecacheviewstate-的概念以及相互之间的区别"><a class="header" href="#简述-applicationsessioncookiecacheviewstate-的概念以及相互之间的区别">简述 Application，session，cookie，cache，viewState 的概念，以及相互之间的区别?</a></h2>
+<ul>
+<li>Application 任意大小 整个应用程序的生命期 所有用户 服务器端</li>
+<li>Seccion 小量，简单的数据 用户活动时间+ 单个用户 服务器端一段延迟时间（一般为20分钟）</li>
+<li>Cookie 小量，简单的数据 可以根据需要设定 单个用户 客户端</li>
+<li>ViewState 小量，简单的数据 一个Web页面的生命期 单个用户 客户端</li>
+<li>Cache 任意大小 可以根据需要设定 所有用户 服务器端</li>
+</ul>
+<h2 id="aspnet中的六大对象有哪些"><a class="header" href="#aspnet中的六大对象有哪些">ASP.NET中的六大对象有哪些？</a></h2>
+<ol>
+<li>Response</li>
+<li>Request</li>
+<li>Server</li>
+<li>Application</li>
+<li>Session</li>
+<li>Cookie</li>
+</ol>
+<h2 id="简单描述ihtttphandler和ihttpmodule的区别和各自的作用"><a class="header" href="#简单描述ihtttphandler和ihttpmodule的区别和各自的作用">简单描述Ihtttphandler和Ihttpmodule的区别和各自的作用？</a></h2>
+<ol>
+<li>先后次序.先IHttpModule,后IHttpHandler. 注:Module要看你响应了哪个事件，一些事件是在Handler之前运行的，一些是在Handler之后运行的</li>
+<li>对请求的处理上:
+IHttpModule 是属于大小通吃类型,无论客户端请求的是什么文件,都会调用到它;例如 aspx,rar,html的请求.
+IHttpHandler则属于挑食类型,只有ASP.net注册过的文件类型(例如aspx,asmx等等) 才会轮到调用它.</li>
+<li>IHttpHandler按照你的请求 生成响应的内容，IHttpModule对请求进行预处理，如验证、修改、过滤等等，同时也可以对响应进行处理</li>
+</ol>
+<h2 id="应用程序池集成模式和经典模式的区别"><a class="header" href="#应用程序池集成模式和经典模式的区别">应用程序池集成模式和经典模式的区别?</a></h2>
+<p>如果托管应用程序在采用集成模式的应用程序池中知运行，服务器将使用 IIS 和 ASP.NET 的集成请求处理管道来处理请求。</p>
+<p>如果托管应用程序在采用经典模式的应用程序池中运行，服务器会继续通过 Aspnet_isapi.dll 路由托管代码请求，其处理请求的方式就像应用程序在 IIS 6.0 中运行一样。</p>
+<h2 id="什么是viewstate能否禁用是否所用控件都可以禁用"><a class="header" href="#什么是viewstate能否禁用是否所用控件都可以禁用">什么是viewstate，能否禁用？是否所用控件都可以禁用?</a></h2>
+<p>Viewstate是保存状态的一种机制，EnableViewState属性设置为false即可禁用</p>
+<h2 id="数据访问通过aspx页面和db层会很慢有什么解决方法"><a class="header" href="#数据访问通过aspx页面和db层会很慢有什么解决方法">数据访问通过aspx页面和DB层会很慢，有什么解决方法?</a></h2>
+<ul>
+<li>（1）浏览器使用缓存；</li>
+<li>（2）使用压缩的JS和CSS</li>
+<li>（3）减少发送HTTP请求的次数；</li>
+<li>（4）后台，对于一些不经常变化的数据进行Cache；</li>
+<li>（5）对可能的低效率的SQL语句进行优化；</li>
+<li>（6）进行服务器负载均衡</li>
+</ul>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="dotnet-core.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="wpf.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="dotnet-core.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="wpf.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

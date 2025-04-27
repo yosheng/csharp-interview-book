@@ -1,0 +1,398 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>多线程与异步 - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="多线程与异步"><a class="header" href="#多线程与异步">多线程与异步</a></h1>
+<h2 id="根据线程安全的相关知识分析以下代码当调用test方法时i10时是否会引起死锁并简要说明理由"><a class="header" href="#根据线程安全的相关知识分析以下代码当调用test方法时i10时是否会引起死锁并简要说明理由">根据线程安全的相关知识，分析以下代码，当调用test方法时i&gt;10时是否会引起死锁?并简要说明理由。</a></h2>
+<pre><code class="language-csharp">public void test(int i)
+{
+    lock(this)
+    {
+        if (i&gt;10)
+        {
+            i--;
+            test(i);
+        }
+    }
+}
+</code></pre>
+<p>不会发生死锁，（但有一点int是按值传递的，所以每次改变的都只是一个副本，因此不会出现死锁。但如果把int换做一个object，那么死锁会发生）</p>
+<h2 id="描述线程与进程的区别"><a class="header" href="#描述线程与进程的区别">描述线程与进程的区别？</a></h2>
+<p>线程(Thread)与进程（Process）二者都定义了某种边界，不同的是进程定义的是应用程序与应用程序之间的边界，不同的进程之间不能共享代码和数据空间，而线程定义的是代码执行堆栈和执行上下文的边界。一个进程可以包括若干个线程，同时创建多个线程来完成某项任务，便是多线程。</p>
+<p>而同一进程中的不同线程共享代码和数据空间。用一个比喻来说，如果一个家庭代表一个进程，在家庭内部，各个成员就是线程，家庭中的每个成员都有义务对家庭的财富进行积累，同时也有权利对家庭财富进行消费，当面对一个任务的时候，家庭也可以派出几个成员来协同完成，而家庭之外的人则没有办法直接消费不属于自己家庭的财产。</p>
+<h2 id="windows单个进程所能访问的最大内存量是多少它与系统的最大虚拟内存一样吗这对于系统设计有什么影响"><a class="header" href="#windows单个进程所能访问的最大内存量是多少它与系统的最大虚拟内存一样吗这对于系统设计有什么影响">Windows单个进程所能访问的最大内存量是多少？它与系统的最大虚拟内存一样吗？这对于系统设计有什么影响？</a></h2>
+<p>这个需要针对硬件平台，公式为单个进程能访问的最大内存量=2的处理器位数次方/2，比如通常情况下，32位处理器下，单个进程所能访问的最大内存量为:232 /2 = 2G 。单个进程能访问的最大内存量是最大虚拟内存的1/2，因为要分配给操作系统一半虚拟内存。</p>
+<h2 id="前台线程和后台线程有什么区别"><a class="header" href="#前台线程和后台线程有什么区别">前台线程和后台线程有什么区别？</a></h2>
+<p>通过将 Thread.IsBackground 属性设置为 true，就可以将线程指定为后台线程</p>
+<p>前台线程： 应用必须结束掉所有的前台线程才能结束程序，只要有一个前台线程没退出进程就不会自动退出，当然线程是依附在进程上的，所以你直接把进程KO掉了的话自然所有前台线程也会退出。</p>
+<p>后台线程： 进程可以不考虑后台直接自动退出，进程自动退出后所有的后台线程也会自动销毁。</p>
+<h2 id="什么是互斥"><a class="header" href="#什么是互斥">什么是互斥？</a></h2>
+<p>当多个线程访问同一个全局变量，或者同一个资源(比如打印机)的时候，需要进行线程间的互斥操作来保证访问的安全性。</p>
+<h2 id="如何查看和设置线程池的上下限"><a class="header" href="#如何查看和设置线程池的上下限">如何查看和设置线程池的上下限？</a></h2>
+<p>线程池的线程数是有限制的，通常情况下，我们无需修改默认的配置。但在一些场合，我们可能需要了解线程池的上下限和剩余的线程数。线程池作为一个缓冲池，有着其上下限。在通常情况下，当线程池中的线程数小于线程池设置的下限时，线程池会设法创建新的线程，而当线程池中的线程数大于线程池设置的上限时，线程池将销毁多余的线程。</p>
+<p>PS：在.NET Framework 4.0中，每个CPU默认的工作者线程数量最大值为250个，最小值为2个。而IO线程的默认最大值为1000个，最小值为2个。</p>
+<p>在.NET中，通过 ThreadPool 类型提供的5个静态方法可以获取和设置线程池的上限和下限，同时它还额外地提供了一个方法来让程序员获知当前可用的线程数量，下面是这五个方法的签名：</p>
+<ul>
+<li>① static void GetMaxThreads(out int workerThreads, out int completionPortThreads)</li>
+<li>② static void GetMinThreads(out int workerThreads, out int completionPortThreads)</li>
+<li>③ static bool SetMaxThreads(int workerThreads, int completionPortThreads)</li>
+<li>④ static bool SetMinThreads(int workerThreads, int completionPortThreads)</li>
+<li>⑤ static void GetAvailableThreads(out int workerThreads, out int completionPortThreads)</li>
+</ul>
+<h2 id="task状态机的实现和工作机制是什么"><a class="header" href="#task状态机的实现和工作机制是什么">Task状态机的实现和工作机制是什么？</a></h2>
+<p>CPS 全称是Continuation Passing Style，在.NET 中，它会自动编译为：</p>
+<ol>
+<li>将所有引用的局部变量做成闭包，放到一个隐藏的状态机的类中；</li>
+<li>将所有的await 展开成一个状态号，有几个await 就有几个状态号；</li>
+<li>每次执行完一个状态，都重复回调状态机的MoveNext 方法，同时指定下一个状态号；</li>
+<li>MoveNext 方法还需处理线程和异常等问题。</li>
+</ol>
+<h2 id="await的作用和原理并说明和getresult有什么区别"><a class="header" href="#await的作用和原理并说明和getresult有什么区别">await的作用和原理，并说明和GetResult()有什么区别？</a></h2>
+<p>从状态机的角度出发，await的本质是调用Task.GetAwaiter()的UnsafeOnCompleted(Action)回调，并指定下一个状态号。</p>
+<p>从多线程的角度出发，如果await的Task需要在新的线程上执行，该状态机的MoveNext()方法会立即返回，此时，主线程被释放出来了，然后在UnsafeOnCompleted回调的action指定的线程上下文中继续MoveNext()和下一个状态的代码。</p>
+<p>而相比之下，GetResult()就是在当前线程上立即等待Task的完成，在Task完成前，当前线程不会释放。 注意：Task也可能不一定在新的线程上执行，此时用GetResult()或者await就只有会不会创建状态机的区别了。</p>
+<h2 id="task和thread有区别吗"><a class="header" href="#task和thread有区别吗">Task和Thread有区别吗？</a></h2>
+<p>Task和Thread都能创建用多线程的方式执行代码，但它们有较大的区别。Task较新，发布于.NET 4.5，能结合新的async/await代码模型写代码，它不止能创建新线程，还能使用线程池（默认）、单线程等方式编程，在UI编程领域，Task还能自动返回UI线程上下文，还提供了许多便利API以管理多个Task。</p>
+<h2 id="多线程有什么用"><a class="header" href="#多线程有什么用">多线程有什么用？</a></h2>
+<p>（1）发挥多核CPU的优势</p>
+<p>随着工业的进步，现在的笔记本、台式机乃至商用的应用服务器至少也都是双核的，4核、8核甚至16核的也都不少见，如果是单线程的程序，那么在双核CPU上就浪费了50%，在4核CPU上就浪费了75%。单核CPU上所谓的”多线程”那是假的多线程，同一时间处理器只会处理一段逻辑，只不过线程之间切换得比较快，看着像多个线程”同时”运行罢了。多核CPU上的多线程才是真正的多线程，它能让你的多段逻辑同时工作，多线程，可以真正发挥出多核CPU的优势来，达到充分利用CPU的目的。</p>
+<p>（2）防止阻塞</p>
+<p>从程序运行效率的角度来看，单核CPU不但不会发挥出多线程的优势，反而会因为在单核CPU上运行多线程导致线程上下文的切换，而降低程序整体的效率。但是单核CPU我们还是要应用多线程，就是为了防止阻塞。试想，如果单核CPU使用单线程，那么只要这个线程阻塞了，比方说远程读取某个数据吧，对端迟迟未返回又没有设置超时时间，那么你的整个程序在数据返回回来之前就停止运行了。多线程可以防止这个问题，多条线程同时运行，哪怕一条线程的代码执行读取数据阻塞，也不会影响其它任务的执行。</p>
+<p>（3）便于建模</p>
+<p>这是另外一个没有这么明显的优点了。假设有一个大的任务A，单线程编程，那么就要考虑很多，建立整个程序模型比较麻烦。但是如果把这个大的任务A分解成几个小任务，任务B、任务C、任务D，分别建立程序模型，并通过多线程分别运行这几个任务，那就简单很多了。</p>
+<h2 id="两个线程交替打印0100的奇偶数"><a class="header" href="#两个线程交替打印0100的奇偶数">两个线程交替打印0~100的奇偶数</a></h2>
+<p>这道题就是说有两个线程，一个名为偶数线程，一个名为奇数线程，偶数线程只打印偶数，奇数线程只打印奇数，两个线程按顺序交替打印。</p>
+<pre><code class="language-csharp">publicclassThreadExample
+{
+    ///&lt;summary&gt;
+    ///两个线程交替打印0~100的奇偶数
+    ///&lt;/summary&gt;
+    public static void PrintOddEvenNumber
+    {
+        varwork = newTheadWorkTest;
+        varthread1 = newThread(work.PrintOddNumer) { Name = "奇数线程"};
+        varthread2 = newThread(work.PrintEvenNumber) { Name = "偶数线程"};
+        thread1.Start;
+        thread2.Start;
+    }
+}
+publicclassTheadWorkTest
+{
+    privatestaticreadonlyAutoResetEvent oddAre = newAutoResetEvent( false);
+    privatestaticreadonlyAutoResetEvent evenAre = newAutoResetEvent( false);
+    publicvoidPrintOddNumer
+    {
+        oddAre.WaitOne;
+        for( var0; i &lt; 100; i++ )
+        {
+        if(i % 2!= 1) continue;
+        Console.WriteLine($"{Thread.CurrentThread.Name}：{i}");
+        evenAre.Set;
+        oddAre.WaitOne;
+    	}
+	}
+	publicvoidPrintEvenNumber
+	{
+		for( vari = 0; i &lt; 100; i++ )
+		{
+            if(i % 2!= 0) continue;
+            Console.WriteLine($"{Thread.CurrentThread.Name}：{i}");
+            oddAre.Set;
+            evenAre.WaitOne;
+		}
+	}
+}
+</code></pre>
+<h2 id="为什么gui不支持跨线程调用有什么解决方法"><a class="header" href="#为什么gui不支持跨线程调用有什么解决方法">为什么GUI不支持跨线程调用?有什么解决方法？</a></h2>
+<p>因为GUI应用程序引入了一个特殊的线程处理模型，为了保证UI控件的线程安全，这个线程处理模型不允许其他子线程跨线程访问UI元素。解决方法比较多的：</p>
+<ul>
+<li>利用UI控件提供的方法，Winform是控件的Invoke方法，WPF中是控件的Dispatcher.Invoke方法；</li>
+<li>使用BackgroundWorker；</li>
+<li>使用GUI线程处理模型的同步上下文SynchronizationContext来提交UI更新操作</li>
+</ul>
+<h2 id="说说常用的锁lock是一种什么样的锁"><a class="header" href="#说说常用的锁lock是一种什么样的锁">说说常用的锁，lock是一种什么样的锁？</a></h2>
+<p>常用的如如SemaphoreSlim、ManualResetEventSlim、Monitor、ReadWriteLockSlim，lock是一个混合锁，其实质是Monitor</p>
+<h2 id="lock为什么要锁定一个参数可否为值类型参数有什么要求"><a class="header" href="#lock为什么要锁定一个参数可否为值类型参数有什么要求">lock为什么要锁定一个参数（可否为值类型？）参数有什么要求？</a></h2>
+<p>lock的锁对象要求为一个引用类型。可以锁定值类型，但值类型会被装箱，每次装箱后的对象都不一样，会导致锁定无效。</p>
+<p>对于lock锁，锁定的这个对象参数才是关键，这个参数的同步索引块指针会指向一个真正的锁（同步块），这个锁（同步块）会被复用。</p>
+<h2 id="多线程和异步的区别和联系"><a class="header" href="#多线程和异步的区别和联系">多线程和异步的区别和联系?</a></h2>
+<p>多线程是实现异步的主要方式之一，异步并不等同于多线程。实现异步的方式还有很多，比如利用硬件的特性、使用进程或纤程等。</p>
+<p>在.NET中就有很多的异步编程支持，比如很多地方都有 Begin、End 的方法，就是一种异步编程支持，她内部有些是利用多线程，有些是利用硬件的特性来实现的异步编程。</p>
+<h2 id="线程池的有点和不足"><a class="header" href="#线程池的有点和不足">线程池的有点和不足?</a></h2>
+<p>优点：减小线程创建和销毁的开销，可以复用线程；也从而减少了线程上下文切换的性能损失；在GC回收时，较少的线程更有利于GC的回收效率。</p>
+<p>缺点：线程池无法对一个线程有更多的精确的控制，如了解其运行状态等；不能设置线程的优先级；加入到线程池的任务（方法）不能有返回值；对于需要长期运行的任务就不适合线程池。</p>
+<h2 id="mutex和lock有什么不同一般用哪一种比较好"><a class="header" href="#mutex和lock有什么不同一般用哪一种比较好">Mutex和lock有什么不同？一般用哪一种比较好？</a></h2>
+<p>Mutex是一个基于内核模式的互斥锁，支持锁的递归调用，而Lock是一个混合锁，一般建议使用Lock更好，因为lock的性能更好。</p>
+<h2 id="用双检锁实现一个单例模式singleton"><a class="header" href="#用双检锁实现一个单例模式singleton">用双检锁实现一个单例模式Singleton</a></h2>
+<pre><code class="language-csharp">public static class Singleton&lt;T&gt; where T : class,new()
+{
+    private static T _Instance;
+    private static object _lockObj = new object();
+    /// &lt;summary&gt;
+    /// 获取单例对象的实例
+    /// &lt;/summary&gt;
+    public static T GetInstance()
+    {
+        if (_Instance != null) return _Instance;
+        lock (_lockObj)
+        {
+            if (_Instance == null)
+            {
+                var temp = Activator.CreateInstance&lt;T&gt;();
+                System.Threading.Interlocked.Exchange(ref _Instance, temp);
+            }
+        }
+        return _Instance;
+    }
+}
+</code></pre>
+<h2 id="thread-类有哪些常用的属性和方法"><a class="header" href="#thread-类有哪些常用的属性和方法">Thread 类有哪些常用的属性和方法？</a></h2>
+<p>属性：</p>
+<ul>
+<li>CurrentContext：获取线程正在其中执行的当前上下文。</li>
+<li>CurrentCulture：获取或设置当前线程的区域性。</li>
+<li>CurrentPrincipal：获取或设置线程的当前负责人（对基于角色的安全性而言）。</li>
+<li>CurrentThread：获取当前正在运行的线程。</li>
+<li>CurrentUICulture：获取或设置资源管理器使用的当前区域性以便在运行时查找区域性特定的资源。</li>
+<li>IsBackground：获取或设置一个值，该值指示某个线程是否为后台线程。</li>
+<li>Priority：获取或设置一个值，该值指示线程的调度优先级。</li>
+<li>ThreadState：获取一个值，该值包含当前线程的状态。</li>
+</ul>
+<p>方法：</p>
+<ul>
+<li>
+<p>在调用此方法的线程上引发 ThreadAbortException，以开始终止此线程的过程。调用此方法通常会终止线程。</p>
+<pre><code class="language-csharp">public void Abort()
+</code></pre>
+</li>
+<li>
+<p>取消为当前线程请求的 Abort。</p>
+<pre><code class="language-csharp">public static void ResetAbort()
+</code></pre>
+</li>
+<li>
+<p>开始一个线程。</p>
+<pre><code class="language-csharp">public void Start()
+</code></pre>
+</li>
+<li>
+<p>让线程暂停一段时间。</p>
+<pre><code class="language-csharp">public static void Sleep( int millisecondsTimeout )
+</code></pre>
+</li>
+<li>
+<p>导致调用线程执行准备好在当前处理器上运行的另一个线程。由操作系统选择要执行的线程。</p>
+<pre><code class="language-csharp">public static bool Yield()
+</code></pre>
+</li>
+</ul>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="orm.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="reflection.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="orm.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="reflection.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

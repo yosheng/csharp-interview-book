@@ -1,0 +1,597 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>常见的算法 - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="常见的算法"><a class="header" href="#常见的算法">常见的算法</a></h1>
+<h2 id="求质数"><a class="header" href="#求质数">求质数</a></h2>
+<p>质数也成为素数，质数就是这个数除了1和他本身两个因数以外，没有其他因数的数，叫做质数，和他相反的是合数，就是除了1和他本身两个因数以外，还友其他因数的数叫做合数。</p>
+<pre><code class="language-csharp">//以下为函数部分
+static void cal(long x)
+{
+    long sum = 1;
+    byte row = 1;
+    Console.Write("\n");
+    for (long a = 3; a &lt; x + 1; a++)
+    {
+        bool flag = true;
+        for (long b = 2; b &lt; (a / 2) + 1; b++)
+        {
+            if (a % b != 0) continue;
+            flag = false;
+            break;
+    	}
+    	if (flag)
+        {
+            if (row == 10) { Console.WriteLine(); row = 0; }
+            if (sum == 1) Console.Write("{0,7}", 2);
+            Console.Write("{0,7}", a);
+            sum++; row++;
+        }
+    }
+    Console.WriteLine("\n\n{0} 以内共有 {1} 个质数\n", x, sum);
+}
+</code></pre>
+<h2 id="有一列数11235求第30个数"><a class="header" href="#有一列数11235求第30个数">有一列数1，1，2，3，5，........求第30个数.</a></h2>
+<pre><code class="language-csharp">public static int Foo(int i)
+{
+    if (i &lt;= 0)
+    	return 0;
+    else if (i &gt; 0 &amp;&amp; i &lt;= 2)
+    	return 1;
+    else
+    	return Foo(i - 1) + Foo(i - 2);
+}
+</code></pre>
+<h2 id="冒泡排序"><a class="header" href="#冒泡排序">冒泡排序</a></h2>
+<pre><code class="language-csharp">//冒泡排序类
+public class sorter
+{
+    public void Sort(int[] list)
+    {
+        int i, j, temp;
+        bool done = false;
+        j = 1;
+        while ((j &lt; list.Length) &amp;&amp; (!done))
+        {
+        	done = true;
+        	for (i = 0; i &lt; list.Length - j; i++)
+        	{
+        		if (list[i] &gt; list[i + 1])
+        		{
+                    done = false;
+                    temp = list[i];
+                    list[i] = list[i + 1];
+                    list[i + 1] = temp;
+                }
+            }
+        	j++;
+        }
+    }
+}
+</code></pre>
+<h2 id="请编写一个函数能够计算10以内数的阶乘尽量采用递归算法103628800"><a class="header" href="#请编写一个函数能够计算10以内数的阶乘尽量采用递归算法103628800">请编写一个函数，能够计算10以内数的阶乘，尽量采用递归算法。（10!=3628800）。</a></h2>
+<pre><code class="language-csharp">public int jiecheng(int n)
+{
+    if (n == 1)
+    	return 1;
+    else if (n == 2)
+    	return 2;
+    else
+    	return n * jiecheng(n - 1);
+}
+</code></pre>
+<h2 id="请编程实现此方法将输入的整型数组合并转换为逗号分隔的字符串"><a class="header" href="#请编程实现此方法将输入的整型数组合并转换为逗号分隔的字符串">请编程实现此方法。将输入的整型数组，合并转换为逗号分隔的字符串。</a></h2>
+<p>例如输入参数为整型数组{9，7，2}，那么输出结果为字符串"9,7,2"。</p>
+<pre><code class="language-csharp">private static string Combine(int[] data)
+{
+    string str = "";
+    foreach (int s in data)
+    {
+    	str += s.ToString() + ",";
+    }
+    return str;
+}
+</code></pre>
+<h2 id="产生一个int数组长度为100并向其中随机插入1-100并且不能重复"><a class="header" href="#产生一个int数组长度为100并向其中随机插入1-100并且不能重复">产生一个int数组，长度为100，并向其中随机插入1-100，并且不能重复。</a></h2>
+<pre><code class="language-csharp">//产生一个int数组，长度为100，并向其中随机插入1-100，并且不能重复。
+int[] arr = new int[100];
+ArrayList myList = new ArrayList();
+Random rad = new Random();
+while (myList.Count &lt; 100)
+{
+    int num = rad.Next(1, 101);
+    if (!myList.Contains(num))
+    {
+    	myList.Add(num);
+    }
+}
+for (int i = 0; i &lt; 100; i++)
+{
+	arr[i] = (int)myList[i];
+}
+for (int i = 0; i &lt; arr.Length; i++)
+{
+	Console.Write(arr[i] + ",");
+}
+Console.ReadKey();
+</code></pre>
+<h2 id="请将字符串i-am-a-student按单词逆序输出-如student-a-am-i"><a class="header" href="#请将字符串i-am-a-student按单词逆序输出-如student-a-am-i">请将字符串"I am a student"按单词逆序输出 如"student a am I"</a></h2>
+<pre><code class="language-csharp">string S = "I am a student";
+char[] C = new char[] { ' '};
+string[] n =S.Split(C);
+int length = S.Length;
+for (int i =length-1 ; i &gt;=0; i--)
+{
+    Console.Write(n[i]);
+    if (i != 0)
+    {
+    	Console.Write(" ");
+    }
+}
+</code></pre>
+<h2 id="c-取两个数组的相同元素"><a class="header" href="#c-取两个数组的相同元素">C# 取两个数组的相同元素</a></h2>
+<p>摘要: 以往我们都是肯定绞尽脑汁，肯定什么循环，元素大小，什么因素都考虑进去。但是现在采用Linq可以很好的解决这个问题。找出两个或多个数组的相同项。代码如下：</p>
+<pre><code class="language-csharp">string[] names = {"Adams","Arthur","Buchanan","Tsbuchis","ShCian","FuchsiaLinda","DecheChen","Lotheer","FindLanciCade","SorchLand","JiangZheng","MisiiLoda","Gtod","Dfac","Lama","BakCades","Losangle","ZheWQ","GehengDahaLothi","ToryLandey","DakaLothy","BthLanda","MenNorth","Fith","FoxMain","DontM","Saobba","Del","Sala","Ghero","BhthLaPhda"};
+IEnumerable&lt;string&gt; skip = names.Skip(10);
+IEnumerable&lt;string&gt; take = names.Take(11);
+//取出两个序列中交集部分，按理论应该输出JiangZheng
+IEnumerable&lt;string&gt; intersect = skip.Intersect(take);
+foreach(varsinintersect)
+{
+	Console.WriteLine(s);
+}
+Console.ReadKey();
+</code></pre>
+<h2 id="有一个字符串-i-am-a-good-man设计一个函数返回-man-good-a-am-i"><a class="header" href="#有一个字符串-i-am-a-good-man设计一个函数返回-man-good-a-am-i">有一个字符串 "I am a good man",设计一个函数,返回 "man good a am I"。</a></h2>
+<pre><code class="language-csharp">static string Reverse()
+{
+    string s = "I am a good man";
+    string[] arr = s.Split(' ');
+    string res = "";
+    for (int i = arr.Length - 1; i &gt;= 0; i--)
+    {
+        res += arr[i];
+        if (i &gt; 0)
+        res += " ";
+    }
+    return res;
+}
+</code></pre>
+<h2 id="有1234个数字能组成多少个互不相同且无重复数字的三位数都是多少"><a class="header" href="#有1234个数字能组成多少个互不相同且无重复数字的三位数都是多少">有1、2、3、4个数字，能组成多少个互不相同且无重复数字的三位数？都是多少？</a></h2>
+<pre><code class="language-csharp">//有1、2、3、4个数字，能组成多少个互不相同且无重复数字的三位数？都是多少？
+//分解题目
+//条件：四个数字1、2、3、4 ；三位数：百位、十位、个位
+//要求：互不相同；无重复数字：每个数字在三位中只出现一次
+//结果：多少个？ 都是多少？
+int count = 0; //统计个数
+for (int bw = 1; bw &lt;= 4; bw++)
+{
+    for (int sw = 1; sw &lt;= 4; sw++)
+    {
+		if (sw!= bw) //很显然，只有百位和十位不同的情况下才能谈个位。
+		{
+			for (int gw = 1; gw &lt;= 4; gw++)
+			{
+				if (gw != sw &amp;&amp; gw != bw) //百位用过的，十位就不能用；百位和十位都用过的，个位就不能用
+				{
+					count++;
+					Console.WriteLine("{0}{1}{2}", bw, sw, gw);
+				}
+			}
+		}
+	}
+}
+Console.WriteLine("一共有{0}个", count);
+Console.Read();
+</code></pre>
+<h2 id="产生一个int数组长度为100并向其中随机插入1-100并且不能重复-1"><a class="header" href="#产生一个int数组长度为100并向其中随机插入1-100并且不能重复-1">产生一个int数组，长度为100，并向其中随机插入1-100，并且不能重复。</a></h2>
+<pre><code class="language-csharp">int[] intArr=new int[100];
+ArrayList myList=new ArrayList();
+Random rnd=new Random();
+while(myList.Count&lt;100)
+{
+    int num=rnd.Next(1,101);
+    if(!myList.Contains(num))
+    myList.Add(num);
+}
+for(int i=0;i&lt;100;i++)
+intArr[i]=(int)myList[i];
+</code></pre>
+<h2 id="用c写一段选择排序算法要求用自己的编程风格"><a class="header" href="#用c写一段选择排序算法要求用自己的编程风格">用C#写一段选择排序算法，要求用自己的编程风格。</a></h2>
+<pre><code class="language-csharp">public void xuanZhe(int[] list) //选择排序
+{
+    for (int i = 0; i &lt; list.Length – 1; i++)
+    {
+    	min = i;
+    	for (int j = i + 1; j &lt; list.Length; j++)
+    	{
+    		if (list[j] &lt; list[min])
+    		min = j;
+    	}
+    	int t = list[min];
+        list[min] = list[i];
+        list[i] = t;
+    }
+}
+</code></pre>
+<h2 id="有一个10个数的数组计算其中不重复数字的个数35981053用hashset"><a class="header" href="#有一个10个数的数组计算其中不重复数字的个数35981053用hashset">有一个10个数的数组，计算其中不重复数字的个数。{3,5,9,8,10,5,3},用HashSet。</a></h2>
+<pre><code class="language-csharp">int[] values = { 3, 5, 9, 8, 10, 5, 3 };
+HashSet&lt;int&gt; set = new HashSet&lt;int&gt;();
+foreach (int i in values)
+{
+	set.Add(i);
+}
+foreach (int i in set)
+{
+	Console.WriteLine(i);
+}
+</code></pre>
+<h2 id="ＡＢＣＤＥ五名学生有可能参加计算机竞赛根据下列条件判断哪些人参加了竞赛"><a class="header" href="#ＡＢＣＤＥ五名学生有可能参加计算机竞赛根据下列条件判断哪些人参加了竞赛">Ａ、Ｂ、Ｃ、Ｄ、Ｅ五名学生有可能参加计算机竞赛，根据下列条件判断哪些人参加了竞赛：</a></h2>
+<ul>
+<li>（１）Ａ参加时，Ｂ也参加；</li>
+<li>（２）Ｂ和Ｃ只有一个人参加；</li>
+<li>（３）Ｃ和Ｄ或者都参加，或者都不参加；</li>
+<li>（４）Ｄ和Ｅ中至少有一个人参加；</li>
+<li>（５）如果Ｅ参加，那么Ａ和Ｄ也都参加。</li>
+</ul>
+<pre><code class="language-csharp">char[] name={'A','B','C','D','E'};
+int[] value = new int[5];
+for (value[0]=0;value[0]&lt;2;value [0]++)
+for (value[1]=0; value[1] &lt; 2; value[1]++)
+for (value[2]=0; value[2] &lt; 2; value[2]++)
+for (value[3]=0; value[3] &lt; 2; value[3]++)
+for (value[4]=0; value[4] &lt; 2; value[4]++)
+{
+    if ((value[1] &gt;= value[0]) &amp;&amp; (value[1] + value[2] == 1) &amp;&amp; (value[2] =
+        = value[3]) &amp;&amp; (value[3] + value[4]==1) &amp;&amp; (value[4]==0 || value[4]==1 &amp;&amp;
+        value[0]==1 &amp;&amp; value[3]==1))
+    {
+        for (int i = 0; i &lt; 5; i++)
+        {
+            if (value[i]==1)
+            {
+                Console.WriteLine("{0}参加", name[i]);
+            }
+            else
+            {
+                Console.WriteLine("{0}不参加", name[i]);
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="程序设计-猫大叫一声所有的老鼠都开始逃跑主人被惊醒"><a class="header" href="#程序设计-猫大叫一声所有的老鼠都开始逃跑主人被惊醒">程序设计: 猫大叫一声，所有的老鼠都开始逃跑，主人被惊醒。</a></h2>
+<pre><code class="language-csharp">public delegate void SubEventHandler();
+public abstract class Subject
+{
+    public event SubEventHandler SubEvent;
+    protected void FireAway()
+    {
+        if (this.SubEvent != null)
+            this.SubEvent();
+    }
+}
+public class Cat : Subject
+{
+    public void Cry()
+    {
+        Console.WriteLine(cat cryed.);
+        this.FireAway();
+    }
+}
+public abstract class Observer
+{
+    public Observer(Subject sub)
+    {
+        sub.SubEvent += new SubEventHandler(Response);
+    }
+    public abstract void Response();
+}
+public class Mouse : Observer
+{
+    private string name;
+    public Mouse(string name, Subject sub) : base(sub)
+    {
+        this.name = name;
+    }
+    public override void Response()
+    {
+        Console.WriteLine(name + attempt to escape!);
+    }
+}
+public class Master : Observer
+{
+    public Master(Subject sub) : base(sub){}
+    public override void Response()
+    {
+        Console.WriteLine(host waken);
+    }
+}
+class Class1
+{
+    static void Main(string[] args)
+    {
+        Cat cat = new Cat();
+        Mouse mouse1 = new Mouse(mouse1, cat);
+        Mouse mouse2 = new Mouse(mouse2, cat);
+        Master master = new Master(cat);
+        cat.Cry();
+    }
+}
+</code></pre>
+<h2 id="写一个冒泡排序"><a class="header" href="#写一个冒泡排序">写一个冒泡排序</a></h2>
+<pre><code class="language-csharp">public class bubblesorter
+{
+    public void sort(int[] list)
+    {
+        int i, j, temp;
+        bool done = false;
+        j = 1;
+        while ((j &lt; list.Length) &amp;&amp; (!done))
+        {
+            done = true;
+            for (i = 0; i &lt; list.Length - j; i++)
+            {
+                if (list[i] &gt; list[i + 1])
+                {
+                    done = false;
+                    temp = list[i];
+                    list[i] = list[i + 1];
+                    list[i + 1] = temp;
+                }
+            }
+            j++;
+        }
+    }
+}
+</code></pre>
+<h2 id="写一个选择排序"><a class="header" href="#写一个选择排序">写一个选择排序</a></h2>
+<pre><code class="language-csharp">public class selectionsorter
+{
+    private int min;
+
+    public void sort(int[] list)
+    {
+        for (int i = 0; i &lt; list.Length - 1; i++)
+        {
+            min = i;
+            for (int j = i + 1; j &lt; list.Length; j++)
+            {
+                if (list[j] &lt; list[min])
+                    min = j;
+            }
+
+            int t = list[min];
+            list[min] = list[i];
+            list[i] = t;
+        }
+    }
+}
+</code></pre>
+<h2 id="一列数的规则如下-112358132134-求第30位数是多少用递归算法实现"><a class="header" href="#一列数的规则如下-112358132134-求第30位数是多少用递归算法实现">一列数的规则如下: 1、1、2、3、5、8、13、21、34...... 求第30位数是多少，用递归算法实现。</a></h2>
+<pre><code class="language-csharp">public class MainClass
+{
+    public static void Main()
+    {
+        Console.WriteLine(Foo(30));
+    }
+    public static int Foo(int i)
+    {
+        if (i &lt;= 0)
+            return 0;
+        else if(i &gt; 0 &amp;&amp; i &lt;= 2)
+            return 1;
+        else return Foo(i -1) + Foo(i - 2);
+    }
+}
+</code></pre>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="winform.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="database/database.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="winform.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="database/database.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

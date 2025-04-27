@@ -1,0 +1,487 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>WPF - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="wpf"><a class="header" href="#wpf">WPF</a></h1>
+<h2 id="wpf由哪两部分组成"><a class="header" href="#wpf由哪两部分组成">WPF由哪两部分组成？</a></h2>
+<p>wpf 由两个主要部分 组成：引擎和编程框架。</p>
+<ol>
+<li>引擎。wpf引擎是基于窗体的应用程序 图形 视频 音频和文档提供了一个单一的运行时库。重要的是WPF基于矢量的呈现引擎使应用程序可以灵活地利用高DPI监视器，支持图形的硬件加速。</li>
+<li>框架。WPF框架为媒体 用户界面设计和文档提供大量的解决方案。wpf的设计考虑了可扩展性，使开发人员可以完全在WPF引擎的基础上创建自己的控件，也可以通过对现有WPF控件进行再分类来创建自己的控件。</li>
+</ol>
+<h2 id="什么是wpf"><a class="header" href="#什么是wpf">什么是WPF？</a></h2>
+<p>WPF英文全称是Windows Presentation Foundation，中文为Windows表现层基础。是微软最初在.NET Framework3.5平台推出的一个图形平台。</p>
+<h2 id="silverlight-和-wpf的异同"><a class="header" href="#silverlight-和-wpf的异同">Silverlight 和 WPF的异同？</a></h2>
+<p>它们的运行方式是不同的：</p>
+<ol>
+<li>silverlight是基于浏览器插件的，在浏览器中运行。</li>
+<li>WPF可以编写Web程序或者桌面应用程序，可以直接编译为独立运行的exe文件。</li>
+</ol>
+<p>实现功能是不同的：</p>
+<ol>
+<li>WPF支持直接在XAML中绑定触发来触发动画，而silverlight就只能通过托管代码或者javascript来进行。</li>
+<li>WPF直接支持3D效果和3D镜头变换，但是silverlight就不支持。</li>
+</ol>
+<p>它们也有相似的地方：</p>
+<p>silverlight 原名WPF/E 就是WPF Everywhere 是WPF的一个子集。因此它们在很多语法实现上非常类似。</p>
+<h2 id="如何理解wpf体系结构"><a class="header" href="#如何理解wpf体系结构">如何理解WPF体系结构？</a></h2>
+<p>WPF使用多层架构，类似于三层结构，最顶层部分为托管代码API，此层用于为开发人员编写WPF应用程序提供较高层次的服务，基于C#托管代码编写。转换.NET代码到DirectX的工作由中间层milcore.dll实现。</p>
+<p>中间层milcore是用非托管代码实现，因为它需要与DirectX紧密集成，对性能敏感，就是消耗的资源比较多，对性能影响较大。</p>
+<h2 id="在wpf中binding的作用及实现语法"><a class="header" href="#在wpf中binding的作用及实现语法">在WPF中Binding的作用及实现语法？</a></h2>
+<p>典型的Binding具有四个重要组成部分：Binding目标对象（binding target object） 目标对象属性（target property） Binding数据源（binding source） Path(用于指明要从数据源中取得的值，就是我们通常写的属性名称）。</p>
+<h2 id="什么是xml扩展xaml有何优点"><a class="header" href="#什么是xml扩展xaml有何优点">什么是XML扩展XAML?有何优点？</a></h2>
+<ol>
+<li>XAML是eXtensible Application Markup Language的英文缩写，相应于中文称为可扩展应用程序标记语言，它是微软公司为构建应用程序用户界面而创建的一种新的描述性语言。</li>
+<li>XAML是XML语言的一个衍生物，它的语法与XML语言完全一致，它的功能就是专门用来设计和实现程序的UI。\</li>
+<li>XAML一个很大的优点就是由于WPF支持WEB开发，那么WEB开发和桌面开发的转换是很简单，修改的地方很短，同时UI与逻辑完全分离，所以逻辑代码也几乎不用改动。</li>
+</ol>
+<h2 id="解释什么是依赖属性它和以前的属性有什么不同为什么在wpf会使用它"><a class="header" href="#解释什么是依赖属性它和以前的属性有什么不同为什么在wpf会使用它">解释什么是依赖属性，它和以前的属性有什么不同？为什么在WPF会使用它？</a></h2>
+<p>Windows Presentation Foundation (WPF) 提供了一组服务，这些服务可用于扩展公共语言运行时 (CLR) 属性的功能，这些服务通常统称为 WPF 属性系统。由 WPF 属性系统支持的属性称为依赖项属性。</p>
+<p>它和以往属性的不同之处有</p>
+<ul>
+<li>(1)依赖属性是一种特定类型的属性。这种属性的特殊之处在于，其属性值受到 Windows 运行时中专用属性系统的跟踪和影响。</li>
+<li>(2)依赖属性的用途是提供一种系统的方式，用来基于其他输入（在应用运行时其内部出现的其他属性、事件和状态）计算属性的值。</li>
+<li>(3)依赖属性代表或支持编程模型的某种特定功能，用于定义 Windows 运行时应用，这种模型使用 XAML 编写 UI，使用 C#、Microsoft Visual Basic 或 Visual C++ 组件扩展 (C++/CX) 编写代码。</li>
+</ul>
+<p>一般的属性没有这么复杂。</p>
+<p>WPF使用它是有不少优点的</p>
+<ul>
+<li>（1）优化了属性的存储，直接减少了不必要的内存使用。</li>
+<li>（2）有属性变化通知 限制 验证等。</li>
+<li>（3）可以储存多个值，配合Expression及Animation等，打造出更灵活的使用方法。</li>
+</ul>
+<h2 id="wpf中什么是样式"><a class="header" href="#wpf中什么是样式">WPF中什么是样式？</a></h2>
+<p>首先明白WPF中样式属于资源中重要的一种。</p>
+<p>同时样式也是属性值的集合，能被应用到一个合适的元素中，或者说能将一组属性应用到多个元素。</p>
+<p>WPF中样式可以设置任何依赖属性。</p>
+<p>WPF中样式也支持触发器，通过属性的改变，触发一组活动，包括改变某个控件的样式。</p>
+<p>WPF中元素只能使用一个样式。</p>
+<p>样式有继承的特性，样式可以继承样式。</p>
+<h2 id="wpf中什么是模板-"><a class="header" href="#wpf中什么是模板-">WPF中什么是模板 ？</a></h2>
+<p>WPF中模板是用于定义或重定义控件结构，或者说对象的外观。</p>
+<p>WPF中模板有两类，一个是控件模板（ControlTemplate) 另一个是数据模板（DataTemplate），它们都派生自FrameworkTemplate抽象类。</p>
+<p>总共有三大模板 ControlTemplate，ItemsPanelTemplate，DataTemplate</p>
+<ol>
+<li>ControlTemplate 主要用途是更改控件的外观。它有两个重要属性：VisualTree（视觉树）内容属性和Triggers触发器，对于触发器可以不用过多考虑，触发器可有可无。VisualTree就是呈现我们所画的控件。Triggers可以对我们的视觉树上的元素进行一些变化。</li>
+<li>ItemsPanelTemplate 是个特殊的空间模板，主要用来标明多条目控件如何显示它所包含的多项数据。也可以说是指定用于项的额布局的面板。多用于多个内容控件的目标。多为Panel属性或者Panel结尾的属性。</li>
+<li>DataTemplate 主要用于数据的呈现。也被称为显示绑定数据对象的模板。</li>
+</ol>
+<h2 id="绑定binding-的基础用法"><a class="header" href="#绑定binding-的基础用法">绑定（Binding ）的基础用法</a></h2>
+<p>WPF 里分三种：Binding,PriorityBinding,MultiBinding,这三种Binding的基类都是BindingBase，而BindingBase又继承于MarkupExtension。</p>
+<p>常见的使用Binding方法是：</p>
+<ol>
+<li>
+<p>针对于继承于FrameworkElement控件。 SetBinding(DependencyProperty dp,String path),SetBinding(DependencyProperty dp,BindingBase binding),其中FrameworkElement中SetBinding只对DependencyProperty有效。</p>
+</li>
+<li>
+<p>另一种是 BindingOperations.SetBinding(currentFolder,TextBlock.TextProperty,binding);</p>
+<p>BindingOperations.SetBinding的原型是</p>
+<pre><code class="language-csharp">public static BindingExpressionBase SetBinding(DependencyObject target,DependencyProperty dp,BindingBase binding)
+</code></pre>
+</li>
+<li>
+<p>清除Binding:</p>
+<pre><code class="language-csharp">BindingOperations.ClearBinding(currentFolder,TextBlock.TextProperty);
+//删除currentFolder上的TextBlock.TextProperty绑定
+BindingOperations.ClearAllBindings(currentFolder);//删除currentFolder上的所有绑定。
+</code></pre>
+<p>直接对Dependency Property赋值也可以解除binding，不过只对单向binding有效。</p>
+</li>
+</ol>
+<h2 id="解释这几个类的作用及关系-visual-uielement-frameworkelement-control-"><a class="header" href="#解释这几个类的作用及关系-visual-uielement-frameworkelement-control-">解释这几个类的作用及关系: Visual, UIElement, FrameworkElement, Control 。</a></h2>
+<p>它们四个的关系：从System.Windows.Controls命名空间中看，依次的继承关系是：</p>
+<ul>
+<li>Visual继承UIElement</li>
+<li>UIElement继承FrameworkElement</li>
+<li>FrameworkElement继承Control。</li>
+</ul>
+<ol>
+<li>Visual主要作用是为WPF提供2D呈现支持，主要包括输出显示，坐标转换，区域剪切等。</li>
+<li>UIElement的主要作用是构建WPF元素和基本呈现特征的基类。例如其中定义很多与输入和焦点有关的特性，例如键盘事件，鼠标，还有一些与WPF事件模型有关的API。</li>
+<li>FrameworkElement的主要作用是为定义的WPF元素添加一些功能。例如，布局定义 逻辑树 对象生命周期事件 支持数据绑定和动态资源引用 支持样式和动画。</li>
+<li>Control的主要作用是为自定义应用程序控件提供基础。因为它是创建自定义应用程序控件的基类,作用就是可以重写Control类所提供的属性，方法，事件等，为自定义控件添加自定义逻辑。构建WPF应用程序页面的Window类也派生自它。</li>
+</ol>
+<h2 id="视觉树-vs-逻辑树"><a class="header" href="#视觉树-vs-逻辑树">视觉树 VS 逻辑树?</a></h2>
+<p>逻辑树是视觉树的子集，也就是视觉树基本上是逻辑树的一种扩展。</p>
+<p>WPF通过逻辑树来解决依赖项属性继承和资源的问题，使用视觉树来处理渲染，事件路由，资源定位等问题。</p>
+<p>逻辑树可以认为是XAML所见的，而视觉树包含了XAML元素内部的结构。</p>
+<p>逻辑树的查找可以通过LogicalTreeHelper辅助类，视觉树的查找可以通过VisualTreeHelper辅助类，其中需要注意的是对ContentElement元素的查找，无法直接通过VisualTreeHelper进行查找，ContentElement元素并不继承Visual，而ContentElement元素的使用时需要一个ContentElement载体FrameworkContentElement。</p>
+<p>六 属性变更通知(INotifyPropertyChanged 和 ObservableCollection)</p>
+<ol>
+<li>INotifyPropertyChanged向客户端发出某一属性值更改的通知。</li>
+<li>ObservableCollection类，它是实现 INotifyCollectionChanged 接口的数据集合的内置实现。表示一个动态数据集合，在添加项、移除项或刷新整个列表时，此集合将提供通知</li>
+</ol>
+<h2 id="解释一下resourcedictionary-"><a class="header" href="#解释一下resourcedictionary-">解释一下ResourceDictionary ？</a></h2>
+<p>提供包含元素和 WPF 应用程序的其他元素使用的 WPF 资源的一个哈希表/字典实现。</p>
+<p>有利于项目中资源共享</p>
+<h2 id="路由事件的哪三种方式策略冒泡-直接-隧道"><a class="header" href="#路由事件的哪三种方式策略冒泡-直接-隧道">路由事件的哪三种方式/策略（冒泡 直接 隧道）？</a></h2>
+<p>WPF中的路由事件是沿着VisualTree传递的，作用是用来调用应用程序的元素树上的各种监听器上的处理程序。</p>
+<ul>
+<li>（1）冒泡，这种事件处理方式是从源元素向上级流过去，直到到达根节点即顶层节点，一般为最外层的控件。</li>
+<li>（2）直接，这种处理方式是在源上处理，主要用在源元素上处理。通常setter和trigger中有所体现，我个人认为VisualState可视状态可能也是直接事件处理，也是依赖属性的状态改变。和Trigger有一定的重复，但是VisualState是通过生硬的动画间接实现依赖属性的改变。</li>
+<li>（3）隧道，又称作Preview事件，和冒泡事件处理方式相反的。元素树的根位置调用事件处理程序，依次向下直到源元素位置。</li>
+</ul>
+<p>隧道事件和冒泡事件一般成对出现。同一事件，执行时首先是隧道事件，然后是冒泡事件。</p>
+<h2 id="解释routed-events路由事件-与-commands命令"><a class="header" href="#解释routed-events路由事件-与-commands命令">解释Routed Events(路由事件) 与 Commands(命令)？</a></h2>
+<p>Event 和 Command 是程序内部通信基础，Routed Events 能够发起多重控件，并且能有序和用户沟通。</p>
+<p>Commands是.NET Framework 提供的核心构架，来激活和去除高级别任务。</p>
+<p>由此衍生的Animation是events的更进一步。让你能够以友好互动的方式使用Event架构，来使用多重控件。</p>
+<h2 id="模板"><a class="header" href="#模板">模板</a></h2>
+<p>WPF模板有三种：ControlTemplate、DataTemplate、ItemsPanelTemplate，</p>
+<p>它们都继承自FrameworkTemplate抽象类。在这个抽象类中有一个FrameworkElementFactory类型的VisualTree变量，通过该变量可以设置或者获取模板的根节点，包含了你想要的外观元素树。</p>
+<ul>
+<li>（1） 控件模板。控件模板可以将自定义模板应用到某一特定类型的所有控件，或是控件的某一实例。决定控件外观的是ControlTemplate，它决定了控件“长成什么样子”，因此控件模板由ControlTemplate类表示。控件模板实际在资源集合或资源字典中定义。例子详见：通过设计ControlTemplate，制作圆角文本框与圆角按钮（http://www.cnblogs.com/zhouhb/p/3284780.html）。</li>
+<li>（2） 数据模板。在WPF中，决定数据外观的是DataTemplate，即DataTemplate是数据内容的表现形式，一条数据显示成什么样子，是简单的文本还是直观的图形，就是由DataTemplate决定的。例子详见：DataTemplate应用（http://www.cnblogs.com/zhouhb/p/3284827.html）。</li>
+<li>（3）ItemsPanelTemplate模板。ItemsPanelTemplate 指定用于项的布局的面板。如下面的例子通过设置ListBox的ItemsPanelTemplate，使得每一项从左至右按顺序显示。</li>
+</ul>
+<ol>
+<li>
+<p>ControlTemplate
+ControlTemplate:控件模板主要有两个重要属性：VisualTree内容属性和Triggers触发器。所谓VisualTree(视觉树),就是呈现我们所画的控件。Triggers可以对我们的视觉树上的元素进行一些变化。一般用于单内容控件。</p>
+</li>
+<li>
+<p>ItemsPanelTemplate
+ItemsPanelTemplate在MSDN的解释是：ItemsPanelTemplate 指定用于项的布局的面板。 GroupStyle 具有一个类型为 ItemsPanelTemplate 的 Panel 属性。 ItemsControl 类型具有一个类型为ItemsPanelTemplate 的 ItemsPanel 属性。</p>
+<p>我们先讲ItemTemplate。它一般用在多个内容控件的模板。比如ListBox。</p>
+</li>
+<li>
+<p>DataTemplate 和 HierarchicalDataTemplate
+DataTemplate就是显示绑定数据对象的模板。</p>
+<p>WPF中的数据模板(DataTemplate) 在WPF中我们可以为自己的数据定制显示方式，也就是说虽然某数据数据是一定 的，但我们可以做到让它的表现方式多种多样</p>
+<p>HierarchicalDataTemplate继承于DataTemplate，它专门对TreeViewItem 或 MenuItem的一些数据对象的绑定。</p>
+</li>
+</ol>
+<h2 id="触发器"><a class="header" href="#触发器">触发器</a></h2>
+<p>WPF中的触发器，是对WPF事件的一种封装，WPF中的触发器，有多种方式，总结起来可分为：</p>
+<ul>
+<li>控件触发（FrameworkElement.Triggers集合）</li>
+<li>样式触发（Styles.Triggers集合）</li>
+<li>控件模板触发（ControlTemplate.Triggers集合）</li>
+<li>数据模板触发（DataTemplate.Triggers集合）</li>
+</ul>
+<p>触发器种类</p>
+<ul>
+<li>System.Windows.DataTrigger 数据触发器</li>
+<li>System.Windows.EventTrigger 事件触发器</li>
+<li>System.Windows.MultiDataTrigger 多数据触发器</li>
+<li>System.Windows.MultiTrigger 多属性触发器</li>
+<li>System.Windows. Trigger 属性触发器</li>
+</ul>
+<ol>
+<li>
+<p>属性触发器 Trigger</p>
+<p>顾名思义，属性触发器是由属性的改变而引起的，所以属性触发器有几个关键属性：</p>
+<p>Property：获取或设置返回的值进行比较的属性 Value 触发器的属性。 比较是引用相等性检查。（只有依赖属性才有用）</p>
+<p>Value：获取或设置要与该元素的属性值进行比较的值。 比较是引用相等性检查</p>
+<p>Setter：获取一套 Setter 对象，描述要应用当满足指定的条件的属性值。</p>
+<p>Setter： 属性是一个SetterBaseCollection 的集合。</p>
+<p><strong>Setter类：</strong>
+Property：获取或设置的属性与其 Value 将应用。（只有依赖属性才有用）</p>
+<p>Value：获取或设置要应用于指定此属性的值 Setter。</p>
+<p>以下代码，指定了属性触发器的使用，由于属性触发一般应用与样式定义中。</p>
+<pre><code class="language-csharp">&lt;Button Content="触发器" x:Name="btn1" Click="Button_Click" &gt;
+&lt;Button.Style&gt;
+&lt;Style&gt;
+&lt;Setter Property="Button.Width" Value="80"&gt;&lt;/Setter&gt;
+&lt;Setter Property="Button.Height" Value="100"&gt;&lt;/Setter&gt;
+&lt;Style.Triggers&gt;
+&lt;Trigger Property="Button.IsMouseOver" Value="true"&gt;
+&lt;Trigger.Setters&gt;
+&lt;Setter Property="Button.Width" Value="200"&gt;&lt;/Setter&gt;
+&lt;/Trigger.Setters&gt;
+&lt;/Trigger&gt;
+&lt;/Style.Triggers&gt;
+&lt;/Style&gt;
+&lt;/Button.Style&gt;
+&lt;/Button&gt; 
+</code></pre>
+</li>
+<li>
+<p>多属性触发器MultiTrigger</p>
+<p>多属性触发器，是之一个或者多个样式发生变化时候，才会触发的触发器，其有一个重要属性Condition，用于统计条件，MultiTrigger.Conditions是一个Condition的集合，做一个简单案例，就能说明：</p>
+<pre><code class="language-csharp"> &lt;Style&gt;
+      &lt;Setter Property="Button.Width" Value="80"&gt;&lt;/Setter&gt;
+      &lt;Setter Property="Button.Height" Value="100"&gt;&lt;/Setter&gt;
+      &lt;Style.Triggers&gt;
+              &lt;MultiTrigger&gt;
+               &lt;MultiTrigger.Conditions&gt;
+                        &lt;Condition Property="Control.IsFocused" Value="true"&gt;&lt;/Condition&gt;
+                        &lt;Condition Property="Control.IsMouseOver" Value="true"&gt;&lt;/Condition&gt;
+                   &lt;/MultiTrigger.Conditions&gt;
+               &lt;Setter Property="Button.Width" Value="300"&gt;&lt;/Setter&gt;
+              &lt;/MultiTrigger&gt;
+       &lt;/Style.Triggers&gt;
+ &lt;/Style&gt;
+</code></pre>
+</li>
+<li>
+<p>事件触发器EventTrigger</p>
+<p>事件触发器，是由控件的操作触发的信息，EventTrigger 属性里面，几个关键属性是：</p>
+<p>RoutedEvent：获取或设置将激活该触发器的 RoutedEvent。</p>
+<p>Actions：获取事件发生时要应用的操作的集合。</p>
+<p>主要用于指定路由事件和Actions,那么Actions是什么呢？其定义如下：</p>
+<pre><code class="language-csharp">public TriggerActionCollection Actions { get; } 
+</code></pre>
+<p>它是一个TriggerAction的集合</p>
+<p><strong>System.Windows.Interactivity.TriggerAction</strong></p>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/microsoft.expression.interactivity.core.callmethodaction(v=expression.40).aspx">Microsoft.Expression.Interactivity.Core.CallMethodAction</a></p>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/microsoft.expression.interactivity.media.playsoundaction(v=expression.40).aspx">Microsoft.Expression.Interactivity.Media.PlaySoundAction</a></p>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/microsoft.expression.interactivity.media.storyboardaction(v=expression.40).aspx">Microsoft.Expression.Interactivity.Media.StoryboardAction</a></p>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/system.windows.interactivity.invokecommandaction(v=expression.40).aspx">System.Windows.Interactivity.InvokeCommandAction</a></p>
+<p>所以事件触发器，只能调用CallMethodAction，PlaySoundAction，StoryboardAction，InvokeCommandAction，所以事件触发器一般应用与动画中，我们以StoryboardAction为例，我们知道StoryboardAction是Storyboard的一个封装，其主要是封装了动作BeginStoryboard，该动作相当于调用BeginAnimation方法，我们案例如下：</p>
+<pre><code class="language-csharp">   &lt;Button Content="触发器"   x:Name="btn1"    Click="Button_Click" &gt;
+            &lt;Button.Style&gt;
+                &lt;Style&gt;
+                    &lt;Setter Property="Button.Width" Value="80"&gt;&lt;/Setter&gt;
+                    &lt;Setter Property="Button.Height" Value="80"&gt;&lt;/Setter&gt;
+                    &lt;Style.Triggers&gt;
+                        &lt;Trigger Property="Button.IsMouseOver" Value="true"&gt;
+                            &lt;Trigger.Setters&gt;
+                                &lt;Setter Property="Button.Width" Value="300"&gt;&lt;/Setter&gt;
+                            &lt;/Trigger.Setters&gt;
+                        &lt;/Trigger&gt;
+                    &lt;/Style.Triggers&gt;
+                &lt;/Style&gt;
+            &lt;/Button.Style&gt;
+        &lt;/Button&gt;
+</code></pre>
+</li>
+<li>
+<p>数据触发DataTrigger</p>
+<p>数据触发器，是使用在数据改变的触发，DataTrigger也有两个重要的属性</p>
+<p>Binding：获取或设置产生数据对象的属性值的绑定。</p>
+<p>Value：获取或设置要与此数据对象的属性值进行比较的值。</p>
+<p>案例代码如下：</p>
+<pre><code class="language-csharp">&lt;Style&gt;
+     &lt;Style.Triggers&gt;
+        &lt;DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=Text}" Value="8"&gt;
+            &lt;Setter Property="Button.Foreground" Value="Sienna"&gt;&lt;/Setter&gt;
+            &lt;Setter Property="Button.FontWeight" Value="Bold"&gt;&lt;/Setter&gt;
+            &lt;Setter Property="Button.FontSize" Value="30"&gt;&lt;/Setter&gt;
+         &lt;/DataTrigger&gt;
+     &lt;/Style.Triggers&gt;
+&lt;/Style&gt;
+</code></pre>
+</li>
+<li>
+<p>多数据触发器MultiDataTrigger</p>
+<p>多数据触发器，是对数据触发器的扩展，需要同时满足多个数据改变的情况下才执行。</p>
+<p>我们对5种触发器，在4个触发环境中，我进行了简单的分类，虽然有些触发器在有的触发方式中可以使用，但并不代表一定有作用，这个在使用中根据情况进行区分，分类如下：</p>
+<div class="table-wrapper"><table><thead><tr><th>触发方式</th><th>可使用的触发器</th><th>说明</th></tr></thead><tbody>
+<tr><td>控件触发</td><td>必须使用EventTrigger</td><td>用于调整界面，实现动画等</td></tr>
+<tr><td>样式触发</td><td>TriggerEventTriggerMultiTriggerDataTriggerMultiDataTrigger</td><td>可使用所有触发器</td></tr>
+<tr><td>控件模板触发</td><td>TriggerEventTriggerMultiTriggerDataTriggerMultiDataTrigger</td><td>可使用所有触发器</td></tr>
+<tr><td>数据模板触发</td><td>TriggerEventTriggerMultiTriggerDataTriggerMultiDataTrigger</td><td>可使用所有触发器</td></tr>
+</tbody></table>
+</div></li>
+</ol>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="webform.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="winform.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="webform.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="winform.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

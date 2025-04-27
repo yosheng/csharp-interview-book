@@ -1,0 +1,503 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>数据库查询 - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+        <link rel="stylesheet" href=".././mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="数据库查询"><a class="header" href="#数据库查询">数据库查询</a></h1>
+<h2 id="用一条sql-语句-查询出每门课都大于80-分的学生姓名"><a class="header" href="#用一条sql-语句-查询出每门课都大于80-分的学生姓名">用一条SQL 语句 查询出每门课都大于80 分的学生姓名</a></h2>
+<p>建表语句：</p>
+<pre><code class="language-sql">create table tableA
+(
+    name varchar(10),
+    kecheng varchar(10),
+    fenshu int(11)
+) DEFAULT CHARSET = 'utf8';
+</code></pre>
+<p>插入数据</p>
+<pre><code class="language-sql">insert into tableA values ('张三','语文',81);
+insert into tableA values ('张三','数学',75);
+insert into tableA values ('李四','语文',76);
+insert into tableA values ('李四','数学',90);
+insert into tableA values ('王五','语文',81);
+insert into tableA values ('王五','数学',100);
+insert into tableA values ('王五','英语',90);
+</code></pre>
+<p>答案有3种：</p>
+<pre><code class="language-sql"># 答案A：
+select distinct name from tableA where name not in (select distinct name from tableA where fenshu&lt;=80)
+# 答案B：
+select name from tableA group by name having min(fenshu)&gt;80
+# 答案C：
+select name from tableA group by name having count(kecheng)&gt;=3 and min(fenshu)&gt;=80
+</code></pre>
+<h2 id="一道sql语句面试题关于group-by表内容"><a class="header" href="#一道sql语句面试题关于group-by表内容">一道SQL语句面试题，关于group by表内容：</a></h2>
+<p>一道SQL语句面试题，关于group by表内容：</p>
+<pre><code class="language-txt">2005-05-09 胜
+2005-05-09 胜
+2005-05-09 负
+2005-05-09 负
+2005-05-10 胜
+2005-05-10 负
+2005-05-10 负
+</code></pre>
+<p>如果要生成下列结果, 该如何写sql语句?</p>
+<p><img src="images/image-20250427203301323.png" alt="image-20250427203301323" /></p>
+<p>建表语句：</p>
+<pre><code class="language-sql">create table tableb (
+    rq varchar(10),
+    shengfu nchar(1)
+)DEFAULT CHARSET = 'utf8';
+</code></pre>
+<p>插入数据：</p>
+<pre><code class="language-sql">insert into tableb values('2005-05-09','胜');
+insert into tableb values('2005-05-09','胜');
+insert into tableb values('2005-05-09','负');
+insert into tableb values('2005-05-09','负');
+insert into tableb values('2005-05-10','胜');
+insert into tableb values('2005-05-10','负');
+insert into tableb values('2005-05-10','负');
+</code></pre>
+<p>答案：</p>
+<pre><code class="language-sql">select rq, sum(case when shengfu='胜' then 1 else 0 end)'胜',sum(case whenshengfu='负' then 1 else 0 end)'负' from tableb group by rq
+</code></pre>
+<h2 id="用一条sql-语句显示所有可能的比赛组合"><a class="header" href="#用一条sql-语句显示所有可能的比赛组合">用一条sql 语句显示所有可能的比赛组合</a></h2>
+<p>一个叫 team 的表，里面只有一个字段name, 一共有4 条纪录，分别是a,b,c,d, 对应四个球对，现在四个球对进行比赛，用一条sql 语句显示所有可能的比赛组合</p>
+<p>team表建表语句:</p>
+<pre><code class="language-sql">CREATE TABLE team (
+	`name` varchar(20)
+) DEFAULT CHARSET=utf8;
+</code></pre>
+<p>插入数据：</p>
+<pre><code class="language-sql">INSERT INTO team VALUES ('a');
+INSERT INTO team VALUES ('b');
+INSERT INTO team VALUES ('c');
+INSERT INTO team VALUES ('d');
+</code></pre>
+<p>答案：</p>
+<pre><code class="language-sql">select a.name, b.name from team a, team b where a.name &lt; b.name
+</code></pre>
+<p>结果如图所示：</p>
+<p><img src="images/image-20250427203748951.png" alt="image-20250427203748951" /></p>
+<h2 id="统计年度中月度细则总和"><a class="header" href="#统计年度中月度细则总和">统计年度中月度细则总和</a></h2>
+<p>怎么把这样一个表儿</p>
+<p><img src="images/image-20250427203932221.png" alt="image-20250427203932221" /></p>
+<p>查成这样一个结果</p>
+<p><img src="images/image-20250427203940644.png" alt="image-20250427203940644" /></p>
+<p>建表语句：</p>
+<pre><code class="language-sql">CREATE TABLE table1 (
+`year` int (11),
+`month` int (11),
+`amount` DECIMAL
+) DEFAULT CHARSET=utf8;
+</code></pre>
+<p>插入数据：</p>
+<pre><code class="language-sql">INSERT INTO table1 VALUES (1991,1,1.1);
+INSERT INTO table1 VALUES (1991,2,1.2);
+INSERT INTO table1 VALUES (1991,3,1.3);
+INSERT INTO table1 VALUES (1991,4,1.4);
+INSERT INTO table1 VALUES (1992,1,2.1);
+INSERT INTO table1 VALUES (1992,2,2.2);
+INSERT INTO table1 VALUES (1992,3,2.3);
+INSERT INTO table1 VALUES (1992,4,2.4);
+</code></pre>
+<p>答案：</p>
+<pre><code class="language-sql">select year,
+(select amount from aaa m where month=1 and m.year=aaa.year) as m1,
+(select amount from aaa m where month=2 and m.year=aaa.year) as m2,
+(select amount from aaa m where month=3 and m.year=aaa.year) as m3,
+(select amount from aaa m where month=4 and m.year=aaa.year) as m4
+from aaa group by year
+</code></pre>
+<h2 id="删除除了自动编号不同-其他都相同的学生冗余信息"><a class="header" href="#删除除了自动编号不同-其他都相同的学生冗余信息">删除除了自动编号不同, 其他都相同的学生冗余信息</a></h2>
+<p>学生表建表语句：</p>
+<pre><code class="language-sql">create table tablestudent
+(
+    id int(11),
+    studentno varchar(10),
+    studentname varchar(10),
+    classno varchar(10),
+    classname varchar (11),
+    score int (11)
+)DEFAULT CHARSET = 'utf8';
+</code></pre>
+<p>插入数据:</p>
+<pre><code class="language-sql">insert into tablestudent values (1,'2005001','张三','0001','数学',69);
+insert into tablestudent values (2,'2005002','李四','0001','数学',69);
+insert into tablestudent values (3,'2005001','张三','0001','数学',69);
+</code></pre>
+<p>如图所示：</p>
+<p><img src="images/image-20250427204127070.png" alt="image-20250427204127070" /></p>
+<p>答案：</p>
+<p>在mysql中，不能通过嵌套子查询来直接删除或者修改记录，需要通过别名来指定嵌套子查询作为一个临时表。</p>
+<p>给嵌套子查询的结果取一个别名，然后从这个表中再次查询出记录,然后再做删除或者修改操作。</p>
+<pre><code class="language-sql">delete
+from tablestudent
+where id not in
+      (select a.id
+       from (select id from tablestudent group by studentno, studentname, classno, classname, score) a)
+</code></pre>
+<h2 id="关于年度季度sql统计查询的面试题"><a class="header" href="#关于年度季度sql统计查询的面试题">关于年度、季度SQL统计查询的面试题</a></h2>
+<ul>
+<li>A表 - 销售数据表，其中adddate是销售时间，company是客户公司，money是销售金额，sales是销售员</li>
+<li>B表 - 产品销售表，aid对应A表中的id，pid对应是C表中产品表。</li>
+<li>C表 - 产品类型表</li>
+</ul>
+<ol>
+<li>
+<p>销售数据表建表语句：</p>
+<pre><code class="language-sql">CREATE TABLE `a` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`adddate` datetime NOT NULL,
+`company` varchar(10) DEFAULT NULL,
+`money` decimal(7,2) DEFAULT NULL,
+`sales` varchar(20) DEFAULT NULL,
+PRIMARY KEY (`id`)
+) AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+</code></pre>
+<p>插入数据：</p>
+<pre><code class="language-sql">insert into `a`(`id`,`adddate`,`company`,`money`,`sales`) values
+(1,'2011-01-02 00:00:00','A','10000.00','张三'),
+(2,'2011-07-03 00:00:00','B','50000.00','王五'),
+(3,'2011-09-03 00:00:00','A','20000.00','赵六'),
+(4,'2012-07-03 00:00:00','A','10000.00','李四'),
+(5,'2013-10-03 00:00:00','B','5000.00','麻子'),
+(6,'2013-07-04 00:00:00','B','6000.00','小柒');
+</code></pre>
+</li>
+<li>
+<p>产品销售表建表语句：</p>
+<pre><code class="language-sql">DROP TABLE IF EXISTS `b`;
+CREATE TABLE `b` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`product` varchar(20) DEFAULT NULL,
+`pid` int(11) DEFAULT NULL,
+`price` decimal(7,2) DEFAULT NULL,
+`number` int(11) DEFAULT NULL,
+PRIMARY KEY (`id`)
+) AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+</code></pre>
+<p>插入数据：</p>
+<pre><code class="language-sql">insert into `b`(`id`,`product`,`pid`,`price`,`number`) values
+(1,'AC1100',1,'10000.00',2),
+(2,'AC1200',1,'20000.00',3),
+(3,'SSL1100',2,'10000.00',1),
+(4,'WOC1100',3,'10000.00',1);
+</code></pre>
+<p><img src="images/image-20250427204529545.png" alt="image-20250427204529545" /></p>
+</li>
+<li>
+<p>产品类型表建表语句：</p>
+<pre><code class="language-sql">CREATE TABLE `c` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`type` varchar(20) DEFAULT NULL,
+PRIMARY KEY (`id`)
+) AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+</code></pre>
+<p>插入数据：</p>
+<pre><code class="language-sql">insert into `c`(`id`,`type`) values
+(1,'AC'),
+(2,'SSL'),
+(3,'WOC');
+</code></pre>
+<p><img src="images/image-20250427204620189.png" alt="image-20250427204620189" /></p>
+</li>
+</ol>
+<h3 id="请使用sql语句统计2011年至2013年三年中每个季度的销售金额"><a class="header" href="#请使用sql语句统计2011年至2013年三年中每个季度的销售金额">请使用SQL语句统计2011年至2013年三年中每个季度的销售金额?</a></h3>
+<p>另外在MySQL中有个特殊的规定，即不允许使用列别名作为查询条件,实在要执行，只好把新字段的组成在条件里再实现一遍</p>
+<p>据说是因为MySql中列的别名本来是返回结果的时候才显示的.这个还没有得到证实，纯属猜测！</p>
+<pre><code class="language-sql">SELECT
+YEAR(`adddate`) AS yer,
+QUARTER(`adddate`) AS jd,
+SUM(money)
+FROM a
+WHERE YEAR(`adddate`) IN ('2011','2012','2013')
+GROUP BY QUARTER(`adddate`),YEAR(`adddate`)
+</code></pre>
+<h3 id="请使用sql语句按如下格式统计2013年销售金额前5位的销售员"><a class="header" href="#请使用sql语句按如下格式统计2013年销售金额前5位的销售员">请使用SQL语句按如下格式统计2013年销售金额前5位的销售员</a></h3>
+<p>不知道是不是考察：order by和group by共用的问题。order by 必须放在group by 后面</p>
+<pre><code class="language-sql">SELECT id AS `no`,sales,SUM(`money`) AS money FROM a WHERE YEAR(`adddate`) = '2013' GROUP BY sales ORDER BY money DESC LIMIT 5
+</code></pre>
+<h3 id="请用sql语句统计出哪个产品线的销售金额最多"><a class="header" href="#请用sql语句统计出哪个产品线的销售金额最多">请用SQL语句统计出哪个产品线的销售金额最多?</a></h3>
+<pre><code class="language-sql">SELECT c.`type`,MAX(tab.tt) FROM (SELECT pid,SUM(price*number) AS tt FROM b GROUP BY pid) AS tab LEFT JOIN c ON tab.pid = c.`id`
+</code></pre>
+<h2 id="关於部门表及员工表面试题"><a class="header" href="#关於部门表及员工表面试题">关於部门表及员工表面试题</a></h2>
+<p>数据库的表设计如下：</p>
+<p>部门表：部门编号，部门名称，地址；</p>
+<p>员工表：员工编号，员工名字，职务，管理编号，入职日期，薪资，奖金，部门编号；</p>
+<p>部门表建表语句：</p>
+<pre><code class="language-sql">CREATE TABLE emp(
+    empno INT PRIMARY KEY,
+    ename VARCHAR(20) NOT NULL,
+    job VARCHAR(20) CHECK (job IN('CLERK','SALESMAN','MANAGER','ANALYST')),mg
+    p INT,
+    hiredate DATE ,
+    sal DECIMAL(10,2),
+    comm DECIMAL(10,2),
+    deptno INT,
+	CONSTRAINT pk_we FOREIGN KEY (deptno) REFERENCES dept (deptno)
+)DEFAULT CHARSET=utf8;
+</code></pre>
+<p>插入数据：</p>
+<pre><code class="language-sql">INSERT INTO dept VALUES (10,'ACCOUNTING','NEWTORK');
+INSERT INTO dept VALUES (20,'RESEARCH','DALLAS');
+INSERT INTO dept VALUES (30,'SALES','CHICAGO');
+INSERT INTO dept VALUES (40,'OPERATIONS','BOSTON');
+</code></pre>
+<p>如图所示：</p>
+<p><img src="images/image-20250427204850751.png" alt="image-20250427204850751" /></p>
+<p>员工表建表语句：</p>
+<pre><code class="language-sql">CREATE TABLE emp(
+    empno INT PRIMARY KEY,
+    ename VARCHAR(20) NOT NULL,
+    job VARCHAR(20) CHECK (job IN('CLERK','SALESMAN','MANAGER','ANALYST')),mg
+    p INT,
+    hiredate DATE ,
+    sal DECIMAL(10,2),
+    comm DECIMAL(10,2),
+    deptno INT,
+    CONSTRAINT pk_we FOREIGN KEY (deptno) REFERENCES dept (deptno)
+)DEFAULT CHARSET=utf8;
+</code></pre>
+<p>插入数据：</p>
+<pre><code class="language-sql">INSERT INTO dept VALUES (10,'ACCOUNTING','NEWTORK');
+INSERT INTO dept VALUES (20,'RESEARCH','DALLAS');
+INSERT INTO dept VALUES (30,'SALES','CHICAGO');
+INSERT INTO dept VALUES (40,'OPERATIONS','BOSTON');
+</code></pre>
+<p>如图所示：</p>
+<p><img src="images/image-20250427204931145.png" alt="image-20250427204931145" /></p>
+<h3 id="列出至少有一个雇员的所有部门"><a class="header" href="#列出至少有一个雇员的所有部门">列出至少有一个雇员的所有部门</a></h3>
+<pre><code class="language-sql">select dname,count(empno) as 部门人数 from dept,emp where dept.deptno=emp.deptno
+group by dname
+having count(empno)&gt;=1;
+</code></pre>
+<h3 id="列出薪金比smith多的所有雇员"><a class="header" href="#列出薪金比smith多的所有雇员">列出薪金比"SMITH"多的所有雇员</a></h3>
+<pre><code class="language-sql">select * from emp where sal&gt;(select sal from emp where ename='SMITH');
+</code></pre>
+<h3 id="列出入职日期早于其直接上级的所有雇员"><a class="header" href="#列出入职日期早于其直接上级的所有雇员">列出入职日期早于其直接上级的所有雇员</a></h3>
+<pre><code class="language-sql">select * from emp e1 where hiredate &lt;(select hiredate from emp e2 where e2.empno=e1.mgp);
+</code></pre>
+<h3 id="找员工姓名和直接上级的名字"><a class="header" href="#找员工姓名和直接上级的名字">找员工姓名和直接上级的名字</a></h3>
+<pre><code class="language-sql">select e1.ename 员工姓名,e2.ename 直接上级 from emp e1,emp e2 where e1.mgp=e2.empno;
+</code></pre>
+<h3 id="显示部门名称和人数"><a class="header" href="#显示部门名称和人数">显示部门名称和人数</a></h3>
+<pre><code class="language-sql">select dname,count(empno) as 部门人数 from dept,emp where dept.deptno=emp.deptno group by dname;
+</code></pre>
+<h3 id="显示每个部门的最高工资的员工"><a class="header" href="#显示每个部门的最高工资的员工">显示每个部门的最高工资的员工</a></h3>
+<pre><code class="language-sql">SELECT ename,sal,e1.deptno FROM emp e1
+WHERE sal = 
+(SELECT MAX(sal) FROM emp e2 WHERE e2.`deptno`=e1.`deptno`
+GROUP BY e2.`deptno`);
+</code></pre>
+<h3 id="显示每个部门的工资前2名的员工"><a class="header" href="#显示每个部门的工资前2名的员工">显示每个部门的工资前2名的员工</a></h3>
+<pre><code class="language-sql">select deptno, ename, sal
+from emp e1
+where (select count(1)
+       from emp e2
+       where e2.deptno = e1.deptno
+         and e2.sal &gt;= e1.sal) &lt;= 2
+order by deptno, sal desc;
+</code></pre>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../database/database.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../database/database.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>
