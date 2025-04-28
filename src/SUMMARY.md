@@ -1,6 +1,9 @@
 # Summary
 
-- [基础语法](./basic.md)
+- [基础语法](./basic/basic.md)
+    - [关键字](./basic/keyword.md)
+    - [字符串](./basic/string.md)
+    - [数据类型](./basic/datatype.md)
 - [面向对象](./object-oriented.md)
 - [集合](./collection.md)
 - [泛型](./generics.md)
