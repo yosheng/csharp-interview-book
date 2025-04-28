@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>反射 - C# 面试笔记</title>
+        <title>Redis - C# 面试笔记</title>
 
 
         <!-- Custom HTML head -->
@@ -12,34 +12,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/pagetoc.css">
-        <link rel="stylesheet" href="./mdbook-admonish.css">
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+        <link rel="stylesheet" href=".././mdbook-admonish.css">
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">C# 面试笔记</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -155,14 +155,37 @@
                 <div id="content" class="content">
                     <main>
                         <div class="content-wrap">
-                            <h1 id="反射与aop"><a class="header" href="#反射与aop">反射与AOP</a></h1>
-<h2 id="在c中反射是什么处理反射相关的namespace是什么"><a class="header" href="#在c中反射是什么处理反射相关的namespace是什么">在c#中，反射是什么？处理反射相关的namespace是什么？</a></h2>
-<p>反射（Reflection）是.NET中的重要机制，通过放射，可以在运行时获 得.NET 中每一个类型（包括类、结构、委托、接口和枚举等）的成员，包括方法、属性、事件，以及构造函数等。还可以获得每个成员的名称、限定符和参数等。</p>
-<h2 id="私有程序集与共享程序集有什么区别"><a class="header" href="#私有程序集与共享程序集有什么区别">私有程序集与共享程序集有什么区别？</a></h2>
-<p>一个私有程序集通常为单个应用程序所使用，并且存储于这个应用程序所在的目录之中，或此目录下面的一个子目录中。</p>
-<p>共享程序集通常存储在全局程序集缓存（Global Assembly Cache）之中，这是一个由.NET运行时所维护的程序集仓库。共享程序集通常是对许多应用程序都有用的代码库，比如.NET Framework类。</p>
-<h2 id="什么是gac它解决了什么问题"><a class="header" href="#什么是gac它解决了什么问题">什么是GAC？它解决了什么问题?</a></h2>
-<p>Gloal Assembly Cache，全局应用程序集缓存。它解决了几个程序共享某一个程序集的问题。不必再将那个被共享的程序集拷贝到应用程序目录了，其实这道理很简单，.net应用程序在加载的时候，会首先查看全局应用程序集缓存，如果有就可以直接使用，没有再到应用程序目录进行查找。</p>
+                            <h1 id="redis"><a class="header" href="#redis">Redis</a></h1>
+<h2 id="redis-数据类型有哪些"><a class="header" href="#redis-数据类型有哪些">Redis 数据类型有哪些？</a></h2>
+<p>基本数据类型：</p>
+<ol>
+<li>String：最常用的一种数据类型，String类型的值可以是字符串、数字或者二进制，但值最大不能超过512MB。</li>
+<li>Hash：Hash 是一个键值对集合。</li>
+<li>Set：无序去重的集合。Set 提供了交集、并集等方法，对于实现共同好友、共同关注等功能特别方便。</li>
+<li>List：有序可重复的集合，底层是依赖双向链表实现的。</li>
+<li>SortedSet：有序Set。内部维护了一个score的参数来实现。适用于排行榜和带权重的消息队列等场景。</li>
+</ol>
+<p>特殊的数据类型：</p>
+<ol>
+<li>Bitmap：位图，可以认为是一个以位为单位数组，数组中的每个单元只能存0或者1，数组的下标在 Bitmap 中叫做偏移量。Bitmap的长度与集合中元素个数无关，而是与基数的上限有关。</li>
+<li>Hyperloglog。HyperLogLog 是用来做基数统计的算法，其优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定的、并且是很小的。典型的使用场景是统计独立访客。</li>
+<li>Geospatial ：主要用于存储地理位置信息，并对存储的信息进行操作，适用场景如定位、附近的人等。</li>
+</ol>
+<h2 id="简单说说缓存雪崩及解决方法"><a class="header" href="#简单说说缓存雪崩及解决方法">简单说说缓存雪崩及解决方法</a></h2>
+<p>缓存雪崩我们可以简单的理解为：由于原有缓存失效，新缓存未到期间 (例如：我们设置缓存时采用了相同的过期时间，在同一时刻出现大面积的缓存过期)，所有原本应该访 问缓存的请求都去查询数据库了，而对数据库CPU和内存造成巨大压力，严重的会造成数据库宕机。从 而形成一系列连锁反应，造成整个系统崩溃。) 解决办法： 大多数系统设计者考虑用加锁（ 最多的解决方案）或者队列的方式保证来保证不会有大量的线程对数据 库一次性进行读写，从而避免失效时大量的并发请求落到底层存储系统上。还有一个简单方案就时讲缓 存失效时间分散开。</p>
+<h2 id="缓存穿透怎么导致的"><a class="header" href="#缓存穿透怎么导致的">缓存穿透怎么导致的？</a></h2>
+<p>在高并发下查询key不存在的数据，会穿过缓去存查询数据库。导致数据库压力过大而宕机。 解决方法:</p>
+<ol>
+<li>对查询结果为空的情况也进行缓存，缓存时间（ttl）设置短一点，或者该key对应的数据insert了之后清理缓存。 缺点：缓存太多空值占用了更多的空间</li>
+<li>使用布隆过滤器。在缓存之前在加一层布隆过滤器，在查询的时候先去布隆过滤器查询 key 是否存在，如果不存在就直接返回，存在再查缓存和DB。</li>
+</ol>
+<p>布隆过滤器原理： 当一个元素被加入集合时，将这个元素通过n次Hash函数结果映射成一个数组中的n个点，把它们置为1。检索时，我们只要看看这些点是不是都是1就（大约）知道集合中有没有它了：如果这些点有任何一个0，则被检元素一定不在；如果都是1，则被检元素很可能在。总之布隆过滤器是一个很大二进制的位数组，数组里面只存0和1</p>
+<h2 id="项目中有出现过缓存击穿简单说说怎么回事"><a class="header" href="#项目中有出现过缓存击穿简单说说怎么回事">项目中有出现过缓存击穿，简单说说怎么回事？</a></h2>
+<p>缓存在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，这些请求发现缓存过期一般会从数据库中加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮 解决方案：</p>
+<ol>
+<li>用分布式锁控制访问的线程，使用redis的setnx互斥锁先进行判断，这样其他线程就处于等待状态，保证不会有大并发操作去操作数据库。</li>
+<li>不设超时时间，采用volatile-lru淘汰策略 缺点：会造成写一致问题，当数据库数据发生更新时，缓存中的数据不会及时更新，这样会造成数据库中的数据与缓存中的数据的不一致，应用会从缓存中读取到脏数据。可采用延时双删策略处理。</li>
+</ol>
 
                         </div>
                         <div id="sidetoc">
@@ -172,11 +195,11 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="thread/task-async.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../database/database.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="dotnet/dotnet.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../database/database-search.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -186,11 +209,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="thread/task-async.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../database/database.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="dotnet/dotnet.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../database/database-search.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -205,16 +228,16 @@
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="theme/pagetoc.js"></script>
+        <script src="../theme/pagetoc.js"></script>
 
 
     </div>

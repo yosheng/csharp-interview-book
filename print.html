@@ -1348,6 +1348,119 @@ publicclassTheadWorkTest
 </code></pre>
 </li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="task与异步"><a class="header" href="#task与异步">Task与异步</a></h1>
+<h2 id="net-执行异步有哪三种模式"><a class="header" href="#net-执行异步有哪三种模式">.NET 执行异步有哪三种模式?</a></h2>
+<ol>
+<li>
+<p>基于任务的异步模式 (TAP, Task-based Asynchronous Pattern)</p>
+<ul>
+<li><strong>核心类型</strong>：<code>Task</code>、<code>Task&lt;T&gt;</code></li>
+<li><strong>关键字</strong>：<code>async</code>/<code>await</code></li>
+<li><strong>特点</strong>：
+<ul>
+<li>使用 <code>async</code> 标记异步方法，<code>await</code> 等待任务完成。</li>
+<li>非阻塞调用，自动处理上下文切换（如 UI 线程不卡死）。</li>
+<li>通过 <code>Task.Run</code> 将同步代码卸载到线程池。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-csharp">public async Task&lt;int&gt; GetDataAsync()
+{
+    var data = await HttpClient.GetStringAsync("https://example.com");
+    return data.Length;
+}
+</code></pre>
+</li>
+<li>
+<p>基于事件的异步模式 (EAP, Event-based Asynchronous Pattern)
+（旧版 .NET 2.0+，已过时）</p>
+<ul>
+<li><strong>核心类型</strong>：<code>BackgroundWorker</code>、<code>WebClient</code></li>
+<li><strong>特点</strong>：
+<ul>
+<li>通过事件（如 <code>Completed</code>）通知异步操作结果。</li>
+<li>需要手动注册事件回调。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-csharp">var client = new WebClient();
+client.DownloadStringCompleted += (sender, e) =&gt; 
+{
+    Console.WriteLine(e.Result); // 异步完成后的回调
+};
+client.DownloadStringAsync(new Uri("https://example.com"));
+</code></pre>
+</li>
+<li>
+<p>异步编程模型 (APM, Asynchronous Programming Model)
+最早期模式，.NET 1.1，已过时）</p>
+<ul>
+<li><strong>核心类型</strong>：<code>IAsyncResult</code>、<code>BeginXXX</code>/<code>EndXXX</code> 方法对。</li>
+<li><strong>特点</strong>：
+<ul>
+<li>使用 <code>BeginOperation</code> 启动异步操作，<code>EndOperation</code> 获取结果。</li>
+<li>需手动处理回调或轮询。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-csharp">var stream = File.OpenRead("file.txt");
+byte[] buffer = new byte[1024];
+stream.BeginRead(buffer, 0, buffer.Length, asyncResult =&gt; 
+{
+    int bytesRead = stream.EndRead(asyncResult); // 获取结果
+    Console.WriteLine($"Read {bytesRead} bytes");
+}, null);
+</code></pre>
+</li>
+</ol>
+<h2 id="写出控制台输出的字符串顺序"><a class="header" href="#写出控制台输出的字符串顺序">写出控制台输出的字符串顺序</a></h2>
+<p>先看一个例子（<a href="https://www.cnblogs.com/jonins/p/9558275.html">来源</a>）</p>
+<pre><code class="language-csharp">class Program
+ {
+     static void Main(string[] args)
+     {
+         Console.WriteLine($"头部已执行，当前主线程Id为：{Thread.CurrentThread.ManagedThreadId}");
+         CallerWithAsync("jack");
+         Console.WriteLine($"尾部已执行，当前主线程Id为：{Thread.CurrentThread.ManagedThreadId}");
+         Console.ReadKey();
+     }
+     async static void CallerWithAsync(string name)
+     {
+         Console.WriteLine($"异步调用头部执行，当前线程Id为：{Thread.CurrentThread.ManagedThreadId}");
+         string result = await SayHiAsync(name);
+         Console.WriteLine($"异步调用尾部执行，当前线程Id为：{Thread.CurrentThread.ManagedThreadId}");
+         Console.WriteLine(result);
+     }
+     static Task&lt;string&gt; SayHiAsync(string name)
+     {
+         return Task.Run&lt;string&gt;(() =&gt; { return SayHi(name); });
+     }
+     static string SayHi(string name)
+     {
+         Task.Delay(2000).Wait();//异步等待2s
+         Console.WriteLine($"SayHi执行，当前线程Id为：{Thread.CurrentThread.ManagedThreadId}");
+         return $"Hello,{name}";
+     }
+ }
+</code></pre>
+<p><strong>执行结果如下：</strong> 使用await关键字来调用返回任务的异步方法SayHiAsync，而使用await需要有用async修饰符声明的方法，在SayHiAsync方法为完成前，下面的方法不会继续执行。但是主线程并没有阻塞，且任务处理完成后await后的逻辑继续执行。</p>
+<pre><code>头部已执行，当前主线程Id为：1
+异步调用头部执行，当前线程Id为：1
+尾部已执行，当前主线程Id为：1
+SayHi执行，当前线程Id为：3
+异步调用尾部执行，当前线程Id为：3
+Hello,jack
+</code></pre>
+<ul>
+<li><strong>本质：</strong> 编译器将await关键字后的所有代码放进了延续（ContinueWith）方法的代码块中来转换await关键词。</li>
+<li><strong>注意：</strong>
+<ol>
+<li>无法等待具有void返回类型的异步方法，并且无效返回方法的调用方捕获不到异步方法抛出的任何异常。
+<strong>async void</strong> 应仅用于事件处理程序。因为事件不具有返回类型（因此无法返回 Task 和 Task）。</li>
+<li>异步方法无法声明 in、ref 或 out 参数，但可以调用包含此类参数的方法。 同样，异步方法无法通过引用返回值，但可以调用包含 ref 返回值的方法。</li>
+</ol>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="反射与aop"><a class="header" href="#反射与aop">反射与AOP</a></h1>
 <h2 id="在c中反射是什么处理反射相关的namespace是什么"><a class="header" href="#在c中反射是什么处理反射相关的namespace是什么">在c#中，反射是什么？处理反射相关的namespace是什么？</a></h2>
 <p>反射（Reflection）是.NET中的重要机制，通过放射，可以在运行时获 得.NET 中每一个类型（包括类、结构、委托、接口和枚举等）的成员，包括方法、属性、事件，以及构造函数等。还可以获得每个成员的名称、限定符和参数等。</p>
@@ -3006,6 +3119,37 @@ select * from user where city=xx ; // 无法命中索引
 <li>DQL（数据查询语言） - 所有命令都在SQL中，用于检索DQL中的数据。</li>
 <li>TCL（事务控制语言） - 用于管理DML所做的更改。</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="redis"><a class="header" href="#redis">Redis</a></h1>
+<h2 id="redis-数据类型有哪些"><a class="header" href="#redis-数据类型有哪些">Redis 数据类型有哪些？</a></h2>
+<p>基本数据类型：</p>
+<ol>
+<li>String：最常用的一种数据类型，String类型的值可以是字符串、数字或者二进制，但值最大不能超过512MB。</li>
+<li>Hash：Hash 是一个键值对集合。</li>
+<li>Set：无序去重的集合。Set 提供了交集、并集等方法，对于实现共同好友、共同关注等功能特别方便。</li>
+<li>List：有序可重复的集合，底层是依赖双向链表实现的。</li>
+<li>SortedSet：有序Set。内部维护了一个score的参数来实现。适用于排行榜和带权重的消息队列等场景。</li>
+</ol>
+<p>特殊的数据类型：</p>
+<ol>
+<li>Bitmap：位图，可以认为是一个以位为单位数组，数组中的每个单元只能存0或者1，数组的下标在 Bitmap 中叫做偏移量。Bitmap的长度与集合中元素个数无关，而是与基数的上限有关。</li>
+<li>Hyperloglog。HyperLogLog 是用来做基数统计的算法，其优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定的、并且是很小的。典型的使用场景是统计独立访客。</li>
+<li>Geospatial ：主要用于存储地理位置信息，并对存储的信息进行操作，适用场景如定位、附近的人等。</li>
+</ol>
+<h2 id="简单说说缓存雪崩及解决方法"><a class="header" href="#简单说说缓存雪崩及解决方法">简单说说缓存雪崩及解决方法</a></h2>
+<p>缓存雪崩我们可以简单的理解为：由于原有缓存失效，新缓存未到期间 (例如：我们设置缓存时采用了相同的过期时间，在同一时刻出现大面积的缓存过期)，所有原本应该访 问缓存的请求都去查询数据库了，而对数据库CPU和内存造成巨大压力，严重的会造成数据库宕机。从 而形成一系列连锁反应，造成整个系统崩溃。) 解决办法： 大多数系统设计者考虑用加锁（ 最多的解决方案）或者队列的方式保证来保证不会有大量的线程对数据 库一次性进行读写，从而避免失效时大量的并发请求落到底层存储系统上。还有一个简单方案就时讲缓 存失效时间分散开。</p>
+<h2 id="缓存穿透怎么导致的"><a class="header" href="#缓存穿透怎么导致的">缓存穿透怎么导致的？</a></h2>
+<p>在高并发下查询key不存在的数据，会穿过缓去存查询数据库。导致数据库压力过大而宕机。 解决方法:</p>
+<ol>
+<li>对查询结果为空的情况也进行缓存，缓存时间（ttl）设置短一点，或者该key对应的数据insert了之后清理缓存。 缺点：缓存太多空值占用了更多的空间</li>
+<li>使用布隆过滤器。在缓存之前在加一层布隆过滤器，在查询的时候先去布隆过滤器查询 key 是否存在，如果不存在就直接返回，存在再查缓存和DB。</li>
+</ol>
+<p>布隆过滤器原理： 当一个元素被加入集合时，将这个元素通过n次Hash函数结果映射成一个数组中的n个点，把它们置为1。检索时，我们只要看看这些点是不是都是1就（大约）知道集合中有没有它了：如果这些点有任何一个0，则被检元素一定不在；如果都是1，则被检元素很可能在。总之布隆过滤器是一个很大二进制的位数组，数组里面只存0和1</p>
+<h2 id="项目中有出现过缓存击穿简单说说怎么回事"><a class="header" href="#项目中有出现过缓存击穿简单说说怎么回事">项目中有出现过缓存击穿，简单说说怎么回事？</a></h2>
+<p>缓存在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，这些请求发现缓存过期一般会从数据库中加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮 解决方案：</p>
+<ol>
+<li>用分布式锁控制访问的线程，使用redis的setnx互斥锁先进行判断，这样其他线程就处于等待状态，保证不会有大并发操作去操作数据库。</li>
+<li>不设超时时间，采用volatile-lru淘汰策略 缺点：会造成写一致问题，当数据库数据发生更新时，缓存中的数据不会及时更新，这样会造成数据库中的数据与缓存中的数据的不一致，应用会从缓存中读取到脏数据。可采用延时双删策略处理。</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="数据库查询"><a class="header" href="#数据库查询">数据库查询</a></h1>
 <h2 id="用一条sql-语句-查询出每门课都大于80-分的学生姓名"><a class="header" href="#用一条sql-语句-查询出每门课都大于80-分的学生姓名">用一条SQL 语句 查询出每门课都大于80 分的学生姓名</a></h2>
 <p>建表语句：</p>
