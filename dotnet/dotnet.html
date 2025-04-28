@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>.NET - C# 面试笔记</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+        <link rel="stylesheet" href=".././mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">C# 面试笔记</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="content-wrap">
+                            <h1 id="net"><a class="header" href="#net">.NET</a></h1>
+<h2 id="谈一谈对ddd的理解"><a class="header" href="#谈一谈对ddd的理解">谈一谈对DDD的理解?</a></h2>
+<p>DDD，领域驱动设计。就是通过领域来指导软件设计，是一种十分抽象的软件设计思想，它主要分为战略设计和战术设计</p>
+<p>战略方面，通过事件风暴进行领域模型的划分，划分出核心域，子域，支撑域，定义通用语言，划分出界限上下文。</p>
+<p>在战术设计方面，ddd将架构分层，“松耦合，高内聚”是架构设计的整体思想。按照DDD思想，可以分为领域层，基础设施层，应用层，接口层。</p>
+<p>接口层为前端用户提供api接口。基础设施层可以放一些第三方的服务，数据库连接等内容。应用层是对领域服务的编排，是很薄的一层（目前我自己的架构，应用的是cqrs，所有的相关逻辑都是放在了应用层，而领域层只是放了实体，因为暂时还不是特别理解领域层的服务和事件都应该写什么）。领域层包括实体，值对象，聚合根，领域服务，领域事件等内容。</p>
+<h2 id="请简述一下cqrs架构"><a class="header" href="#请简述一下cqrs架构">请简述一下CQRS架构</a></h2>
+<p><strong>CQRS（Command Query Responsibility Segregation）</strong> 是一种架构模式，其核心在于 <strong>分离读写操作</strong>：</p>
+<ul>
+<li><strong>命令（Command）</strong>：修改数据（写操作），返回执行结果（成功/失败），不返回数据。</li>
+<li><strong>查询（Query）</strong>：获取数据（读操作），不改变系统状态。</li>
+</ul>
+<pre><code class="language-mermaid">graph LR
+    A[客户端] --&gt;|命令| B[命令处理器]
+    A --&gt;|查询| C[查询处理器]
+    B --&gt; D[写数据库]
+    C --&gt; E[读数据库]
+    D --&gt;|同步| E
+</code></pre>
+<h2 id="什麽是aopnet-core-如何支持aop"><a class="header" href="#什麽是aopnet-core-如何支持aop">什麽是AOP？.Net Core 如何支持AOP？</a></h2>
+<p>AOP（Aspect-Oriented Programming） 是一种编程范式，用于将横切关注点（如日志、事务、权限）与核心业务逻辑分离，通过动态注入方式实现代码复用和解耦。</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">术语</th><th style="text-align: left">说明</th></tr></thead><tbody>
+<tr><td style="text-align: left"><strong>切面（Aspect）</strong></td><td style="text-align: left">封装横切逻辑的模块（如日志记录器）。</td></tr>
+<tr><td style="text-align: left"><strong>连接点（Join Point）</strong></td><td style="text-align: left">程序执行的点（如方法调用、异常抛出）。</td></tr>
+<tr><td style="text-align: left"><strong>通知（Advice）</strong></td><td style="text-align: left">切面在连接点执行的动作（如方法执行前、后）。</td></tr>
+<tr><td style="text-align: left"><strong>切入点（Pointcut）</strong></td><td style="text-align: left">定义哪些连接点会被切面拦截（如匹配特定方法名）。</td></tr>
+</tbody></table>
+</div>
+<ol>
+<li>
+<p>动态代理（Dynamic Proxy）</p>
+<p><strong>原理</strong>：运行时生成代理类包装目标对象，拦截方法调用。</p>
+<p><strong>常用库</strong>：</p>
+<ul>
+<li><strong>Castle DynamicProxy</strong>（最流行）</li>
+<li><strong>DispatchProxy</strong>（.NET Core 内置轻量级方案）</li>
+</ul>
+<p>示例：使用 Castle DynamicProxy</p>
+<pre><code class="language-csharp">// 1. 定义拦截器
+public class LogInterceptor : IInterceptor
+{
+    public void Intercept(IInvocation invocation)
+    {
+        Console.WriteLine($"调用方法前: {invocation.Method.Name}");
+        invocation.Proceed(); // 继续执行原方法
+        Console.WriteLine($"调用方法后: {invocation.Method.Name}");
+    }
+}
+
+// 2. 创建代理类
+var proxyGenerator = new ProxyGenerator();
+var service = proxyGenerator.CreateInterfaceProxyWithTarget&lt;IMyService&gt;(
+    new MyService(), // 目标对象
+    new LogInterceptor()); // 拦截器
+
+// 3. 使用代理对象
+service.DoWork(); // 自动触发日志
+</code></pre>
+</li>
+<li>
+<p>中间件（Middleware）</p>
+<p>适用场景：ASP.NET Core 请求管道中的AOP（全局或控制器级别）。</p>
+<p>示例：记录HTTP请求日志</p>
+<pre><code class="language-csharp">  public class LoggingMiddleware
+  {
+      private readonly RequestDelegate _next;
+      public LoggingMiddleware(RequestDelegate next) =&gt; _next = next;
+  
+      public async Task Invoke(HttpContext context)
+      {
+          Console.WriteLine($"请求开始: {context.Request.Path}");
+          await _next(context); // 继续管道
+          Console.WriteLine($"请求结束: {context.Response.StatusCode}");
+      }
+  }
+  
+  // 注册中间件
+  app.UseMiddleware&lt;LoggingMiddleware&gt;();
+</code></pre>
+</li>
+<li>
+<p>过滤器（Filters）</p>
+<p>适用场景：MVC/Web API 中的动作级别AOP。</p>
+<p>类型：</p>
+<ul>
+<li><strong>Action Filter</strong>：方法执行前后拦截</li>
+<li><strong>Exception Filter</strong>：异常处理</li>
+<li><strong>Result Filter</strong>：结果格式化</li>
+</ul>
+<p>示例：Action Filter</p>
+<pre><code class="language-csharp">public class LogActionFilter : IActionFilter
+{
+    public void OnActionExecuting(ActionExecutingContext context)
+        =&gt; Console.WriteLine($"Action执行前: {context.ActionDescriptor.DisplayName}");
+
+    public void OnActionExecuted(ActionExecutedContext context)
+        =&gt; Console.WriteLine($"Action执行后: {context.Result}");
+}
+
+// 注册为全局过滤器
+services.AddControllers(options =&gt; options.Filters.Add&lt;LogActionFilter&gt;());
+</code></pre>
+</li>
+<li>
+<p>源码生成器（Source Generators）</p>
+<p>原理：编译时生成代理代码（高性能，无运行时反射）。</p>
+<p>适用库：</p>
+<ul>
+<li><strong>AspectInjector</strong></li>
+<li><strong>PostSharp</strong>（商业版）</li>
+</ul>
+<p>示例：AspectInjector</p>
+<pre><code class="language-csharp">  [Aspect(Scope.Global)]
+  public class LogAspect
+  {
+      [Advice(Kind.Before)] // 方法执行前切入
+      public void LogEnter([Argument(Source.Name)] string methodName)
+          =&gt; Console.WriteLine($"Entering {methodName}");
+  }
+  
+  // 标记需要拦截的方法
+  [Inject(typeof(LogAspect))]
+  public class MyService { ... }
+</code></pre>
+</li>
+</ol>
+
+                        </div>
+                        <div id="sidetoc">
+                            <nav id="pagetoc"></nav>
+                        </div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../reflection.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../dotnet/webform.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../reflection.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../dotnet/webform.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>

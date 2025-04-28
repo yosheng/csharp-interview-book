@@ -1095,22 +1095,10 @@ Console.WriteLine(lambda(1));
 <li>getResponseHeader()：返回http相应头的值</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="对象关系映射"><a class="header" href="#对象关系映射">对象关系映射</a></h1>
-<h2 id="efentity-framework是什么"><a class="header" href="#efentity-framework是什么">EF(Entity Framework)是什么？</a></h2>
-<p>实体框架EF是http://ADO.NET中的一组支持开发面向数据的软件应用程序的技术，是微软的一个ORM框架。</p>
-<p>主要有三种方式：</p>
-<p>Database FirstDatabase First”模式，我们称之为“数据库优先”，前提是你的应用已经有相应的数据库，你可以使用EF设计工具根据数据库生成数据数据类，你可以使用Visual Studio模型设计器修改这些模型之间对应关系。</p>
-<p>Model FirstModel First我们称之为“模型优先”，这里的模型指的是“ADO.NET Entity Framework Data Model”，此时你的应用并没有设计相关数据库，在Visual Studio中我们通过设计对于的数据模型来生成数据库和数据类。</p>
-<p>Code FirstCode First模式我们称之为“代码优先”模式，是从EF4.1开始新建加入的功能。使用Code First模式进行EF开发时开发人员只需要编写对应的数据类（其实就是领域模型的实现过程），然后自动生成数据库。这样设计的好处在于我们可以针对概念模型进行所有数据操作而不必关心数据的存储关系，使我们可以更加自然的采用面向对象的方式进行面向数据的应用程序开发。</p>
 <h2 id="什么是orm"><a class="header" href="#什么是orm">什么是ORM?</a></h2>
 <p>ORM指的是面向对象的对象模型和关系型数据库的数据结构之间的互相转换。(表实体跟表之间的相互转换)</p>
 <p>ORM框架有很多，EF框架是ORM框架的其中一种，是实现了ORM思想的框架。</p>
 <p>O=&gt;表实体、M=&gt;映射关系、R=&gt;数据库.表</p>
-<h2 id="为什么用ef而不用原生的adonet"><a class="header" href="#为什么用ef而不用原生的adonet">为什么用EF而不用原生的ADO.NET?</a></h2>
-<ol>
-<li>极大的提高开发效率:EF是微软自己的产品,开发中代码都是强类型的,写代码效率非常高,自动化程度非常高,命令式的编程.</li>
-<li>EF提供的模型设计器非常强大,不仅仅带来了设计数据库的革命,也附带来的自动化模型代码的功能也极大的提高开发和架构设计的效率.</li>
-<li>EF跨数据支持的是ORM框架主要功能点之一,带来的是可以通过仅仅改变配置就可以做到跨数据库的能力</li>
-</ol>
 <h2 id="如何提高linq性能问题"><a class="header" href="#如何提高linq性能问题">如何提高LINQ性能问题？</a></h2>
 <p>提升从数据库中拿数据的速度，可以参考以下几种方法：</p>
 <ol>
@@ -1122,6 +1110,19 @@ Console.WriteLine(lambda(1));
 </ol>
 <h2 id="除了ef列举出你知道的orm框架"><a class="header" href="#除了ef列举出你知道的orm框架">除了EF，列举出你知道的ORM框架？</a></h2>
 <p>dapper、EntityFramework、 EJB、Hibernate、IBATIS、TopLink、OJB</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="entity-framework"><a class="header" href="#entity-framework">Entity Framework</a></h1>
+<h2 id="efentity-framework是什么"><a class="header" href="#efentity-framework是什么">EF(Entity Framework)是什么？</a></h2>
+<p>实体框架EF是http://ADO.NET中的一组支持开发面向数据的软件应用程序的技术，是微软的一个ORM框架。</p>
+<p>主要有三种方式：</p>
+<p>Database FirstDatabase First”模式，我们称之为“数据库优先”，前提是你的应用已经有相应的数据库，你可以使用EF设计工具根据数据库生成数据数据类，你可以使用Visual Studio模型设计器修改这些模型之间对应关系。</p>
+<p>Model FirstModel First我们称之为“模型优先”，这里的模型指的是“ADO.NET Entity Framework Data Model”，此时你的应用并没有设计相关数据库，在Visual Studio中我们通过设计对于的数据模型来生成数据库和数据类。</p>
+<p>Code FirstCode First模式我们称之为“代码优先”模式，是从EF4.1开始新建加入的功能。使用Code First模式进行EF开发时开发人员只需要编写对应的数据类（其实就是领域模型的实现过程），然后自动生成数据库。这样设计的好处在于我们可以针对概念模型进行所有数据操作而不必关心数据的存储关系，使我们可以更加自然的采用面向对象的方式进行面向数据的应用程序开发。</p>
+<h2 id="为什么用ef而不用原生的adonet"><a class="header" href="#为什么用ef而不用原生的adonet">为什么用EF而不用原生的ADO.NET?</a></h2>
+<ol>
+<li>极大的提高开发效率:EF是微软自己的产品,开发中代码都是强类型的,写代码效率非常高,自动化程度非常高,命令式的编程.</li>
+<li>EF提供的模型设计器非常强大,不仅仅带来了设计数据库的革命,也附带来的自动化模型代码的功能也极大的提高开发和架构设计的效率.</li>
+<li>EF跨数据支持的是ORM框架主要功能点之一,带来的是可以通过仅仅改变配置就可以做到跨数据库的能力</li>
+</ol>
 <h2 id="如何如何获取ef生成的sql脚本"><a class="header" href="#如何如何获取ef生成的sql脚本">如何如何获取EF生成的Sql脚本？</a></h2>
 <ol>
 <li>可以调试起来通过SqlServerProfiler 来获取Sql</li>
@@ -1139,6 +1140,7 @@ Console.WriteLine(lambda(1));
 </ul>
 <h2 id="如果实体名称和数据库表名不一致该如何处理"><a class="header" href="#如果实体名称和数据库表名不一致该如何处理">如果实体名称和数据库表名不一致，该如何处理？</a></h2>
 <p>实体名称和数据库表名称不一致：可以通过使用TableAttribute 特性；</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="adonet"><a class="header" href="#adonet">ADO.NET</a></h1>
 <h2 id="datareader与dataset有什么区别"><a class="header" href="#datareader与dataset有什么区别">DataReader与Dataset有什么区别？</a></h2>
 <p>一个是只能向前的只读游标，一个是内存中虚拟的数据库。</p>
 <h2 id="adonet中读写数据库需要使用哪些对象作用是什么"><a class="header" href="#adonet中读写数据库需要使用哪些对象作用是什么">ADO.NET中读写数据库需要使用哪些对象？作用是什么？</a></h2>
@@ -1354,6 +1356,198 @@ publicclassTheadWorkTest
 <p>共享程序集通常存储在全局程序集缓存（Global Assembly Cache）之中，这是一个由.NET运行时所维护的程序集仓库。共享程序集通常是对许多应用程序都有用的代码库，比如.NET Framework类。</p>
 <h2 id="什么是gac它解决了什么问题"><a class="header" href="#什么是gac它解决了什么问题">什么是GAC？它解决了什么问题?</a></h2>
 <p>Gloal Assembly Cache，全局应用程序集缓存。它解决了几个程序共享某一个程序集的问题。不必再将那个被共享的程序集拷贝到应用程序目录了，其实这道理很简单，.net应用程序在加载的时候，会首先查看全局应用程序集缓存，如果有就可以直接使用，没有再到应用程序目录进行查找。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="net"><a class="header" href="#net">.NET</a></h1>
+<h2 id="谈一谈对ddd的理解"><a class="header" href="#谈一谈对ddd的理解">谈一谈对DDD的理解?</a></h2>
+<p>DDD，领域驱动设计。就是通过领域来指导软件设计，是一种十分抽象的软件设计思想，它主要分为战略设计和战术设计</p>
+<p>战略方面，通过事件风暴进行领域模型的划分，划分出核心域，子域，支撑域，定义通用语言，划分出界限上下文。</p>
+<p>在战术设计方面，ddd将架构分层，“松耦合，高内聚”是架构设计的整体思想。按照DDD思想，可以分为领域层，基础设施层，应用层，接口层。</p>
+<p>接口层为前端用户提供api接口。基础设施层可以放一些第三方的服务，数据库连接等内容。应用层是对领域服务的编排，是很薄的一层（目前我自己的架构，应用的是cqrs，所有的相关逻辑都是放在了应用层，而领域层只是放了实体，因为暂时还不是特别理解领域层的服务和事件都应该写什么）。领域层包括实体，值对象，聚合根，领域服务，领域事件等内容。</p>
+<h2 id="请简述一下cqrs架构"><a class="header" href="#请简述一下cqrs架构">请简述一下CQRS架构</a></h2>
+<p><strong>CQRS（Command Query Responsibility Segregation）</strong> 是一种架构模式，其核心在于 <strong>分离读写操作</strong>：</p>
+<ul>
+<li><strong>命令（Command）</strong>：修改数据（写操作），返回执行结果（成功/失败），不返回数据。</li>
+<li><strong>查询（Query）</strong>：获取数据（读操作），不改变系统状态。</li>
+</ul>
+<pre><code class="language-mermaid">graph LR
+    A[客户端] --&gt;|命令| B[命令处理器]
+    A --&gt;|查询| C[查询处理器]
+    B --&gt; D[写数据库]
+    C --&gt; E[读数据库]
+    D --&gt;|同步| E
+</code></pre>
+<h2 id="什麽是aopnet-core-如何支持aop"><a class="header" href="#什麽是aopnet-core-如何支持aop">什麽是AOP？.Net Core 如何支持AOP？</a></h2>
+<p>AOP（Aspect-Oriented Programming） 是一种编程范式，用于将横切关注点（如日志、事务、权限）与核心业务逻辑分离，通过动态注入方式实现代码复用和解耦。</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">术语</th><th style="text-align: left">说明</th></tr></thead><tbody>
+<tr><td style="text-align: left"><strong>切面（Aspect）</strong></td><td style="text-align: left">封装横切逻辑的模块（如日志记录器）。</td></tr>
+<tr><td style="text-align: left"><strong>连接点（Join Point）</strong></td><td style="text-align: left">程序执行的点（如方法调用、异常抛出）。</td></tr>
+<tr><td style="text-align: left"><strong>通知（Advice）</strong></td><td style="text-align: left">切面在连接点执行的动作（如方法执行前、后）。</td></tr>
+<tr><td style="text-align: left"><strong>切入点（Pointcut）</strong></td><td style="text-align: left">定义哪些连接点会被切面拦截（如匹配特定方法名）。</td></tr>
+</tbody></table>
+</div>
+<ol>
+<li>
+<p>动态代理（Dynamic Proxy）</p>
+<p><strong>原理</strong>：运行时生成代理类包装目标对象，拦截方法调用。</p>
+<p><strong>常用库</strong>：</p>
+<ul>
+<li><strong>Castle DynamicProxy</strong>（最流行）</li>
+<li><strong>DispatchProxy</strong>（.NET Core 内置轻量级方案）</li>
+</ul>
+<p>示例：使用 Castle DynamicProxy</p>
+<pre><code class="language-csharp">// 1. 定义拦截器
+public class LogInterceptor : IInterceptor
+{
+    public void Intercept(IInvocation invocation)
+    {
+        Console.WriteLine($"调用方法前: {invocation.Method.Name}");
+        invocation.Proceed(); // 继续执行原方法
+        Console.WriteLine($"调用方法后: {invocation.Method.Name}");
+    }
+}
+
+// 2. 创建代理类
+var proxyGenerator = new ProxyGenerator();
+var service = proxyGenerator.CreateInterfaceProxyWithTarget&lt;IMyService&gt;(
+    new MyService(), // 目标对象
+    new LogInterceptor()); // 拦截器
+
+// 3. 使用代理对象
+service.DoWork(); // 自动触发日志
+</code></pre>
+</li>
+<li>
+<p>中间件（Middleware）</p>
+<p>适用场景：ASP.NET Core 请求管道中的AOP（全局或控制器级别）。</p>
+<p>示例：记录HTTP请求日志</p>
+<pre><code class="language-csharp">  public class LoggingMiddleware
+  {
+      private readonly RequestDelegate _next;
+      public LoggingMiddleware(RequestDelegate next) =&gt; _next = next;
+  
+      public async Task Invoke(HttpContext context)
+      {
+          Console.WriteLine($"请求开始: {context.Request.Path}");
+          await _next(context); // 继续管道
+          Console.WriteLine($"请求结束: {context.Response.StatusCode}");
+      }
+  }
+  
+  // 注册中间件
+  app.UseMiddleware&lt;LoggingMiddleware&gt;();
+</code></pre>
+</li>
+<li>
+<p>过滤器（Filters）</p>
+<p>适用场景：MVC/Web API 中的动作级别AOP。</p>
+<p>类型：</p>
+<ul>
+<li><strong>Action Filter</strong>：方法执行前后拦截</li>
+<li><strong>Exception Filter</strong>：异常处理</li>
+<li><strong>Result Filter</strong>：结果格式化</li>
+</ul>
+<p>示例：Action Filter</p>
+<pre><code class="language-csharp">public class LogActionFilter : IActionFilter
+{
+    public void OnActionExecuting(ActionExecutingContext context)
+        =&gt; Console.WriteLine($"Action执行前: {context.ActionDescriptor.DisplayName}");
+
+    public void OnActionExecuted(ActionExecutedContext context)
+        =&gt; Console.WriteLine($"Action执行后: {context.Result}");
+}
+
+// 注册为全局过滤器
+services.AddControllers(options =&gt; options.Filters.Add&lt;LogActionFilter&gt;());
+</code></pre>
+</li>
+<li>
+<p>源码生成器（Source Generators）</p>
+<p>原理：编译时生成代理代码（高性能，无运行时反射）。</p>
+<p>适用库：</p>
+<ul>
+<li><strong>AspectInjector</strong></li>
+<li><strong>PostSharp</strong>（商业版）</li>
+</ul>
+<p>示例：AspectInjector</p>
+<pre><code class="language-csharp">  [Aspect(Scope.Global)]
+  public class LogAspect
+  {
+      [Advice(Kind.Before)] // 方法执行前切入
+      public void LogEnter([Argument(Source.Name)] string methodName)
+          =&gt; Console.WriteLine($"Entering {methodName}");
+  }
+  
+  // 标记需要拦截的方法
+  [Inject(typeof(LogAspect))]
+  public class MyService { ... }
+</code></pre>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="webform"><a class="header" href="#webform">WebForm</a></h1>
+<h2 id="列举aspnet页面之间传递值的几种方式"><a class="header" href="#列举aspnet页面之间传递值的几种方式">列举ASP.NET页面之间传递值的几种方式。</a></h2>
+<ul>
+<li>1).使用QueryString, 如....?id=1; response. Redirect()....</li>
+<li>2).使用Session变量</li>
+<li>3).使用Server.Transfer</li>
+</ul>
+<h2 id="什么是code-behind技术"><a class="header" href="#什么是code-behind技术">什么是Code-Behind技术？</a></h2>
+<p>代码后植。</p>
+<h2 id="什么是aspnet中的用户控件"><a class="header" href="#什么是aspnet中的用户控件">什么是ASP.net中的用户控件？</a></h2>
+<p>用户控件一般用在内容多为静态,或者少许会改变的情况下..用的比较大..类似ASP中的include..但是功能要强大的多。</p>
+<h2 id="什么是code-behind技术-1"><a class="header" href="#什么是code-behind技术-1">什么是code-Behind技术？</a></h2>
+<p>ASPX,RESX和CS三个后缀的文件，这个就是代码分离.实现了HTML代码和服务器代码分离.方便代码编写和整理。</p>
+<h2 id="在net中类systemwebuipage-可以被继承么"><a class="header" href="#在net中类systemwebuipage-可以被继承么">在.Net中，类System.Web.UI.Page 可以被继承么？</a></h2>
+<p>可以。</p>
+<h2 id="--和---有什么区别"><a class="header" href="#--和---有什么区别">&lt;%# %&gt; 和 &lt;% %&gt; 有什么区别？</a></h2>
+<ul>
+<li>&lt;%# %&gt;表示绑定的数据源</li>
+<li>&lt;%%&gt;是服务器端代码块</li>
+</ul>
+<h2 id="说出一些常用的类接口请各举5个"><a class="header" href="#说出一些常用的类接口请各举5个">说出一些常用的类、接口，请各举5个?</a></h2>
+<p>要让人家感觉你对.Net开发很熟，所以，不能仅仅只列谁都能想到的那些东西，要多列你在做项目中涉及的那些东西。就写你最近写的那些程序中涉及的那些类。</p>
+<p>常用的类：StreamReader、WebClient、Dictionary&lt;K,V&gt;、StringBuilder、SqlConnection、FileStream、File、Regex、List</p>
+<p>常用的接口：IDisposable、IEnumerable、IDbConnection、IComparable、ICollection、IList、IDictionary</p>
+<h2 id="aspnet和asp有什么区别"><a class="header" href="#aspnet和asp有什么区别">ASP.NET和ASP有什么区别?</a></h2>
+<p>ASP.NET的脚本是与HTML分离的，代码被编译成了DLL, DLL可以在server端执行。</p>
+<p>ASP的脚本是与HTML在一起的，每次都会进行解释执行。</p>
+<h2 id="简述-applicationsessioncookiecacheviewstate-的概念以及相互之间的区别"><a class="header" href="#简述-applicationsessioncookiecacheviewstate-的概念以及相互之间的区别">简述 Application，session，cookie，cache，viewState 的概念，以及相互之间的区别?</a></h2>
+<ul>
+<li>Application 任意大小 整个应用程序的生命期 所有用户 服务器端</li>
+<li>Seccion 小量，简单的数据 用户活动时间+ 单个用户 服务器端一段延迟时间（一般为20分钟）</li>
+<li>Cookie 小量，简单的数据 可以根据需要设定 单个用户 客户端</li>
+<li>ViewState 小量，简单的数据 一个Web页面的生命期 单个用户 客户端</li>
+<li>Cache 任意大小 可以根据需要设定 所有用户 服务器端</li>
+</ul>
+<h2 id="aspnet中的六大对象有哪些"><a class="header" href="#aspnet中的六大对象有哪些">ASP.NET中的六大对象有哪些？</a></h2>
+<ol>
+<li>Response</li>
+<li>Request</li>
+<li>Server</li>
+<li>Application</li>
+<li>Session</li>
+<li>Cookie</li>
+</ol>
+<h2 id="简单描述ihtttphandler和ihttpmodule的区别和各自的作用"><a class="header" href="#简单描述ihtttphandler和ihttpmodule的区别和各自的作用">简单描述Ihtttphandler和Ihttpmodule的区别和各自的作用？</a></h2>
+<ol>
+<li>先后次序.先IHttpModule,后IHttpHandler. 注:Module要看你响应了哪个事件，一些事件是在Handler之前运行的，一些是在Handler之后运行的</li>
+<li>对请求的处理上:
+IHttpModule 是属于大小通吃类型,无论客户端请求的是什么文件,都会调用到它;例如 aspx,rar,html的请求.
+IHttpHandler则属于挑食类型,只有ASP.net注册过的文件类型(例如aspx,asmx等等) 才会轮到调用它.</li>
+<li>IHttpHandler按照你的请求 生成响应的内容，IHttpModule对请求进行预处理，如验证、修改、过滤等等，同时也可以对响应进行处理</li>
+</ol>
+<h2 id="应用程序池集成模式和经典模式的区别"><a class="header" href="#应用程序池集成模式和经典模式的区别">应用程序池集成模式和经典模式的区别?</a></h2>
+<p>如果托管应用程序在采用集成模式的应用程序池中知运行，服务器将使用 IIS 和 ASP.NET 的集成请求处理管道来处理请求。</p>
+<p>如果托管应用程序在采用经典模式的应用程序池中运行，服务器会继续通过 Aspnet_isapi.dll 路由托管代码请求，其处理请求的方式就像应用程序在 IIS 6.0 中运行一样。</p>
+<h2 id="什么是viewstate能否禁用是否所用控件都可以禁用"><a class="header" href="#什么是viewstate能否禁用是否所用控件都可以禁用">什么是viewstate，能否禁用？是否所用控件都可以禁用?</a></h2>
+<p>Viewstate是保存状态的一种机制，EnableViewState属性设置为false即可禁用</p>
+<h2 id="数据访问通过aspx页面和db层会很慢有什么解决方法"><a class="header" href="#数据访问通过aspx页面和db层会很慢有什么解决方法">数据访问通过aspx页面和DB层会很慢，有什么解决方法?</a></h2>
+<ul>
+<li>（1）浏览器使用缓存；</li>
+<li>（2）使用压缩的JS和CSS</li>
+<li>（3）减少发送HTTP请求的次数；</li>
+<li>（4）后台，对于一些不经常变化的数据进行Cache；</li>
+<li>（5）对可能的低效率的SQL语句进行优化；</li>
+<li>（6）进行服务器负载均衡</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="aspnet-mvc"><a class="header" href="#aspnet-mvc">ASP.NET MVC</a></h1>
 <h2 id="mvc中的tempdataviewbagviewdata区别"><a class="header" href="#mvc中的tempdataviewbagviewdata区别">MVC中的TempData\ViewBag\ViewData区别?</a></h2>
 <p>TempData 保存在Session中，Controller每次执行请求的时候，会从Session中先获取 TempData，而后清除Session，获取完TempData数据，虽然保存在内部字典对象中，但是其集合中的每个条目访问一次后就从字典表中删 除，ViewData存的是Key/Value字典，使用时需要类型转换。</p>
@@ -1593,11 +1787,6 @@ public string ConfirmPass { get; set; }
 <h2 id="如何在controller中注入service"><a class="header" href="#如何在controller中注入service">如何在controller中注入service?</a></h2>
 <p>在config services方法中配置这个service。</p>
 <p>在controller的构造函数中，添加这个依赖注入。</p>
-<h2 id="谈一谈对ddd的理解"><a class="header" href="#谈一谈对ddd的理解">谈一谈对DDD的理解?</a></h2>
-<p>DDD，领域驱动设计。就是通过领域来指导软件设计，是一种十分抽象的软件设计思想，它主要分为战略设计和战术设计</p>
-<p>战略方面，通过事件风暴进行领域模型的划分，划分出核心域，子域，支撑域，定义通用语言，划分出界限上下文。</p>
-<p>在战术设计方面，ddd将架构分层，“松耦合，高内聚”是架构设计的整体思想。按照DDD思想，可以分为领域层，基础设施层，应用层，接口层。</p>
-<p>接口层为前端用户提供api接口。基础设施层可以放一些第三方的服务，数据库连接等内容。应用层是对领域服务的编排，是很薄的一层（目前我自己的架构，应用的是cqrs，所有的相关逻辑都是放在了应用层，而领域层只是放了实体，因为暂时还不是特别理解领域层的服务和事件都应该写什么）。领域层包括实体，值对象，聚合根，领域服务，领域事件等内容。</p>
 <h2 id="aspnet-core-比-aspnet-更具优势的地方是什么"><a class="header" href="#aspnet-core-比-aspnet-更具优势的地方是什么">ASP.NET Core 比 ASP.NET 更具优势的地方是什么？</a></h2>
 <p>跨平台，ASP.NET Core 可以运行在 Windows 、Linux 和 MAC 系统上；</p>
 <p>对框架本安装没有依赖，所有依赖都跟程序本身在一起；</p>
@@ -1870,72 +2059,6 @@ else
 <p>运行时，框架会一层层通过反射构造实例，最终得到完整对象。</p>
 <h2 id="aspnet-core项目如何设置ip地址和端口号"><a class="header" href="#aspnet-core项目如何设置ip地址和端口号">ASP.NET Core项目如何设置IP地址和端口号？</a></h2>
 <p>可以使用Properties文件夹下的launchSettings配置文件来配置不同的启动方式的时候，分别配置IP和端口号。</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="webform"><a class="header" href="#webform">WebForm</a></h1>
-<h2 id="列举aspnet页面之间传递值的几种方式"><a class="header" href="#列举aspnet页面之间传递值的几种方式">列举ASP.NET页面之间传递值的几种方式。</a></h2>
-<ul>
-<li>1).使用QueryString, 如....?id=1; response. Redirect()....</li>
-<li>2).使用Session变量</li>
-<li>3).使用Server.Transfer</li>
-</ul>
-<h2 id="什么是code-behind技术"><a class="header" href="#什么是code-behind技术">什么是Code-Behind技术？</a></h2>
-<p>代码后植。</p>
-<h2 id="什么是aspnet中的用户控件"><a class="header" href="#什么是aspnet中的用户控件">什么是ASP.net中的用户控件？</a></h2>
-<p>用户控件一般用在内容多为静态,或者少许会改变的情况下..用的比较大..类似ASP中的include..但是功能要强大的多。</p>
-<h2 id="什么是code-behind技术-1"><a class="header" href="#什么是code-behind技术-1">什么是code-Behind技术？</a></h2>
-<p>ASPX,RESX和CS三个后缀的文件，这个就是代码分离.实现了HTML代码和服务器代码分离.方便代码编写和整理。</p>
-<h2 id="在net中类systemwebuipage-可以被继承么"><a class="header" href="#在net中类systemwebuipage-可以被继承么">在.Net中，类System.Web.UI.Page 可以被继承么？</a></h2>
-<p>可以。</p>
-<h2 id="--和---有什么区别"><a class="header" href="#--和---有什么区别">&lt;%# %&gt; 和 &lt;% %&gt; 有什么区别？</a></h2>
-<ul>
-<li>&lt;%# %&gt;表示绑定的数据源</li>
-<li>&lt;%%&gt;是服务器端代码块</li>
-</ul>
-<h2 id="说出一些常用的类接口请各举5个"><a class="header" href="#说出一些常用的类接口请各举5个">说出一些常用的类、接口，请各举5个?</a></h2>
-<p>要让人家感觉你对.Net开发很熟，所以，不能仅仅只列谁都能想到的那些东西，要多列你在做项目中涉及的那些东西。就写你最近写的那些程序中涉及的那些类。</p>
-<p>常用的类：StreamReader、WebClient、Dictionary&lt;K,V&gt;、StringBuilder、SqlConnection、FileStream、File、Regex、List</p>
-<p>常用的接口：IDisposable、IEnumerable、IDbConnection、IComparable、ICollection、IList、IDictionary</p>
-<h2 id="aspnet和asp有什么区别"><a class="header" href="#aspnet和asp有什么区别">ASP.NET和ASP有什么区别?</a></h2>
-<p>ASP.NET的脚本是与HTML分离的，代码被编译成了DLL, DLL可以在server端执行。</p>
-<p>ASP的脚本是与HTML在一起的，每次都会进行解释执行。</p>
-<h2 id="简述-applicationsessioncookiecacheviewstate-的概念以及相互之间的区别"><a class="header" href="#简述-applicationsessioncookiecacheviewstate-的概念以及相互之间的区别">简述 Application，session，cookie，cache，viewState 的概念，以及相互之间的区别?</a></h2>
-<ul>
-<li>Application 任意大小 整个应用程序的生命期 所有用户 服务器端</li>
-<li>Seccion 小量，简单的数据 用户活动时间+ 单个用户 服务器端一段延迟时间（一般为20分钟）</li>
-<li>Cookie 小量，简单的数据 可以根据需要设定 单个用户 客户端</li>
-<li>ViewState 小量，简单的数据 一个Web页面的生命期 单个用户 客户端</li>
-<li>Cache 任意大小 可以根据需要设定 所有用户 服务器端</li>
-</ul>
-<h2 id="aspnet中的六大对象有哪些"><a class="header" href="#aspnet中的六大对象有哪些">ASP.NET中的六大对象有哪些？</a></h2>
-<ol>
-<li>Response</li>
-<li>Request</li>
-<li>Server</li>
-<li>Application</li>
-<li>Session</li>
-<li>Cookie</li>
-</ol>
-<h2 id="简单描述ihtttphandler和ihttpmodule的区别和各自的作用"><a class="header" href="#简单描述ihtttphandler和ihttpmodule的区别和各自的作用">简单描述Ihtttphandler和Ihttpmodule的区别和各自的作用？</a></h2>
-<ol>
-<li>先后次序.先IHttpModule,后IHttpHandler. 注:Module要看你响应了哪个事件，一些事件是在Handler之前运行的，一些是在Handler之后运行的</li>
-<li>对请求的处理上:
-IHttpModule 是属于大小通吃类型,无论客户端请求的是什么文件,都会调用到它;例如 aspx,rar,html的请求.
-IHttpHandler则属于挑食类型,只有ASP.net注册过的文件类型(例如aspx,asmx等等) 才会轮到调用它.</li>
-<li>IHttpHandler按照你的请求 生成响应的内容，IHttpModule对请求进行预处理，如验证、修改、过滤等等，同时也可以对响应进行处理</li>
-</ol>
-<h2 id="应用程序池集成模式和经典模式的区别"><a class="header" href="#应用程序池集成模式和经典模式的区别">应用程序池集成模式和经典模式的区别?</a></h2>
-<p>如果托管应用程序在采用集成模式的应用程序池中知运行，服务器将使用 IIS 和 ASP.NET 的集成请求处理管道来处理请求。</p>
-<p>如果托管应用程序在采用经典模式的应用程序池中运行，服务器会继续通过 Aspnet_isapi.dll 路由托管代码请求，其处理请求的方式就像应用程序在 IIS 6.0 中运行一样。</p>
-<h2 id="什么是viewstate能否禁用是否所用控件都可以禁用"><a class="header" href="#什么是viewstate能否禁用是否所用控件都可以禁用">什么是viewstate，能否禁用？是否所用控件都可以禁用?</a></h2>
-<p>Viewstate是保存状态的一种机制，EnableViewState属性设置为false即可禁用</p>
-<h2 id="数据访问通过aspx页面和db层会很慢有什么解决方法"><a class="header" href="#数据访问通过aspx页面和db层会很慢有什么解决方法">数据访问通过aspx页面和DB层会很慢，有什么解决方法?</a></h2>
-<ul>
-<li>（1）浏览器使用缓存；</li>
-<li>（2）使用压缩的JS和CSS</li>
-<li>（3）减少发送HTTP请求的次数；</li>
-<li>（4）后台，对于一些不经常变化的数据进行Cache；</li>
-<li>（5）对可能的低效率的SQL语句进行优化；</li>
-<li>（6）进行服务器负载均衡</li>
-</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="wpf"><a class="header" href="#wpf">WPF</a></h1>
 <h2 id="wpf由哪两部分组成"><a class="header" href="#wpf由哪两部分组成">WPF由哪两部分组成？</a></h2>
 <p>wpf 由两个主要部分 组成：引擎和编程框架。</p>

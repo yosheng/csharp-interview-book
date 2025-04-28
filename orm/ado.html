@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>对象关系映射 - C# 面试笔记</title>
+        <title>ADO.NET - C# 面试笔记</title>
 
 
         <!-- Custom HTML head -->
@@ -12,34 +12,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/pagetoc.css">
-        <link rel="stylesheet" href="./mdbook-admonish.css">
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+        <link rel="stylesheet" href=".././mdbook-admonish.css">
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">C# 面试笔记</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -155,51 +155,7 @@
                 <div id="content" class="content">
                     <main>
                         <div class="content-wrap">
-                            <h1 id="对象关系映射"><a class="header" href="#对象关系映射">对象关系映射</a></h1>
-<h2 id="efentity-framework是什么"><a class="header" href="#efentity-framework是什么">EF(Entity Framework)是什么？</a></h2>
-<p>实体框架EF是http://ADO.NET中的一组支持开发面向数据的软件应用程序的技术，是微软的一个ORM框架。</p>
-<p>主要有三种方式：</p>
-<p>Database FirstDatabase First”模式，我们称之为“数据库优先”，前提是你的应用已经有相应的数据库，你可以使用EF设计工具根据数据库生成数据数据类，你可以使用Visual Studio模型设计器修改这些模型之间对应关系。</p>
-<p>Model FirstModel First我们称之为“模型优先”，这里的模型指的是“ADO.NET Entity Framework Data Model”，此时你的应用并没有设计相关数据库，在Visual Studio中我们通过设计对于的数据模型来生成数据库和数据类。</p>
-<p>Code FirstCode First模式我们称之为“代码优先”模式，是从EF4.1开始新建加入的功能。使用Code First模式进行EF开发时开发人员只需要编写对应的数据类（其实就是领域模型的实现过程），然后自动生成数据库。这样设计的好处在于我们可以针对概念模型进行所有数据操作而不必关心数据的存储关系，使我们可以更加自然的采用面向对象的方式进行面向数据的应用程序开发。</p>
-<h2 id="什么是orm"><a class="header" href="#什么是orm">什么是ORM?</a></h2>
-<p>ORM指的是面向对象的对象模型和关系型数据库的数据结构之间的互相转换。(表实体跟表之间的相互转换)</p>
-<p>ORM框架有很多，EF框架是ORM框架的其中一种，是实现了ORM思想的框架。</p>
-<p>O=&gt;表实体、M=&gt;映射关系、R=&gt;数据库.表</p>
-<h2 id="为什么用ef而不用原生的adonet"><a class="header" href="#为什么用ef而不用原生的adonet">为什么用EF而不用原生的ADO.NET?</a></h2>
-<ol>
-<li>极大的提高开发效率:EF是微软自己的产品,开发中代码都是强类型的,写代码效率非常高,自动化程度非常高,命令式的编程.</li>
-<li>EF提供的模型设计器非常强大,不仅仅带来了设计数据库的革命,也附带来的自动化模型代码的功能也极大的提高开发和架构设计的效率.</li>
-<li>EF跨数据支持的是ORM框架主要功能点之一,带来的是可以通过仅仅改变配置就可以做到跨数据库的能力</li>
-</ol>
-<h2 id="如何提高linq性能问题"><a class="header" href="#如何提高linq性能问题">如何提高LINQ性能问题？</a></h2>
-<p>提升从数据库中拿数据的速度，可以参考以下几种方法：</p>
-<ol>
-<li>在数据库中的表中定义合适的索引和键</li>
-<li>只获得你需要的列（使用ViewModel或者改进你的查询）和行（使用IQueryable）</li>
-<li>尽可能使用一条查询而不是多条</li>
-<li>只为了展示数据，而不进行后续修改时，可以使用AsNoTracking。它不会影响生成的SQL，但它可以令系统少维护很多数据，从而提高性能</li>
-<li>使用Reshaper等工具，它可能会在你写出较差的代码时给出提醒</li>
-</ol>
-<h2 id="除了ef列举出你知道的orm框架"><a class="header" href="#除了ef列举出你知道的orm框架">除了EF，列举出你知道的ORM框架？</a></h2>
-<p>dapper、EntityFramework、 EJB、Hibernate、IBATIS、TopLink、OJB</p>
-<h2 id="如何如何获取ef生成的sql脚本"><a class="header" href="#如何如何获取ef生成的sql脚本">如何如何获取EF生成的Sql脚本？</a></h2>
-<ol>
-<li>可以调试起来通过SqlServerProfiler 来获取Sql</li>
-<li>EF Dbcontext 注册日志事件输出日志查看Sql</li>
-</ol>
-<h2 id="在哪些类型额项目中你会选择ef-为什么"><a class="header" href="#在哪些类型额项目中你会选择ef-为什么">在哪些类型额项目中你会选择EF? 为什么？</a></h2>
-<p>这个要结合EF的特点来说：EF主要是以面向对象的思想来做数据库数据操作，对Sql语句能力没什么要求，开发使用效率高！便于上手，一般来说，使用EF框架，肯定会比直接使用ADO.NET，消耗的时间多一些。 所以在一般企业级开发，管理型系统，对数据性能要求不是特别高的情况下，优先选择EF,这样可以大大的推进开发效率！如果像一些互联网项目中，对性能要求精度很高！可以另外做技术选型，选择原生ADO.NET。</p>
-<h2 id="请说明ef中映射实体对象的几种状态"><a class="header" href="#请说明ef中映射实体对象的几种状态">请说明EF中映射实体对象的几种状态？</a></h2>
-<ul>
-<li>Detached：该实体未由上下文跟踪。刚使用新运算符或某个 System.Data.Entity.DbSet Create 方法创建实体后，实体就处于此状态。</li>
-<li>Unchanged：实体将由上下文跟踪并存在于数据库中，其属性值与数据库中的值相同。</li>
-<li>Added：实体将由上下文跟踪，但是在数据库中还不存在。</li>
-<li>Deleted：实体将由上下文跟踪并存在于数据库中，但是已被标记为在下次调用 SaveChanges 时从数据库中删除。</li>
-<li>Modified：实体将由上下文跟踪并存在于数据库中，已修改其中的一些或所有属性值。</li>
-</ul>
-<h2 id="如果实体名称和数据库表名不一致该如何处理"><a class="header" href="#如果实体名称和数据库表名不一致该如何处理">如果实体名称和数据库表名不一致，该如何处理？</a></h2>
-<p>实体名称和数据库表名称不一致：可以通过使用TableAttribute 特性；</p>
+                            <h1 id="adonet"><a class="header" href="#adonet">ADO.NET</a></h1>
 <h2 id="datareader与dataset有什么区别"><a class="header" href="#datareader与dataset有什么区别">DataReader与Dataset有什么区别？</a></h2>
 <p>一个是只能向前的只读游标，一个是内存中虚拟的数据库。</p>
 <h2 id="adonet中读写数据库需要使用哪些对象作用是什么"><a class="header" href="#adonet中读写数据库需要使用哪些对象作用是什么">ADO.NET中读写数据库需要使用哪些对象？作用是什么？</a></h2>
@@ -232,11 +188,11 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="web-communication.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../orm/ef.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="thread-async.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../thread-async.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -246,11 +202,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="web-communication.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../orm/ef.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="thread-async.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../thread-async.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -265,16 +221,16 @@
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="theme/pagetoc.js"></script>
+        <script src="../theme/pagetoc.js"></script>
 
 
     </div>
