@@ -25,4 +25,5 @@
 - [WinForm](./winform.md)
 - [常见的算法](./algorithm.md)
 - [数据库](./database/database.md)
-- [数据库查询](./database/database-search.md)
+    - [Redis](./database/redis.md)
+    - [数据库查询](./database/database-search.md)
