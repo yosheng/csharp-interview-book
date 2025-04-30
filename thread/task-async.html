@@ -220,6 +220,13 @@ stream.BeginRead(buffer, 0, buffer.Length, asyncResult =&gt;
 </code></pre>
 </li>
 </ol>
+<h2 id="请简述async-函数的编译方式"><a class="header" href="#请简述async-函数的编译方式">请简述async 函数的编译方式?</a></h2>
+<p>async/await是C# 5.0推出的异步代码编程模型，其本质是编译为状态机。只要函数前带上async，就会将函数转换为状态机。</p>
+<p>具体在实际编码中怎么用呢?举个例子:</p>
+<p>小明早上起床要吃早餐:要刷牙洗脸(2分钟),要冲牛奶(5分钟),要煎鸡蛋(3分钟),然后所有都准备好了,开吃.</p>
+<p>如果这个需求以同步的方式进行,总共会花10分钟,才能成功吃到早餐.</p>
+<p>但是在函数上添加async,在刷牙洗脸,冲牛奶,煎鸡蛋前添加await,因为是同步执行,并等待所有线程执行完成,就可以成功吃到早餐,只需要5分钟.</p>
+<p>还有一种情况:在函数上添加async,在刷牙洗脸,冲牛奶,煎鸡蛋前不添加await,这样函数里的要干的事情,将不会阻塞,直接2分钟就跳出函数.但是不能成功吃到早餐.因为未添加await,函数结束后,不能保证所有动作都执行完成.</p>
 <h2 id="写出控制台输出的字符串顺序"><a class="header" href="#写出控制台输出的字符串顺序">写出控制台输出的字符串顺序</a></h2>
 <p>先看一个例子（<a href="https://www.cnblogs.com/jonins/p/9558275.html">来源</a>）</p>
 <pre><code class="language-csharp">class Program
@@ -281,7 +288,7 @@ Hello,jack
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../reflection.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../thread/task-parallel.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -295,7 +302,7 @@ Hello,jack
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../reflection.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../thread/task-parallel.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

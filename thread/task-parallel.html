@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>反射 - C# 面试笔记</title>
+        <title>Task与并行 - C# 面试笔记</title>
 
 
         <!-- Custom HTML head -->
@@ -12,34 +12,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/pagetoc.css">
-        <link rel="stylesheet" href="./mdbook-admonish.css">
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+        <link rel="stylesheet" href=".././mdbook-admonish.css">
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">C# 面试笔记</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -155,16 +155,48 @@
                 <div id="content" class="content">
                     <main>
                         <div class="content-wrap">
-                            <h1 id="反射与aop"><a class="header" href="#反射与aop">反射与AOP</a></h1>
-<h2 id="什么是反射"><a class="header" href="#什么是反射">什么是反射?</a></h2>
-<p>程序集包含模块，而模块又包括类型，类型下有成员，反射就是管理程序集，模块，类型的对象，它能够动态的创建类型的实例，设置现有对象的类型或者获取现有对象的类型，能调用类型的方法和访问类型的字段属性。它是在运行时创建和使用类型实例。</p>
-<h2 id="在c中反射是什么处理反射相关的namespace是什么"><a class="header" href="#在c中反射是什么处理反射相关的namespace是什么">在c#中，反射是什么？处理反射相关的namespace是什么？</a></h2>
-<p>反射（Reflection）是.NET中的重要机制，通过放射，可以在运行时获 得.NET 中每一个类型（包括类、结构、委托、接口和枚举等）的成员，包括方法、属性、事件，以及构造函数等。还可以获得每个成员的名称、限定符和参数等。</p>
-<h2 id="私有程序集与共享程序集有什么区别"><a class="header" href="#私有程序集与共享程序集有什么区别">私有程序集与共享程序集有什么区别？</a></h2>
-<p>一个私有程序集通常为单个应用程序所使用，并且存储于这个应用程序所在的目录之中，或此目录下面的一个子目录中。</p>
-<p>共享程序集通常存储在全局程序集缓存（Global Assembly Cache）之中，这是一个由.NET运行时所维护的程序集仓库。共享程序集通常是对许多应用程序都有用的代码库，比如.NET Framework类。</p>
-<h2 id="什么是gac它解决了什么问题"><a class="header" href="#什么是gac它解决了什么问题">什么是GAC？它解决了什么问题?</a></h2>
-<p>Gloal Assembly Cache，全局应用程序集缓存。它解决了几个程序共享某一个程序集的问题。不必再将那个被共享的程序集拷贝到应用程序目录了，其实这道理很简单，.net应用程序在加载的时候，会首先查看全局应用程序集缓存，如果有就可以直接使用，没有再到应用程序目录进行查找。</p>
+                            <h1 id="task与并行"><a class="header" href="#task与并行">Task与并行</a></h1>
+<h2 id="聊聊任务task-与并行parallel"><a class="header" href="#聊聊任务task-与并行parallel">聊聊任务Task 与并行Parallel</a></h2>
+<p>下述内容出自：https://www.dongchuanmin.com/csharp/1960.html</p>
+<p>任务Task与并行Parallel本质上内部都是使用的线程池，提供了更丰富的并行编程的方式。任务Task基于线程池，可支持返回值，支持比较强大的任务执行计划定制等功能，下面是一个简单的示例。Task提供了很多方法和属性，通过这些方法和属性能够对Task的执行进行控制，并且能够获得其状态信息。Task的创建和执行都是独立的，因此可以对关联操作的执行拥有完全的控制权。</p>
+<pre><code class="language-csharp">//创建一个任务
+Task&lt;int&gt; t1 = new Task&lt;int&gt;(n =&gt;
+{
+    System.Threading.Thread.Sleep(1000);
+    return (int)n;
+}, 1000);
+//定制一个延续任务计划
+t1.ContinueWith(task =&gt;
+{
+    Console.WriteLine("end" + t1.Result);
+}, TaskContinuationOptions.AttachedToParent);
+t1.Start();
+//使用Task.Factory创建并启动一个任务
+var t2 = System.Threading.Tasks.Task.Factory.StartNew(() =&gt;
+{
+    Console.WriteLine("t1:" + t1.Status);
+});
+Task.WaitAll();
+Console.WriteLine(t1.Result);
+</code></pre>
+<p>并行Parallel内部其实使用的是Task对象（TPL会在内部创建System.Threading.Tasks.Task的实例），所有并行任务完成后才会返回。少量短时间任务建议就不要使用并行Parallel了，并行Parallel本身也是有性能开销的，而且还要进行并行任务调度、创建调用方法的委托等等。</p>
+<h2 id="下面代码输出结果是什么为什么"><a class="header" href="#下面代码输出结果是什么为什么">下面代码输出结果是什么？为什么？</a></h2>
+<pre><code class="language-csharp">int a = 0;
+System.Threading.Tasks.Parallel.For(0, 100000, (i) =&gt;
+{
+    a++;
+});
+Console.Write(a);
+</code></pre>
+<p>输出结果不稳定，小于等于100000。因为多线程访问，没有使用锁机制，会导致有更新丢失。</p>
+<h2 id="多线程并行parallelism和并发concurrency的区别"><a class="header" href="#多线程并行parallelism和并发concurrency的区别">多线程并行（Parallelism）和并发（Concurrency）的区别</a></h2>
+<ul>
+<li>并行：同一时刻有多条指令在多个处理器上同时执行，无论从宏观还是微观上都是同时发生的。</li>
+<li>并发：是指在同一时间段内，宏观上看多个指令看起来是同时执行，微观上看是多个指令进程在快速的切换执行，同一时刻可能只有一条指令被执行。</li>
+</ul>
+<h2 id="c-parallelfor和普通for的区别"><a class="header" href="#c-parallelfor和普通for的区别">C# Parallel.For和普通For的区别</a></h2>
+<p>Parallel类是.NET 4中新增的抽象线程类。Parallel.For()方法类似于C#的for循环语句，也是多次执行一个任务。但是使用Parallel.For()方法，可以并行运行。</p>
+<p>对于Parallel.For、Parallel.Foreach的使用应该要特别小心，它们的优势是处理列表很长，且对列表内的元素进行很复杂的业务逻辑，且不会使用共享资源，只针对自身的业务逻辑处理，方才能提升效率。</p>
 
                         </div>
                         <div id="sidetoc">
@@ -174,11 +206,11 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="thread/task-parallel.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../thread/task-async.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="dotnet/dotnet.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../reflection.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -188,11 +220,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="thread/task-parallel.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../thread/task-async.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="dotnet/dotnet.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../reflection.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -207,16 +239,16 @@
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="theme/pagetoc.js"></script>
+        <script src="../theme/pagetoc.js"></script>
 
 
     </div>
