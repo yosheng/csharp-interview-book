@@ -38,3 +38,10 @@ Code FirstCode First模式我们称之为“代码优先”模式，是从EF4.1�
 ## 如果实体名称和数据库表名不一致，该如何处理？
 
 实体名称和数据库表名称不一致：可以通过使用TableAttribute 特性；
+
+## ORM中的延迟加载与直接加载有什麽差别？
+
+延迟加载（Lazy Loading）只在真正需要进行数据操作的时候再进行加载数据，可以减少不必要的开销。
+
+详见：https://www.cnblogs.com/cplemom/p/11499527.html
+

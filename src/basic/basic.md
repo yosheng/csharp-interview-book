@@ -66,14 +66,11 @@ private static byte get(int n)
 
 CTS：通用语言系统。CLS：通用语言规范。CLR：公共语言运行库。
 
-CTS：Common Type System 通用类型系统。Int32、Int16→int、String→string、Boolean→bool。
-每种语言都定义了自己的类型，.Net通过CTS提供了公共的类型，然后翻译生成对应的.Net类型。
+CTS：Common Type System 通用类型系统。Int32、Int16→int、String→string、Boolean→bool。每种语言都定义了自己的类型，.Net通过CTS提供了公共的类型，然后翻译生成对应的.Net类型。
 
-CLS：Common Language Specification 通用语言规范。不同语言语法的不同。每种语言都有自己的
-语法，.Net通过CLS提供了公共的语法，然后不同语言翻译生成对应的.Net语法。
+CLS：Common Language Specification 通用语言规范。不同语言语法的不同。每种语言都有自己的语法，.Net通过CLS提供了公共的语法，然后不同语言翻译生成对应的.Net语法。
 
-CLR：Common Language Runtime 公共语言运行时，就是GC、JIT等这些。有不同的CLR，比如服务
-器CLR、Linux CLR（Mono）、Silverlight CLR(CoreCLR)。相当于一个发动机，负责执行IL。
+CLR：Common Language Runtime 公共语言运行时，就是GC、JIT等这些。有不同的CLR，比如服务器CLR、Linux CLR（Mono）、Silverlight CLR(CoreCLR)。相当于一个发动机，负责执行IL。
 
 ## 在.net中，配件的意思是？
 
@@ -121,16 +118,6 @@ o1.count的值是多少？
 
 答案：3，静态 构造方法计算一次，两个实例化对象计算两次。
 
-## 关于构造函数说法正确的是哪个？
-
-- a)构造函数可以声明返回类型。
-- b)构造函数不可以用private修饰
-- c)构造函数必须与类名相同
-- d)构造函数不能带参数
-
-答案：c ，构造函数必须与类名相同，可以传递多个传递，作用就是便于初始化对象成员，不能有任何
-返回类型
-
 ## Math.Round(11.5)等於多少? Math.Round(-11.5)等於多少?
 
 Math.Round(11.5)=12
@@ -157,10 +144,10 @@ if(loginUser!=null & &string.IsnullOrEmpty(loginUser.UserName))
 
 &是位运算，返回结果是int类型 &&是逻辑运算，返回结果是bool类型
 
-## i和i有什么区别？
+## i++和++i有什么区别？
 
 1. i++是先赋值，然后再自增；++i是先自增，后赋值。
-2. i=0，i++=0，++i=1； Console.WriteLine(i==i); 结果位true
+2. i=0，i++=0，++i=1； Console.WriteLine(++i==i++); 结果位true
 
 ## 什么是协变和逆变?
 
