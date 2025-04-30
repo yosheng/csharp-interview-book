@@ -156,6 +156,16 @@
                     <main>
                         <div class="content-wrap">
                             <h1 id="内存管理"><a class="header" href="#内存管理">内存管理</a></h1>
+<h2 id="c-中堆和栈的区别"><a class="header" href="#c-中堆和栈的区别">C# 中堆和栈的区别？</a></h2>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left"><strong>对比维度</strong></th><th style="text-align: left"><strong>栈（Stack）</strong></th><th style="text-align: left"><strong>堆（Heap）</strong></th></tr></thead><tbody>
+<tr><td style="text-align: left"><strong>存储内容</strong></td><td style="text-align: left">值类型（<code>int</code>、<code>struct</code>）、方法调用的局部变量、参数</td><td style="text-align: left">引用类型（<code>class</code>、<code>string</code>、<code>数组</code>）的对象实例</td></tr>
+<tr><td style="text-align: left"><strong>分配与释放</strong></td><td style="text-align: left">自动分配/释放（方法结束时立即回收） 速度快（移动栈指针）</td><td style="text-align: left">手动分配/GC自动回收 速度较慢（需内存管理）</td></tr>
+<tr><td style="text-align: left"><strong>生命周期</strong></td><td style="text-align: left">与方法调用绑定，作用域结束立即失效</td><td style="text-align: left">由GC管理，可能存活多轮垃圾回收（分代机制）</td></tr>
+<tr><td style="text-align: left"><strong>访问速度</strong></td><td style="text-align: left">极快（直接操作内存，CPU缓存友好）</td><td style="text-align: left">较慢（需通过引用间接访问）</td></tr>
+<tr><td style="text-align: left"><strong>大小限制</strong></td><td style="text-align: left">固定大小（默认1MB/线程） 栈溢出引发 <code>StackOverflowException</code></td><td style="text-align: left">仅受虚拟内存限制（GB级） 溢出引发 <code>OutOfMemoryException</code></td></tr>
+<tr><td style="text-align: left"><strong>典型场景</strong></td><td style="text-align: left">临时变量、方法参数、线程独占数据</td><td style="text-align: left">对象实例、集合、共享数据</td></tr>
+</tbody></table>
+</div>
 <h2 id="c可否对内存进行直接的操作"><a class="header" href="#c可否对内存进行直接的操作">C#可否对内存进行直接的操作？</a></h2>
 <p>C#在Unsafe 模式下可以使用指针对内存进行操作, 但在托管模式下不可以使用指针。</p>
 <ol>
@@ -207,9 +217,10 @@ try {
 <h2 id="什么是受管制的代码"><a class="header" href="#什么是受管制的代码">什么是受管制的代码？</a></h2>
 <p>unsafe：非托管代码。不经过CLR运行。</p>
 <h2 id="什么是托管代码非托管代码托管代码-managed-code"><a class="header" href="#什么是托管代码非托管代码托管代码-managed-code">什么是托管代码、非托管代码托管代码 (managed code)</a></h2>
-<p>由公共语言运行库环境（而不是直接由操作系统）执行的代码。托管代码应用程序可以获得公共语言运行库服务，例如自动垃圾回收、运行库类型检查和安全支持等。这些服务帮助提供独立于平台和语言的、统一的托管代码应用程序行为。</p>
+<p>托管代码</p>
+<p>由公共语言运行库环境（而不是直接由操作系统）执行的代码。托管代码应用程序可以获得公共语言运行库服务，例如自动垃圾回收、运行库类型检查和安全支持等。这些服务帮助提供独立于平台和语言的、统一的托管代码应用程序行为。有关内存管理（内存申请，内存释放，垃圾回收之类的）全部都是.net 的CLR来管理。</p>
 <p>非托管代码 (unmanaged code)</p>
-<p>在公共语言运行库环境的外部，由操作系统直接执行的代码。非托管代码必须提供自己的垃圾回收、类型检查、安全支持等服务；它与托管代码不同，后者从公共语言运行库中获得这些服务。</p>
+<p>在公共语言运行库环境的外部，由操作系统直接执行的代码。非托管代码必须提供自己的垃圾回收、类型检查、安全支持等服务；它与托管代码不同，后者从公共语言运行库中获得这些服务。内存回收要继承IDisposable 接口手动回收。</p>
 <h2 id="gc是什么-为什么要有gc"><a class="header" href="#gc是什么-为什么要有gc">GC是什么? 为什么要有GC?</a></h2>
 <ol>
 <li>GC是垃圾收集器。程序员不用担心内存管理，因为垃圾收集器会自动进行管理.</li>

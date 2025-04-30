@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Entity Framework - C# 面试笔记</title>
+        <title>构造函数 - C# 面试笔记</title>
 
 
         <!-- Custom HTML head -->
@@ -155,39 +155,29 @@
                 <div id="content" class="content">
                     <main>
                         <div class="content-wrap">
-                            <h1 id="entity-framework"><a class="header" href="#entity-framework">Entity Framework</a></h1>
-<h2 id="efentity-framework是什么"><a class="header" href="#efentity-framework是什么">EF(Entity Framework)是什么？</a></h2>
-<p>实体框架EF是http://ADO.NET中的一组支持开发面向数据的软件应用程序的技术，是微软的一个ORM框架。</p>
-<p>主要有三种方式：</p>
-<p>Database FirstDatabase First”模式，我们称之为“数据库优先”，前提是你的应用已经有相应的数据库，你可以使用EF设计工具根据数据库生成数据数据类，你可以使用Visual Studio模型设计器修改这些模型之间对应关系。</p>
-<p>Model FirstModel First我们称之为“模型优先”，这里的模型指的是“ADO.NET Entity Framework Data Model”，此时你的应用并没有设计相关数据库，在Visual Studio中我们通过设计对于的数据模型来生成数据库和数据类。</p>
-<p>Code FirstCode First模式我们称之为“代码优先”模式，是从EF4.1开始新建加入的功能。使用Code First模式进行EF开发时开发人员只需要编写对应的数据类（其实就是领域模型的实现过程），然后自动生成数据库。这样设计的好处在于我们可以针对概念模型进行所有数据操作而不必关心数据的存储关系，使我们可以更加自然的采用面向对象的方式进行面向数据的应用程序开发。</p>
-<h2 id="为什么用ef而不用原生的adonet"><a class="header" href="#为什么用ef而不用原生的adonet">为什么用EF而不用原生的ADO.NET?</a></h2>
-<ol>
-<li>极大的提高开发效率:EF是微软自己的产品,开发中代码都是强类型的,写代码效率非常高,自动化程度非常高,命令式的编程.</li>
-<li>EF提供的模型设计器非常强大,不仅仅带来了设计数据库的革命,也附带来的自动化模型代码的功能也极大的提高开发和架构设计的效率.</li>
-<li>EF跨数据支持的是ORM框架主要功能点之一,带来的是可以通过仅仅改变配置就可以做到跨数据库的能力</li>
-</ol>
-<h2 id="如何如何获取ef生成的sql脚本"><a class="header" href="#如何如何获取ef生成的sql脚本">如何如何获取EF生成的Sql脚本？</a></h2>
-<ol>
-<li>可以调试起来通过SqlServerProfiler 来获取Sql</li>
-<li>EF Dbcontext 注册日志事件输出日志查看Sql</li>
-</ol>
-<h2 id="在哪些类型额项目中你会选择ef-为什么"><a class="header" href="#在哪些类型额项目中你会选择ef-为什么">在哪些类型额项目中你会选择EF? 为什么？</a></h2>
-<p>这个要结合EF的特点来说：EF主要是以面向对象的思想来做数据库数据操作，对Sql语句能力没什么要求，开发使用效率高！便于上手，一般来说，使用EF框架，肯定会比直接使用ADO.NET，消耗的时间多一些。 所以在一般企业级开发，管理型系统，对数据性能要求不是特别高的情况下，优先选择EF,这样可以大大的推进开发效率！如果像一些互联网项目中，对性能要求精度很高！可以另外做技术选型，选择原生ADO.NET。</p>
-<h2 id="请说明ef中映射实体对象的几种状态"><a class="header" href="#请说明ef中映射实体对象的几种状态">请说明EF中映射实体对象的几种状态？</a></h2>
+                            <h1 id="构造函数"><a class="header" href="#构造函数">构造函数</a></h1>
+<h2 id="关于构造函数说法正确的是哪个"><a class="header" href="#关于构造函数说法正确的是哪个">关于构造函数说法正确的是哪个？</a></h2>
 <ul>
-<li>Detached：该实体未由上下文跟踪。刚使用新运算符或某个 System.Data.Entity.DbSet Create 方法创建实体后，实体就处于此状态。</li>
-<li>Unchanged：实体将由上下文跟踪并存在于数据库中，其属性值与数据库中的值相同。</li>
-<li>Added：实体将由上下文跟踪，但是在数据库中还不存在。</li>
-<li>Deleted：实体将由上下文跟踪并存在于数据库中，但是已被标记为在下次调用 SaveChanges 时从数据库中删除。</li>
-<li>Modified：实体将由上下文跟踪并存在于数据库中，已修改其中的一些或所有属性值。</li>
+<li>a)构造函数可以声明返回类型。</li>
+<li>b)构造函数不可以用private修饰</li>
+<li>c)构造函数必须与类名相同</li>
+<li>d)构造函数不能带参数</li>
 </ul>
-<h2 id="如果实体名称和数据库表名不一致该如何处理"><a class="header" href="#如果实体名称和数据库表名不一致该如何处理">如果实体名称和数据库表名不一致，该如何处理？</a></h2>
-<p>实体名称和数据库表名称不一致：可以通过使用TableAttribute 特性；</p>
-<h2 id="orm中的延迟加载与直接加载有什麽差别"><a class="header" href="#orm中的延迟加载与直接加载有什麽差别">ORM中的延迟加载与直接加载有什麽差别？</a></h2>
-<p>延迟加载（Lazy Loading）只在真正需要进行数据操作的时候再进行加载数据，可以减少不必要的开销。</p>
-<p>详见：https://www.cnblogs.com/cplemom/p/11499527.html</p>
+<p>答案：c ，构造函数必须与类名相同，可以传递多个传递，作用就是便于初始化对象成员，不能有任何
+返回类型</p>
+<h2 id="什么是构造函数"><a class="header" href="#什么是构造函数">什么是构造函数？</a></h2>
+<ul>
+<li>概念：构造函数的方法名与类型相同、没有返回类型</li>
+<li>作用：完成对类的对象初始化</li>
+</ul>
+<p>创建一个类的新对象时，系统会自动调用该构造函数初始化新对象， 如果没有写定义，那么系统会自动提供一个不带任何参数的public 构造函数</p>
+<h2 id="构造函数是否能被重写"><a class="header" href="#构造函数是否能被重写">构造函数是否能被重写？</a></h2>
+<p>构造器Constructor不能被继承，因此不能重写，但可以被重载</p>
+<h2 id="c中有没有静态构造函数如果有是做什么用的"><a class="header" href="#c中有没有静态构造函数如果有是做什么用的">C#中有没有静态构造函数，如果有是做什么用的？</a></h2>
+<p>特点： 静态构造函数既没有访问修饰符，也没有参数。在创建第一个实例或引用任何静态成员之前，将自动调用静态构造函数来初始化类。无法直接调用静态构造函数。在程序中，用户无法控制何时执行静态构造函数。</p>
+<p>用途 : 当类使用日志文件时，将使用这种构造函数向日志文件中写入项。</p>
+<h2 id="c静态构造函数特点是什么"><a class="header" href="#c静态构造函数特点是什么">C#静态构造函数特点是什么？</a></h2>
+<p>最先被执行的构造函数，且在一个类里只允许有一个无参的静态构造函数执行顺序：静态变量 &gt; 静态构造函数 &gt; 实例变量 &gt; 实例构造函数</p>
 
                         </div>
                         <div id="sidetoc">
@@ -197,11 +187,11 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../orm/orm.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../object-oriented/object-oriented.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../orm/ado.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../object-oriented/design-pattern.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -211,11 +201,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../orm/orm.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../object-oriented/object-oriented.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../orm/ado.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../object-oriented/design-pattern.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

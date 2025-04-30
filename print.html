@@ -202,12 +202,9 @@
 </code></pre>
 <h2 id="ctsclsclr分别作何解释"><a class="header" href="#ctsclsclr分别作何解释">CTS、CLS、CLR分别作何解释</a></h2>
 <p>CTS：通用语言系统。CLS：通用语言规范。CLR：公共语言运行库。</p>
-<p>CTS：Common Type System 通用类型系统。Int32、Int16→int、String→string、Boolean→bool。
-每种语言都定义了自己的类型，.Net通过CTS提供了公共的类型，然后翻译生成对应的.Net类型。</p>
-<p>CLS：Common Language Specification 通用语言规范。不同语言语法的不同。每种语言都有自己的
-语法，.Net通过CLS提供了公共的语法，然后不同语言翻译生成对应的.Net语法。</p>
-<p>CLR：Common Language Runtime 公共语言运行时，就是GC、JIT等这些。有不同的CLR，比如服务
-器CLR、Linux CLR（Mono）、Silverlight CLR(CoreCLR)。相当于一个发动机，负责执行IL。</p>
+<p>CTS：Common Type System 通用类型系统。Int32、Int16→int、String→string、Boolean→bool。每种语言都定义了自己的类型，.Net通过CTS提供了公共的类型，然后翻译生成对应的.Net类型。</p>
+<p>CLS：Common Language Specification 通用语言规范。不同语言语法的不同。每种语言都有自己的语法，.Net通过CLS提供了公共的语法，然后不同语言翻译生成对应的.Net语法。</p>
+<p>CLR：Common Language Runtime 公共语言运行时，就是GC、JIT等这些。有不同的CLR，比如服务器CLR、Linux CLR（Mono）、Silverlight CLR(CoreCLR)。相当于一个发动机，负责执行IL。</p>
 <h2 id="在net中配件的意思是-1"><a class="header" href="#在net中配件的意思是-1">在.net中，配件的意思是？</a></h2>
 <p>程序集。（中间语言，源数据，资源，装配清单）</p>
 <h2 id="c可否对内存直接操作"><a class="header" href="#c可否对内存直接操作">c#可否对内存直接操作</a></h2>
@@ -240,15 +237,6 @@ Class1 o2 = new Class1();
 </code></pre>
 <p>o1.count的值是多少？</p>
 <p>答案：3，静态 构造方法计算一次，两个实例化对象计算两次。</p>
-<h2 id="关于构造函数说法正确的是哪个"><a class="header" href="#关于构造函数说法正确的是哪个">关于构造函数说法正确的是哪个？</a></h2>
-<ul>
-<li>a)构造函数可以声明返回类型。</li>
-<li>b)构造函数不可以用private修饰</li>
-<li>c)构造函数必须与类名相同</li>
-<li>d)构造函数不能带参数</li>
-</ul>
-<p>答案：c ，构造函数必须与类名相同，可以传递多个传递，作用就是便于初始化对象成员，不能有任何
-返回类型</p>
 <h2 id="mathround115等於多少-mathround-115等於多少"><a class="header" href="#mathround115等於多少-mathround-115等於多少">Math.Round(11.5)等於多少? Math.Round(-11.5)等於多少?</a></h2>
 <p>Math.Round(11.5)=12</p>
 <p>Math.Round(-11.5)=-12</p>
@@ -262,10 +250,10 @@ Class1 o2 = new Class1();
 <p>&amp; 是用作位运算的。</p>
 <p>总结</p>
 <p>&amp;是位运算，返回结果是int类型 &amp;&amp;是逻辑运算，返回结果是bool类型</p>
-<h2 id="i和i有什么区别"><a class="header" href="#i和i有什么区别">i和i有什么区别？</a></h2>
+<h2 id="i和i有什么区别"><a class="header" href="#i和i有什么区别">i++和++i有什么区别？</a></h2>
 <ol>
 <li>i++是先赋值，然后再自增；++i是先自增，后赋值。</li>
-<li>i=0，i++=0，++i=1； Console.WriteLine(i==i); 结果位true</li>
+<li>i=0，i++=0，++i=1； Console.WriteLine(++i==i++); 结果位true</li>
 </ol>
 <h2 id="什么是协变和逆变"><a class="header" href="#什么是协变和逆变">什么是协变和逆变?</a></h2>
 <p>可变性是以一种类型安全的方式，将一个对象作为另一个对象来使用。其对应的术语则是不变性（invariant）。</p>
@@ -315,6 +303,9 @@ object obj = str;
 <h2 id="serverurlencodehttputilityurldecode的区别"><a class="header" href="#serverurlencodehttputilityurldecode的区别">Server.UrlEncode、HttpUtility.UrlDecode的区别</a></h2>
 <p>Server.UrlEncode的编码方式是按照本地程序设置的编码方式进行编码的，而HttpUtility.UrlEncode是默认的按照.net的utf-8格式进行编码的。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="关键字"><a class="header" href="#关键字">关键字</a></h1>
+<h2 id="c-中用-sealed-修饰的类有什麽特点"><a class="header" href="#c-中用-sealed-修饰的类有什麽特点">C# 中用 sealed 修饰的类有什麽特点?</a></h2>
+<p>密封，不能继承。</p>
+<p>密封类在声明中使用sealed 修饰符，这样就可以防止该类被其它类继承。如果试图将一个密封类作为其它类的基类，C#将提示出错。理所当然，密封类不能同时又是抽象类，因为抽象总是希望被继承的。</p>
 <h2 id="new关键字的作用"><a class="header" href="#new关键字的作用">new关键字的作用?</a></h2>
 <ul>
 <li>运算符：创建对象实例</li>
@@ -341,13 +332,68 @@ object obj = str;
 <li>静态方法里不能使用非静态成员，非静态方法可以使用静态成员</li>
 <li>静态成员属于类，而不属于对象</li>
 </ol>
+<h2 id="c中-static-关键字的作用"><a class="header" href="#c中-static-关键字的作用">C#中 static 关键字的作用?</a></h2>
+<ul>
+<li>对类有意义的字段和方法使用static 关键字修饰，称为静态成员，通过类名加访问操作符“ .”进行访问;</li>
+<li>对类的实例有意义的字段和方法不加static 关键字，称为非静态成员或实例成员。</li>
+</ul>
+<p>注：静态字段在内存中只有一个拷贝，非静态字段则是在每个实例对象中拥有一个拷贝。而方法无论是否为静态，在内存中只会有一份拷贝，区别只是通过类名来访问还是通过实例名来访问。</p>
+<h2 id="c-成员变量和成员函数前加static-的作用"><a class="header" href="#c-成员变量和成员函数前加static-的作用">C# 成员变量和成员函数前加static 的作用？</a></h2>
+<p>它们被称为常成员变量和常成员函数，又称为类成员变量和类成员函数。分别用来反映类的状态。</p>
+<p>比如类成员变量可以用来统计类实例的数量，类成员函数负责这种统计的动作。不用new</p>
+<h2 id="c-中索引器的实现过程是否只能根据数字进行索引请描述一下"><a class="header" href="#c-中索引器的实现过程是否只能根据数字进行索引请描述一下">C# 中索引器的实现过程，是否只能根据数字进行索引，请描述一下</a></h2>
+<p>C#通过提供索引器，可以象处理数组一样处理对象。特别是属性，每一个元素都以一个get 或set 方法暴露。索引器不单能索引数字（数组下标），还能索引一些HASHMAP 的字符串，所以，通常来说，C#中类的索引器通常只有一个，就是THIS，但也可以有无数个，只要你的参数列表不同就可以了索引器和返回值无关, 索引器最大的好处是使代码看上去更自然，更符合实际的思考模式。</p>
+<p>微软官方一个示例：</p>
+<p>索引器允许类或结构的实例就像数组一样进行索引。索引器类似于属性，不同之处在于它们的访问器采用参数。</p>
+<p>在下面的示例中，定义了一个泛型类，并为其提供了简单的 get 和 set 访问器方法（作为分配和检索值的方法）。Program 类为存储字符串创建了此类的一个实例。</p>
+<pre><code class="language-csharp">class SampleCollection&lt;T&gt;
+{
+    private T[] arr = new T[100];
+    public T this[int i]
+    {
+        get
+        {
+            return arr[i];
+        }
+        set
+        {
+            arr[i] = value;
+        }
+    }
+}
+
+// This class shows how client code uses the indexer
+class Program
+{
+    static void Main(string[] args)
+    {
+        SampleCollection&lt;string&gt; stringCollection = new SampleCollection&lt;string&gt;();
+        stringCollection[0] = "Hello, World";
+        System.Console.WriteLine(stringCollection[0]);
+    }
+}
+</code></pre>
+<p>详见：https://www.cnblogs.com/promise-7/archive/2012/01/12/2320401.html</p>
 <h2 id="ref和out有什么区别"><a class="header" href="#ref和out有什么区别">ref和out有什么区别</a></h2>
+<p>ref 关键字使参数按引用传递。其效果是，当控制权传递回调用方法时，在方法中对参数所做的任何更改都将反映在该变量中。若要使用 ref 参数，则方法定义和调用方法都必须显式使用 ref 关键字。</p>
+<p>out 关键字会导致参数通过引用来传递。这与 ref 关键字类似，不同之处在于 ref 要求变量必须在传递之前进行初始化。若要使用 out 参数，方法定义和调用方法都必须显式使用 out 关键字。</p>
+<p>相同点：</p>
 <ol>
-<li>都是按引用类型进行传递</li>
-<li>属性不是变量不能作为out、ref参数传递</li>
-<li>ref参数必须初始化。out不需要初始化</li>
-<li>作用，当方法有多个返回值时，out非常有用</li>
+<li>都能返回多个返回值。</li>
+<li>若要使用 ref 和out参数，则方法定义和调用方法都必须显式使用 ref和out 关键字。（也就是在定义和调用方法时参数前要有ref和out关键字）在方法中对参数的设置和改变将会直接影响函数调用之处(参数的初始值）。</li>
 </ol>
+<p>不同点：</p>
+<ol>
+<li>ref指定的参数在函数调用时候必须初始化，不能为空的引用。而out指定的参数在函数调用时候可以不初始化；</li>
+<li>out指定的参数在进入函数时会清空自己，必须在函数内部赋初值。而ref指定的参数不需要。</li>
+</ol>
+<p>总结</p>
+<ol>
+<li>ref和out使用时候一定要在参数前加关键字。</li>
+<li>ref是在外部初始化，内部不需要再初始化。</li>
+<li>out关键字一定要在内部初始化。（实参外部有没有初始化不影响）。</li>
+</ol>
+<p>注意：string 作为特殊的引用类型，其操作是与值类型看齐的，若要将方法内对形参赋值后的结果传递出来，需要加上ref 或out 关键字。</p>
 <h2 id="说明c中的方法声明参数关键字paramsrefout的意义及用法"><a class="header" href="#说明c中的方法声明参数关键字paramsrefout的意义及用法">说明C#中的方法声明参数关键字params，ref，out的意义及用法?</a></h2>
 <ol>
 <li>params 关键字，官方给出的解释为用于方法参数长度不定的情况。有时候不能确定一个方法的方法参数到底有多少个，可以使用params关键字来解决问题</li>
@@ -357,6 +403,22 @@ object obj = str;
 <h2 id="as和is的区别"><a class="header" href="#as和is的区别">as和is的区别</a></h2>
 <p>as在转换的同时判断兼容性，如果无法进行转换，返回位null（没有产生新的对象），as转换是否成功判断的依据是是否位null is只是做类型兼容性判断，并不执行真正的类型转换，返回true或false，对象为null也会返回false。</p>
 <p>as比is效率更高，as只需要做一次类型兼容检查</p>
+<h2 id="谈谈-finalfinally的区别"><a class="header" href="#谈谈-finalfinally的区别">谈谈 final、finally的区别</a></h2>
+<ul>
+<li>final ： 不能作为父类被继承。一个类不能声明是final ， 又声明为abstract。</li>
+<li>finally：用于try{}catch{}finally{}结构，用于异常处理时执行任何清除操作。</li>
+</ul>
+<h2 id="简述-c-成员修饰符"><a class="header" href="#简述-c-成员修饰符">简述 C# 成员修饰符</a></h2>
+<ul>
+<li>abstract:指示该方法或属性没有实现。</li>
+<li>const:指定域或局部变量的值不能被改动。</li>
+<li>event:声明一个事件。</li>
+<li>extern:指示方法在外部实现。</li>
+<li>override:对由基类继承成员的新实现。</li>
+<li>readonly:指示一个域只能在声明时以及相同类的内部被赋值。</li>
+<li>static:指示一个成员属于类型本身,而不是属于特定的对象。</li>
+<li>virtual:指示一个方法或存取器的实现可以在继承类中被覆盖。</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="字符串"><a class="header" href="#字符串">字符串</a></h1>
 <h2 id="是否可以继承string类"><a class="header" href="#是否可以继承string类">是否可以继承String类?</a></h2>
 <p>String类是final类故不可以继承。</p>
@@ -372,7 +434,159 @@ object obj = str;
 <p>参考链接：<a href="https://www.cnblogs.com/haofuqi/p/4826262.html">https://www.cnblogs.com/haofuqi/p/4826262.html</a></p>
 <h2 id="strings--new-stringxyz创建了几个string-object"><a class="header" href="#strings--new-stringxyz创建了几个string-object">Strings = new String(“xyz”);创建了几个String Object?</a></h2>
 <p>两个对象，一个是“xyz”,一个是指向“xyz”的引用对象s。</p>
+<h2 id="说说什么是逐字字符串"><a class="header" href="#说说什么是逐字字符串">说说什么是逐字字符串</a></h2>
+<p>下述内容引自：https://www.cnblogs.com/willick/p/13035697.html</p>
+<p>在普通字符串中，反斜杠字符是转义字符。而在逐字字符串（Verbatim Strings）中，字符将被编程器按照原义进行解释。使用逐字字符串只需在字符串前面加上 @ 符号。</p>
+<pre><code class="language-csharp">// 逐字字符串：转义符
+var filename = @"c:\temp\newfile.txt";
+Console.WriteLine(filenaame);
+
+// 逐字字符串：多行文本
+var multiLine = @"This is a
+multiline paragraph.";
+Console.WriteLine(multiLine);
+
+// 非逐字字符串
+var escapedFilename = "c:\temp\newfile.txt";
+Console.WriteLine(escapedFilename);
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-txt">c:\temp\newfile.txt
+
+This is a
+multiline paragraph.
+
+c:    emp
+ewfile.txt
+</code></pre>
+<p>逐字字符串中唯一不被原样解释的字符是双引号。由于双引号是定义字符串的关键字符，所以在逐字字符串中要表达双引号需要用双引号进行转义。</p>
+<pre><code class="language-csharp">var str = @"""I don't think so"", he said.";
+Console.WriteLine(str);
+</code></pre>
+<p>输出结果：</p>
+<pre><code>"I don't think so", he said.
+</code></pre>
+<p>在逐字字符串中也可以 $ 符号实现字符串内插值。</p>
+<pre><code class="language-csharp">Console.WriteLine($@"Testing \n 1 2 {5 - 2}");
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-txt">Testing \n 1 2 3
+</code></pre>
+<h2 id="列举你知道的数字格式化转换"><a class="header" href="#列举你知道的数字格式化转换">列举你知道的数字格式化转换</a></h2>
+<p>下述内容引自：https://www.cnblogs.com/willick/p/13035697.html</p>
+<p>典型的的格式化方法为：</p>
+<pre><code class="language-csharp">string.Format("{index[:format]}", number)
+</code></pre>
+<p>可使用“0”和“#”占位符进行补位。“0” 表示位数不够位数就补充“0”，小数部分如果位数多了则会四舍五入；“#”表示占位，用于辅助“0”进行补位。</p>
+<p>标准格式化用法：</p>
+<pre><code class="language-csharp">// “0”描述：占位符，如果可能，填充位
+string.Format("{0:000000}",1234); // 结果：001234
+
+// “#”描述：占位符，如果可能，填充位
+string.Format("{0:######}",1234);  // 结果：1234
+string.Format("{0:#0####}",1234);  // 结果：01234
+string.Format("{0:0#0####}",1234); // 结果：0001234
+
+// "."描述：小数点
+string.Format("{0:000.000}", 1234);       // 结果：1234.000
+string.Format("{0:000.000}", 4321.12543); // 结果：4321.125
+
+// ","描述：千分表示
+string.Format("{0:0,0}", 1234567);   //结果：1,234,567
+
+// "%"描述：格式化为百分数
+string.Format("{0:0%}",1234);        // 结果：123400%
+string.Format("{0:#%}", 1234.125);   // 结果：123413%
+string.Format("{0:0.00%}",1234);     // 结果：123400.00%
+string.Format("{0:#.00%}",1234.125); // 结果：123412.50%
+</code></pre>
+<p>内置快捷字母格式化用法：</p>
+<pre><code class="language-csharp">// E-科学计数法表示
+(25000).ToString("E"); // 结果：2.500000E+004
+
+// C-货币表示，带有逗号分隔符，默认小数点后保留两位，四舍五入
+(2.5).ToString("C"); // 结果：￥2.50
+
+// D[length]-十进制数
+(25).ToString("D5"); // 结果：00025
+
+// F[precision]-浮点数，保留小数位数(四舍五入)
+(25).ToString("F2"); // 结果：25.00
+
+// G[digits]-常规，保留指定位数的有效数字，四舍五入
+(2.52).ToString("G2"); // 结果：2.5
+
+// N-带有逗号分隔符，默认小数点后保留两位，四舍五入
+(2500000).ToString("N"); // 结果：2,500,000.00
+
+// X-十六进制，非整型将产生格式异常
+(255).ToString("X"); // 结果：FF
+</code></pre>
+<p><code>ToString</code> 也可以自定义补零格式化：</p>
+<pre><code class="language-csharp">(15).ToString("000");              // 结果：015
+(15).ToString("value is 0");       // 结果：value is 15
+(10.456).ToString("0.00");         // 结果：10.46
+(10.456).ToString("00");           // 结果：10
+(10.456).ToString("value is 0.0"); // 结果：value is 10.5
+</code></pre>
+<h2 id="说说字符串拼接字符串内插法"><a class="header" href="#说说字符串拼接字符串内插法">说说字符串拼接、字符串内插法</a></h2>
+<p>下述内容引自：https://www.cnblogs.com/willick/p/13035697.html</p>
+<p>将数组中的字符串拼接成一个字符串：</p>
+<pre><code class="language-csharp">var parts = new[] { "Foo", "Bar", "Fizz", "Buzz"};
+var joined = string.Join(", ", parts);
+// joined = "Foo, Bar, Fizz, Buzz"
+</code></pre>
+<p>以下四种方式都可以达到相同的字符串拼接的目的：</p>
+<pre><code class="language-csharp">string first = "Hello";
+string second = "World";
+string foo = first + " " + second;
+string foo = string.Concat(first, " ", second);
+string foo = string.Format("{0} {1}", firstname, lastname);
+string foo = $"{firstname} {lastname}";
+</code></pre>
+<p>字符串内插法简单用法：</p>
+<pre><code class="language-csharp">var name = "World";
+var str =$"Hello, {name}!";
+// str = "Hello, World!"
+</code></pre>
+<p>带日期格式化：</p>
+<pre><code class="language-csharp">var date = DateTime.Now;
+var str = $"Today is {date:yyyy-MM-dd}！";
+</code></pre>
+<p>补齐格式化（Padding）：</p>
+<pre><code class="language-csharp">var number = 42;
+
+// 向左补齐
+var str = $"The answer to life, the universe and everything is {number, 5}.";
+// str = "The answer to life, the universe and everything is ___42." ('_'表示空格)
+
+// 向右补齐
+var str = $"The answer to life, the universe and everything is ${number, -5}.";
+// str = "The answer to life, the universe and everything is 42___."
+</code></pre>
+<p>结合内置快捷字母格式化：</p>
+<pre><code class="language-csharp">var amount = 2.5;
+var str = $"It costs {amount:C}";
+// str = "￥2.50"
+
+var number = 42;
+var str = $"The answer to life, the universe and everything is {number, 5:f1}.";
+// str = "The answer to life, the universe and everything is ___42.1"
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="数据类型"><a class="header" href="#数据类型">数据类型</a></h1>
+<h2 id="值类型和引用类型的区别"><a class="header" href="#值类型和引用类型的区别">值类型和引用类型的区别?</a></h2>
+<p>值类型变量是直接包含值。将一个值类型变量赋给另一个值类型变量，是复制包含的值，默认值是0。</p>
+<p>引用类型变量的赋值只复制对对象的引用，而不复制对象本身，默认值是null</p>
+<p>值类型有整形、浮点型、bool、枚举。</p>
+<p>引用类型有class、delegate、Object、string</p>
+<p>值类型存储在栈中，引用类型存储在堆中</p>
+<h2 id="c中什么是值类型与引用类型"><a class="header" href="#c中什么是值类型与引用类型">C#中什么是值类型与引用类型？</a></h2>
+<p>值类型：struct、enum、int、float、char、bool、decimal</p>
+<p>引用类型：class、delegate、interface、array、object、string</p>
+<h2 id="c-中值传递与引用传递的区别是什麽"><a class="header" href="#c-中值传递与引用传递的区别是什麽">C# 中值传递与引用传递的区别是什麽？</a></h2>
+<p>值传递：值传递时，系统首先为被调用方法的形参分配内存空间，并将实参的值按位置一一对应复制给形参，被调用方法中形参得任何改变都不会影响到相应的实参。</p>
+<p>引用传递时：系统不是将实参本身得值赋值后传给形参，而是将其引用值（地址值）传递给形参。因此形参所引用得该地址上的变量与传递的实参相同，方法体内相应的形参值得任何改变都会影响到作为引用传递的实参。</p>
+<p>简而言之，按值传递不是值参数是值类型，而是指形参变量会复制实参变量，也就是会在栈上多创建一个相同的变量。而按引用传递则不会。可以通过 ref 和 out 来决定参数是否按照引用传递。</p>
 <h2 id="分析以下代码i-j"><a class="header" href="#分析以下代码i-j">分析以下代码，i=? j=?</a></h2>
 <pre><code class="language-csharp">stringstrTmp = "abcdefg某某某";
 inti= System.Text.Encoding.Default.GetBytes(strTmp).Length;
@@ -400,17 +614,18 @@ int b = strTmp.Length;
 <pre><code class="language-csharp">int i=0;
 Syste.Object obj=i;
 </code></pre>
+<p>对值类型在堆中分配一个对象实例，并将该值复制到新的对象中。按三步进行。</p>
+<ul>
+<li>第一步：新分配托管堆内存(大小为值类型实例大小加上一个方法表指针和一个 SyncBlockIndex)。</li>
+<li>第二步：将值类型的实例字段拷贝到新分配的内存中。</li>
+<li>第三步：返回托管堆中新分配对象的地址。这个地址就是一个指向对象的引用了。</li>
+</ul>
 <p>拆箱就是将引用类型转换成值类型，如：</p>
 <pre><code class="language-csharp">int i=0;
 System.Object obj=i;
 int j=(int)obj; //（将obj拆箱）
 </code></pre>
-<h2 id="值类型和引用类型的区别"><a class="header" href="#值类型和引用类型的区别">值类型和引用类型的区别?</a></h2>
-<p>值类型变量是直接包含值。将一个值类型变量赋给另一个值类型变量，是复制包含的值，默认值是0。</p>
-<p>引用类型变量的赋值只复制对对象的引用，而不复制对象本身，默认值是null</p>
-<p>值类型有整形、浮点型、bool、枚举。</p>
-<p>引用类型有class、delegate、Object、string</p>
-<p>值类型存储在栈中，引用类型存储在堆中</p>
+<p>检查对象实例，确保它是给定值类型的一个装箱值。将该值从实例复制到值类型变量中。有书上讲，拆箱只是获取引用对象中指向值类型部分的指针，而内容拷贝则是赋值语句之触发。</p>
 <h2 id="short-s1--1-s1--s1--1有什么错-short-s1--1-s1--1有什么错"><a class="header" href="#short-s1--1-s1--s1--1有什么错-short-s1--1-s1--1有什么错">short s1 = 1; s1 = s1 + 1;有什么错? short s1 = 1; s1 += 1;有什么错?</a></h2>
 <p>s1+1不能显式转换成short类型，可以修改为s1 =(short)(s1 + 1) 。short s1 = 1; s1 += 1正确</p>
 <h2 id="datetimeparsemystring-这行代码有什么问题"><a class="header" href="#datetimeparsemystring-这行代码有什么问题">DateTime.Parse(myString); 这行代码有什么问题？</a></h2>
@@ -422,12 +637,6 @@ int j=(int)obj; //（将obj拆箱）
 <li>int?是通过int装箱为引用类型实现</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="面向对象"><a class="header" href="#面向对象">面向对象</a></h1>
-<h2 id="什么是构造函数"><a class="header" href="#什么是构造函数">什么是构造函数？</a></h2>
-<ul>
-<li>概念：构造函数的方法名与类型相同、没有返回类型</li>
-<li>作用：完成对类的对象初始化</li>
-</ul>
-<p>创建一个类的新对象时，系统会自动调用该构造函数初始化新对象， 如果没有写定义，那么系统会自动提供一个不带任何参数的public 构造函数</p>
 <h2 id="class和struct的区别"><a class="header" href="#class和struct的区别">class和struct的区别?</a></h2>
 <p>相同点 都可以实现接口</p>
 <p>不同点</p>
@@ -450,8 +659,6 @@ int j=(int)obj; //（将obj拆箱）
 <li>继承：是通过子类继承基类、继承抽象类、继承接口实现的。</li>
 <li>多态：是通过重写基类的override 方法、重写虚方法实现的。 好处是：方便维护、易扩展。 缺点是：比面向过程性能低。</li>
 </ul>
-<h2 id="构造函数是否能被重写"><a class="header" href="#构造函数是否能被重写">构造函数是否能被重写？</a></h2>
-<p>构造器Constructor不能被继承，因此不能重写，但可以被重载</p>
 <h2 id="抽象类和接口有什么区别"><a class="header" href="#抽象类和接口有什么区别">抽象类和接口有什么区别？</a></h2>
 <p>相同点：都不能直接实例化</p>
 <p>不同点：</p>
@@ -462,6 +669,27 @@ int j=(int)obj; //（将obj拆箱）
 <li>抽象类有构造方法，接口不能有构造方法</li>
 <li>接口只负责功能的定义，通过接口来规范类的，（有哪些功能），而抽象类即负责功能的定义有可以实现功能（实现了哪些功能）</li>
 </ol>
+<h2 id="什么是虚函数什么是抽象函数"><a class="header" href="#什么是虚函数什么是抽象函数">什么是虚函数？什么是抽象函数？</a></h2>
+<h6 id="定义方式"><a class="header" href="#定义方式">定义方式：</a></h6>
+<ul>
+<li>虚函数：在基类中使用 virtual 关键字定义，可以在派生类中被重写。</li>
+<li>抽象函数：在抽象类或接口中使用abstract 关键字定义，必须在派生类中被实现。</li>
+</ul>
+<h6 id="实现方式"><a class="header" href="#实现方式">实现方式：</a></h6>
+<ul>
+<li>虚函数：在基类中提供默认的实现，派生类可以选择性地重写该函数来提供自己的实现。</li>
+<li>抽象函数：在抽象类或接口中只定义函数的签名，没有具体的实现，派生类必须实现该函数。</li>
+</ul>
+<h6 id="使用场景"><a class="header" href="#使用场景">使用场景：</a></h6>
+<ul>
+<li>虚函数：适用于基类已经有默认实现，但允许派生类根据需要进行修改或扩展的情况。</li>
+<li>抽象函数：适用于基类无法提供默认实现，而需要派生类必须实现的情况。</li>
+</ul>
+<h6 id="调用方式"><a class="header" href="#调用方式">调用方式：</a></h6>
+<ul>
+<li>虚函数：可以通过基类的引用或指针来调用，实际执行的是派生类的重写版本。</li>
+<li>抽象函数：必须通过派生类的实例来调用。</li>
+</ul>
 <h2 id="类的执行顺序"><a class="header" href="#类的执行顺序">类的执行顺序？</a></h2>
 <p>执行顺序：父类，子类，静态块，静态字段，非静态块，非静态字段，构造器，方法</p>
 <h2 id="接口是否可继承接口抽象类是否可实现implements接口抽象类是否可继承实现类concrete-class"><a class="header" href="#接口是否可继承接口抽象类是否可实现implements接口抽象类是否可继承实现类concrete-class">接口是否可继承接口？抽象类是否可实现（implements）接口？抽象类是否可继承实现类（concrete class）？</a></h2>
@@ -472,17 +700,19 @@ int j=(int)obj; //（将obj拆箱）
 <p>对象和引用时分不开的，对象生成一个地址，放在堆里面，引用则指向这个地址，放在栈里面</p>
 <h2 id="什么是匿名类有什么好处"><a class="header" href="#什么是匿名类有什么好处">什么是匿名类，有什么好处？</a></h2>
 <p>不用定义、没有名字的类，使用一次便可丢弃。好处是简单、随意、临时的。</p>
+<pre><code class="language-csharp">var x = new {Name="张三",Age=20,Like="LOL"};
+</code></pre>
 <h2 id="重写和重载的区别"><a class="header" href="#重写和重载的区别">重写和重载的区别?</a></h2>
 <ul>
 <li>重写方法：关键字用override修饰，派生类重写基类的方法，方法命名、返回类型，参数必须相同</li>
 <li>重载方法：方法名必须相同，参数列表必须不相同，返回类型可以不相同。</li>
 <li>作用：重写主要是实现面向对象的多态性、重载主要是实现实例化不同的对象</li>
 </ul>
+<h2 id="c实现多态的过程中overload-重载与override-重写的区别"><a class="header" href="#c实现多态的过程中overload-重载与override-重写的区别">C#实现多态的过程中overload 重载与override 重写的区别？</a></h2>
+<p>重载：是方法的名称相同，参数或参数类型不同；重载是面向过程的概念。</p>
+<p>重写：是对基类中的虚方法进行重写。重写是面向对象的概念。</p>
 <h2 id="什么时候用重载什么时候用重写"><a class="header" href="#什么时候用重载什么时候用重写">什么时候用重载？什么时候用重写？</a></h2>
 <p>当一个类需要用不同的实现来做同一件事情，此时应该用重写，而重载是用不同的输入做同一件事情</p>
-<h2 id="c中有没有静态构造函数如果有是做什么用的"><a class="header" href="#c中有没有静态构造函数如果有是做什么用的">C#中有没有静态构造函数，如果有是做什么用的？</a></h2>
-<p>特点： 静态构造函数既没有访问修饰符，也没有参数。在创建第一个实例或引用任何静态成员之前，将自动调用静态构造函数来初始化类。无法直接调用静态构造函数。在程序中，用户无法控制何时执行静态构造函数。</p>
-<p>用途 : 当类使用日志文件时，将使用这种构造函数向日志文件中写入项。</p>
 <h2 id="怎样理解静态变量静态成员和非静态成员的区别"><a class="header" href="#怎样理解静态变量静态成员和非静态成员的区别">怎样理解静态变量？静态成员和非静态成员的区别？</a></h2>
 <p>静态变量属于类，而不属于对象；并对所有对象所享；静态成员在加类的时候就被加载。</p>
 <h2 id="属性能在接口中声明吗"><a class="header" href="#属性能在接口中声明吗">属性能在接口中声明吗？</a></h2>
@@ -524,6 +754,183 @@ class B:A
 <p>答：X=1,Y=0;</p>
 <h2 id="能够将非静态的方法覆写成静态方法吗"><a class="header" href="#能够将非静态的方法覆写成静态方法吗">能够将非静态的方法覆写成静态方法吗？</a></h2>
 <p>答：不能，覆写方法的签名必须与被覆写方法的签名保持一致，除了将virtual改为override。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="构造函数"><a class="header" href="#构造函数">构造函数</a></h1>
+<h2 id="关于构造函数说法正确的是哪个"><a class="header" href="#关于构造函数说法正确的是哪个">关于构造函数说法正确的是哪个？</a></h2>
+<ul>
+<li>a)构造函数可以声明返回类型。</li>
+<li>b)构造函数不可以用private修饰</li>
+<li>c)构造函数必须与类名相同</li>
+<li>d)构造函数不能带参数</li>
+</ul>
+<p>答案：c ，构造函数必须与类名相同，可以传递多个传递，作用就是便于初始化对象成员，不能有任何
+返回类型</p>
+<h2 id="什么是构造函数"><a class="header" href="#什么是构造函数">什么是构造函数？</a></h2>
+<ul>
+<li>概念：构造函数的方法名与类型相同、没有返回类型</li>
+<li>作用：完成对类的对象初始化</li>
+</ul>
+<p>创建一个类的新对象时，系统会自动调用该构造函数初始化新对象， 如果没有写定义，那么系统会自动提供一个不带任何参数的public 构造函数</p>
+<h2 id="构造函数是否能被重写"><a class="header" href="#构造函数是否能被重写">构造函数是否能被重写？</a></h2>
+<p>构造器Constructor不能被继承，因此不能重写，但可以被重载</p>
+<h2 id="c中有没有静态构造函数如果有是做什么用的"><a class="header" href="#c中有没有静态构造函数如果有是做什么用的">C#中有没有静态构造函数，如果有是做什么用的？</a></h2>
+<p>特点： 静态构造函数既没有访问修饰符，也没有参数。在创建第一个实例或引用任何静态成员之前，将自动调用静态构造函数来初始化类。无法直接调用静态构造函数。在程序中，用户无法控制何时执行静态构造函数。</p>
+<p>用途 : 当类使用日志文件时，将使用这种构造函数向日志文件中写入项。</p>
+<h2 id="c静态构造函数特点是什么"><a class="header" href="#c静态构造函数特点是什么">C#静态构造函数特点是什么？</a></h2>
+<p>最先被执行的构造函数，且在一个类里只允许有一个无参的静态构造函数执行顺序：静态变量 &gt; 静态构造函数 &gt; 实例变量 &gt; 实例构造函数</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="设计模式"><a class="header" href="#设计模式">设计模式</a></h1>
+<h2 id="23种设计模式分别叫什麽名称如何分类"><a class="header" href="#23种设计模式分别叫什麽名称如何分类">23种设计模式分别叫什麽名称，如何分类?</a></h2>
+<h3 id="一创建型模式5种"><a class="header" href="#一创建型模式5种"><strong>一、创建型模式（5种）</strong></a></h3>
+<p><strong>作用</strong>：解耦对象的创建与使用，灵活控制实例化过程。</p>
+<ol>
+<li><strong>工厂方法（Factory Method）</strong>
+<ul>
+<li>定义接口创建对象，让子类决定实例化哪个类。</li>
+<li><em>例</em>：<code>IDbConnection.CreateCommand()</code>。</li>
+</ul>
+</li>
+<li><strong>抽象工厂（Abstract Factory）</strong>
+<ul>
+<li>创建相关或依赖对象的家族，无需指定具体类。</li>
+<li><em>例</em>：GUI 库中的跨平台按钮和文本框工厂。</li>
+</ul>
+</li>
+<li><strong>单例（Singleton）</strong>
+<ul>
+<li>确保类只有一个实例，并提供全局访问点。</li>
+<li><em>例</em>：配置管理器、日志服务。</li>
+</ul>
+</li>
+<li><strong>建造者（Builder）</strong>
+<ul>
+<li>分步骤构建复杂对象，允许不同表示形式。</li>
+<li><em>例</em>：<code>StringBuilder</code>、HTTP 请求构造器。</li>
+</ul>
+</li>
+<li><strong>原型（Prototype）</strong>
+<ul>
+<li>通过克隆现有对象来创建新对象，避免重复初始化。</li>
+<li><em>例</em>：<code>ICloneable</code> 接口实现。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="二结构型模式7种"><a class="header" href="#二结构型模式7种"><strong>二、结构型模式（7种）</strong></a></h3>
+<p><strong>作用</strong>：通过组合类或对象形成更大的结构。</p>
+<ol>
+<li><strong>适配器（Adapter）</strong>
+<ul>
+<li>转换接口使不兼容的类能协同工作。</li>
+<li><em>例</em>：将旧版 API 包装成新接口。</li>
+</ul>
+</li>
+<li><strong>桥接（Bridge）</strong>
+<ul>
+<li>将抽象与实现分离，使它们能独立变化。</li>
+<li><em>例</em>：不同图形渲染引擎（OpenGL/DirectX）的抽象。</li>
+</ul>
+</li>
+<li><strong>组合（Composite）</strong>
+<ul>
+<li>将对象组合成树形结构以表示“部分-整体”层次。</li>
+<li><em>例</em>：文件系统（文件+文件夹统一处理）。</li>
+</ul>
+</li>
+<li><strong>装饰器（Decorator）</strong>
+<ul>
+<li>动态地为对象添加职责，避免子类爆炸。</li>
+<li><em>例</em>：<code>Stream</code> 系列的包装（<code>BufferedStream</code>）。</li>
+</ul>
+</li>
+<li><strong>外观（Facade）</strong>
+<ul>
+<li>提供统一的接口来简化子系统访问。</li>
+<li><em>例</em>：数据库ORM封装复杂SQL操作。</li>
+</ul>
+</li>
+<li><strong>享元（Flyweight）</strong>
+<ul>
+<li>共享细粒度对象以减少内存占用。</li>
+<li><em>例</em>：字符缓存（如字符串驻留）。</li>
+</ul>
+</li>
+<li><strong>代理（Proxy）</strong>
+<ul>
+<li>为其他对象提供代理以控制访问。</li>
+<li><em>例</em>：懒加载、远程服务代理。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="三行为型模式11种"><a class="header" href="#三行为型模式11种"><strong>三、行为型模式（11种）</strong></a></h3>
+<p><strong>作用</strong>：管理对象间的交互与职责分配。</p>
+<ol>
+<li><strong>责任链（Chain of Responsibility）</strong>
+<ul>
+<li>将请求沿处理链传递，直到有对象处理它。</li>
+<li><em>例</em>：ASP.NET Core 中间件管道。</li>
+</ul>
+</li>
+<li><strong>命令（Command）</strong>
+<ul>
+<li>将请求封装为对象，支持撤销/重做。</li>
+<li><em>例</em>：GUI 按钮操作、事务管理。</li>
+</ul>
+</li>
+<li><strong>解释器（Interpreter）</strong>
+<ul>
+<li>定义语言的语法表示，并解释执行。</li>
+<li><em>例</em>：正则表达式引擎。</li>
+</ul>
+</li>
+<li><strong>迭代器（Iterator）</strong>
+<ul>
+<li>提供顺序访问聚合对象元素的方法。</li>
+<li><em>例</em>：<code>IEnumerable</code> 和 <code>foreach</code>。</li>
+</ul>
+</li>
+<li><strong>中介者（Mediator）</strong>
+<ul>
+<li>通过中介对象减少对象间直接耦合。</li>
+<li><em>例</em>：聊天室服务器协调用户消息。</li>
+</ul>
+</li>
+<li><strong>备忘录（Memento）</strong>
+<ul>
+<li>捕获并外部化对象状态以便恢复。</li>
+<li><em>例</em>：游戏存档、撤销操作。</li>
+</ul>
+</li>
+<li><strong>观察者（Observer）</strong>
+<ul>
+<li>定义对象间的一对多依赖，状态变化时自动通知。</li>
+<li><em>例</em>：事件（<code>event</code>）、<code>IObservable</code>。</li>
+</ul>
+</li>
+<li><strong>状态（State）</strong>
+<ul>
+<li>允许对象在内部状态改变时改变行为。</li>
+<li><em>例</em>：订单状态（待支付/已发货）。</li>
+</ul>
+</li>
+<li><strong>策略（Strategy）</strong>
+<ul>
+<li>定义算法族，使其可互换。</li>
+<li><em>例</em>：排序算法（快速排序/归并排序）动态切换。</li>
+</ul>
+</li>
+<li><strong>模板方法（Template Method）</strong>
+<ul>
+<li>定义算法骨架，子类重写特定步骤。</li>
+<li><em>例</em>：ASP.NET 页面生命周期（<code>Page_Load</code>）。</li>
+</ul>
+</li>
+<li><strong>访问者（Visitor）</strong>
+<ul>
+<li>将操作与对象结构分离，便于新增操作。</li>
+<li><em>例</em>：AST（抽象语法树）的遍历处理。</li>
+</ul>
+</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="集合"><a class="header" href="#集合">集合</a></h1>
 <h2 id="ilist-接口与list的区别是什么"><a class="header" href="#ilist-接口与list的区别是什么">IList 接口与List的区别是什么?</a></h2>
 <p>IList 泛型接口是 Icollection 接口的子代，并且是所有非泛型列表的基接口。 Ilist 实现有三种类别：只读、固定大小、可变大小。 无法修改只读 Ilist。 固定大小的 Ilist 不允许添加或移除元素，但允许修改现有元素。 可变大小的 Ilist 允许添加、移除和修改元素。</p>
@@ -890,6 +1297,16 @@ public Exception InnerException { get; }// 子异常
 <li>System.StackOverflowException 用于处理栈溢出生成的错误。</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="内存管理"><a class="header" href="#内存管理">内存管理</a></h1>
+<h2 id="c-中堆和栈的区别"><a class="header" href="#c-中堆和栈的区别">C# 中堆和栈的区别？</a></h2>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left"><strong>对比维度</strong></th><th style="text-align: left"><strong>栈（Stack）</strong></th><th style="text-align: left"><strong>堆（Heap）</strong></th></tr></thead><tbody>
+<tr><td style="text-align: left"><strong>存储内容</strong></td><td style="text-align: left">值类型（<code>int</code>、<code>struct</code>）、方法调用的局部变量、参数</td><td style="text-align: left">引用类型（<code>class</code>、<code>string</code>、<code>数组</code>）的对象实例</td></tr>
+<tr><td style="text-align: left"><strong>分配与释放</strong></td><td style="text-align: left">自动分配/释放（方法结束时立即回收） 速度快（移动栈指针）</td><td style="text-align: left">手动分配/GC自动回收 速度较慢（需内存管理）</td></tr>
+<tr><td style="text-align: left"><strong>生命周期</strong></td><td style="text-align: left">与方法调用绑定，作用域结束立即失效</td><td style="text-align: left">由GC管理，可能存活多轮垃圾回收（分代机制）</td></tr>
+<tr><td style="text-align: left"><strong>访问速度</strong></td><td style="text-align: left">极快（直接操作内存，CPU缓存友好）</td><td style="text-align: left">较慢（需通过引用间接访问）</td></tr>
+<tr><td style="text-align: left"><strong>大小限制</strong></td><td style="text-align: left">固定大小（默认1MB/线程） 栈溢出引发 <code>StackOverflowException</code></td><td style="text-align: left">仅受虚拟内存限制（GB级） 溢出引发 <code>OutOfMemoryException</code></td></tr>
+<tr><td style="text-align: left"><strong>典型场景</strong></td><td style="text-align: left">临时变量、方法参数、线程独占数据</td><td style="text-align: left">对象实例、集合、共享数据</td></tr>
+</tbody></table>
+</div>
 <h2 id="c可否对内存进行直接的操作"><a class="header" href="#c可否对内存进行直接的操作">C#可否对内存进行直接的操作？</a></h2>
 <p>C#在Unsafe 模式下可以使用指针对内存进行操作, 但在托管模式下不可以使用指针。</p>
 <ol>
@@ -941,9 +1358,10 @@ try {
 <h2 id="什么是受管制的代码"><a class="header" href="#什么是受管制的代码">什么是受管制的代码？</a></h2>
 <p>unsafe：非托管代码。不经过CLR运行。</p>
 <h2 id="什么是托管代码非托管代码托管代码-managed-code"><a class="header" href="#什么是托管代码非托管代码托管代码-managed-code">什么是托管代码、非托管代码托管代码 (managed code)</a></h2>
-<p>由公共语言运行库环境（而不是直接由操作系统）执行的代码。托管代码应用程序可以获得公共语言运行库服务，例如自动垃圾回收、运行库类型检查和安全支持等。这些服务帮助提供独立于平台和语言的、统一的托管代码应用程序行为。</p>
+<p>托管代码</p>
+<p>由公共语言运行库环境（而不是直接由操作系统）执行的代码。托管代码应用程序可以获得公共语言运行库服务，例如自动垃圾回收、运行库类型检查和安全支持等。这些服务帮助提供独立于平台和语言的、统一的托管代码应用程序行为。有关内存管理（内存申请，内存释放，垃圾回收之类的）全部都是.net 的CLR来管理。</p>
 <p>非托管代码 (unmanaged code)</p>
-<p>在公共语言运行库环境的外部，由操作系统直接执行的代码。非托管代码必须提供自己的垃圾回收、类型检查、安全支持等服务；它与托管代码不同，后者从公共语言运行库中获得这些服务。</p>
+<p>在公共语言运行库环境的外部，由操作系统直接执行的代码。非托管代码必须提供自己的垃圾回收、类型检查、安全支持等服务；它与托管代码不同，后者从公共语言运行库中获得这些服务。内存回收要继承IDisposable 接口手动回收。</p>
 <h2 id="gc是什么-为什么要有gc"><a class="header" href="#gc是什么-为什么要有gc">GC是什么? 为什么要有GC?</a></h2>
 <ol>
 <li>GC是垃圾收集器。程序员不用担心内存管理，因为垃圾收集器会自动进行管理.</li>
@@ -955,6 +1373,11 @@ try {
 <h2 id="委托是什么"><a class="header" href="#委托是什么">委托是什么？</a></h2>
 <p>委托是寻址的.NET版本。在C++中，函数指针只不过是一个指向内存位置的指针，它不是类型安全的。我们无法判断这个指针实际指向什么，像参数和返回类型等项久更无从知晓了。</p>
 <p>而.NET委托完全不同，委托是类型安全的类，它定义了返回类型和参数的类型。委托类不仅包含对方法的引用，也可以包含对多个方法的引用。</p>
+<h2 id="c中的委托是什麽事件是不是一种委托"><a class="header" href="#c中的委托是什麽事件是不是一种委托">C#中的委托是什麽？事件是不是一种委托？</a></h2>
+<ul>
+<li>委托的本质是一个类，委托是将一种方法作为参数代入到另一种方法。</li>
+<li>事件是委托的实例，事件是一种特殊的委托。</li>
+</ul>
 <h2 id="如何自定义委托"><a class="header" href="#如何自定义委托">如何自定义委托？</a></h2>
 <p>声明一个委托类型，它的实例引用一个方法，该方法获取一个int参数，返回void。</p>
 <pre><code class="language-csharp">public delegate void Feedback(int num);
@@ -1140,6 +1563,9 @@ Console.WriteLine(lambda(1));
 </ul>
 <h2 id="如果实体名称和数据库表名不一致该如何处理"><a class="header" href="#如果实体名称和数据库表名不一致该如何处理">如果实体名称和数据库表名不一致，该如何处理？</a></h2>
 <p>实体名称和数据库表名称不一致：可以通过使用TableAttribute 特性；</p>
+<h2 id="orm中的延迟加载与直接加载有什麽差别"><a class="header" href="#orm中的延迟加载与直接加载有什麽差别">ORM中的延迟加载与直接加载有什麽差别？</a></h2>
+<p>延迟加载（Lazy Loading）只在真正需要进行数据操作的时候再进行加载数据，可以减少不必要的开销。</p>
+<p>详见：https://www.cnblogs.com/cplemom/p/11499527.html</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="adonet"><a class="header" href="#adonet">ADO.NET</a></h1>
 <h2 id="datareader与dataset有什么区别"><a class="header" href="#datareader与dataset有什么区别">DataReader与Dataset有什么区别？</a></h2>
 <p>一个是只能向前的只读游标，一个是内存中虚拟的数据库。</p>
@@ -1462,6 +1888,8 @@ Hello,jack
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="反射与aop"><a class="header" href="#反射与aop">反射与AOP</a></h1>
+<h2 id="什么是反射"><a class="header" href="#什么是反射">什么是反射?</a></h2>
+<p>程序集包含模块，而模块又包括类型，类型下有成员，反射就是管理程序集，模块，类型的对象，它能够动态的创建类型的实例，设置现有对象的类型或者获取现有对象的类型，能调用类型的方法和访问类型的字段属性。它是在运行时创建和使用类型实例。</p>
 <h2 id="在c中反射是什么处理反射相关的namespace是什么"><a class="header" href="#在c中反射是什么处理反射相关的namespace是什么">在c#中，反射是什么？处理反射相关的namespace是什么？</a></h2>
 <p>反射（Reflection）是.NET中的重要机制，通过放射，可以在运行时获 得.NET 中每一个类型（包括类、结构、委托、接口和枚举等）的成员，包括方法、属性、事件，以及构造函数等。还可以获得每个成员的名称、限定符和参数等。</p>
 <h2 id="私有程序集与共享程序集有什么区别"><a class="header" href="#私有程序集与共享程序集有什么区别">私有程序集与共享程序集有什么区别？</a></h2>
@@ -3135,6 +3563,28 @@ select * from user where city=xx ; // 无法命中索引
 <li>Hyperloglog。HyperLogLog 是用来做基数统计的算法，其优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定的、并且是很小的。典型的使用场景是统计独立访客。</li>
 <li>Geospatial ：主要用于存储地理位置信息，并对存储的信息进行操作，适用场景如定位、附近的人等。</li>
 </ol>
+<h2 id="缓存穿透缓存击穿缓存雪崩缓存降级"><a class="header" href="#缓存穿透缓存击穿缓存雪崩缓存降级">缓存穿透，缓存击穿，缓存雪崩，缓存降级</a></h2>
+<ul>
+<li>
+<p>缓存穿透</p>
+<p>缓存穿透是指用户请求的数据在缓存中不存在即没有命中，同时在数据库中也不存在，导致用户每次请求该数据都要去数据库中查询一遍。如果有恶意攻击者不断请求系统中不存在的数据，会导致短时间大量请求落在数据库上，造成数据库压力过大，甚至导致数据库承受不住而宕机崩溃。</p>
+<p>在缓存中添加一个有生命周期的缓存数据 值设置为空NULL</p>
+</li>
+<li>
+<p>缓存击穿</p>
+<p>缓存击穿跟缓存雪崩有点类似，缓存雪崩是大规模的key失效，而缓存击穿是某个热点的key失效，大并发集中对其进行请求，就会造成大量请求读缓存没读到数据，从而导致高并发访问数据库，引起数据库压力剧增。这种现象就叫做缓存击穿。</p>
+<p>生命周期设置永不过期、缓存失效后降低对失效数据请求的线程数量</p>
+</li>
+<li>
+<p>缓存雪崩</p>
+<p>缓存中大量数据的生命周期过期导致大量数据失效，请求都指向了数据库，高并发的时候会增加数据库的压力，引起数据库崩溃。避免大量数据在同一时间过期，对热点数据永远不过期</p>
+</li>
+<li>
+<p>缓存降级</p>
+<p>缓存降级是指缓存失效或缓存服务器挂掉的情况下，不去访问数据库，直接返回默认数据或访问服务的内存数据。降级一般是有损的操作，所以尽量减少降级对于业务的影响程度。</p>
+<p>在项目实战中通常会将部分热点数据缓存到服务的内存中，这样一旦缓存出现异常，可以直接使用服务的内存数据，从而避免数据库遭受巨大压力。</p>
+</li>
+</ul>
 <h2 id="简单说说缓存雪崩及解决方法"><a class="header" href="#简单说说缓存雪崩及解决方法">简单说说缓存雪崩及解决方法</a></h2>
 <p>缓存雪崩我们可以简单的理解为：由于原有缓存失效，新缓存未到期间 (例如：我们设置缓存时采用了相同的过期时间，在同一时刻出现大面积的缓存过期)，所有原本应该访 问缓存的请求都去查询数据库了，而对数据库CPU和内存造成巨大压力，严重的会造成数据库宕机。从 而形成一系列连锁反应，造成整个系统崩溃。) 解决办法： 大多数系统设计者考虑用加锁（ 最多的解决方案）或者队列的方式保证来保证不会有大量的线程对数据 库一次性进行读写，从而避免失效时大量的并发请求落到底层存储系统上。还有一个简单方案就时讲缓 存失效时间分散开。</p>
 <h2 id="缓存穿透怎么导致的"><a class="header" href="#缓存穿透怎么导致的">缓存穿透怎么导致的？</a></h2>

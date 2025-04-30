@@ -156,6 +156,19 @@
                     <main>
                         <div class="content-wrap">
                             <h1 id="数据类型"><a class="header" href="#数据类型">数据类型</a></h1>
+<h2 id="值类型和引用类型的区别"><a class="header" href="#值类型和引用类型的区别">值类型和引用类型的区别?</a></h2>
+<p>值类型变量是直接包含值。将一个值类型变量赋给另一个值类型变量，是复制包含的值，默认值是0。</p>
+<p>引用类型变量的赋值只复制对对象的引用，而不复制对象本身，默认值是null</p>
+<p>值类型有整形、浮点型、bool、枚举。</p>
+<p>引用类型有class、delegate、Object、string</p>
+<p>值类型存储在栈中，引用类型存储在堆中</p>
+<h2 id="c中什么是值类型与引用类型"><a class="header" href="#c中什么是值类型与引用类型">C#中什么是值类型与引用类型？</a></h2>
+<p>值类型：struct、enum、int、float、char、bool、decimal</p>
+<p>引用类型：class、delegate、interface、array、object、string</p>
+<h2 id="c-中值传递与引用传递的区别是什麽"><a class="header" href="#c-中值传递与引用传递的区别是什麽">C# 中值传递与引用传递的区别是什麽？</a></h2>
+<p>值传递：值传递时，系统首先为被调用方法的形参分配内存空间，并将实参的值按位置一一对应复制给形参，被调用方法中形参得任何改变都不会影响到相应的实参。</p>
+<p>引用传递时：系统不是将实参本身得值赋值后传给形参，而是将其引用值（地址值）传递给形参。因此形参所引用得该地址上的变量与传递的实参相同，方法体内相应的形参值得任何改变都会影响到作为引用传递的实参。</p>
+<p>简而言之，按值传递不是值参数是值类型，而是指形参变量会复制实参变量，也就是会在栈上多创建一个相同的变量。而按引用传递则不会。可以通过 ref 和 out 来决定参数是否按照引用传递。</p>
 <h2 id="分析以下代码i-j"><a class="header" href="#分析以下代码i-j">分析以下代码，i=? j=?</a></h2>
 <pre><code class="language-csharp">stringstrTmp = "abcdefg某某某";
 inti= System.Text.Encoding.Default.GetBytes(strTmp).Length;
@@ -183,17 +196,18 @@ int b = strTmp.Length;
 <pre><code class="language-csharp">int i=0;
 Syste.Object obj=i;
 </code></pre>
+<p>对值类型在堆中分配一个对象实例，并将该值复制到新的对象中。按三步进行。</p>
+<ul>
+<li>第一步：新分配托管堆内存(大小为值类型实例大小加上一个方法表指针和一个 SyncBlockIndex)。</li>
+<li>第二步：将值类型的实例字段拷贝到新分配的内存中。</li>
+<li>第三步：返回托管堆中新分配对象的地址。这个地址就是一个指向对象的引用了。</li>
+</ul>
 <p>拆箱就是将引用类型转换成值类型，如：</p>
 <pre><code class="language-csharp">int i=0;
 System.Object obj=i;
 int j=(int)obj; //（将obj拆箱）
 </code></pre>
-<h2 id="值类型和引用类型的区别"><a class="header" href="#值类型和引用类型的区别">值类型和引用类型的区别?</a></h2>
-<p>值类型变量是直接包含值。将一个值类型变量赋给另一个值类型变量，是复制包含的值，默认值是0。</p>
-<p>引用类型变量的赋值只复制对对象的引用，而不复制对象本身，默认值是null</p>
-<p>值类型有整形、浮点型、bool、枚举。</p>
-<p>引用类型有class、delegate、Object、string</p>
-<p>值类型存储在栈中，引用类型存储在堆中</p>
+<p>检查对象实例，确保它是给定值类型的一个装箱值。将该值从实例复制到值类型变量中。有书上讲，拆箱只是获取引用对象中指向值类型部分的指针，而内容拷贝则是赋值语句之触发。</p>
 <h2 id="short-s1--1-s1--s1--1有什么错-short-s1--1-s1--1有什么错"><a class="header" href="#short-s1--1-s1--s1--1有什么错-short-s1--1-s1--1有什么错">short s1 = 1; s1 = s1 + 1;有什么错? short s1 = 1; s1 += 1;有什么错?</a></h2>
 <p>s1+1不能显式转换成short类型，可以修改为s1 =(short)(s1 + 1) 。short s1 = 1; s1 += 1正确</p>
 <h2 id="datetimeparsemystring-这行代码有什么问题"><a class="header" href="#datetimeparsemystring-这行代码有什么问题">DateTime.Parse(myString); 这行代码有什么问题？</a></h2>
@@ -217,7 +231,7 @@ int j=(int)obj; //（将obj拆箱）
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../object-oriented.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../object-oriented/object-oriented.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -231,7 +245,7 @@ int j=(int)obj; //（将obj拆箱）
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../object-oriented.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../object-oriented/object-oriented.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

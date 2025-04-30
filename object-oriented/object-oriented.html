@@ -12,34 +12,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/pagetoc.css">
-        <link rel="stylesheet" href="./mdbook-admonish.css">
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+        <link rel="stylesheet" href=".././mdbook-admonish.css">
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">C# 面试笔记</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -156,12 +156,6 @@
                     <main>
                         <div class="content-wrap">
                             <h1 id="面向对象"><a class="header" href="#面向对象">面向对象</a></h1>
-<h2 id="什么是构造函数"><a class="header" href="#什么是构造函数">什么是构造函数？</a></h2>
-<ul>
-<li>概念：构造函数的方法名与类型相同、没有返回类型</li>
-<li>作用：完成对类的对象初始化</li>
-</ul>
-<p>创建一个类的新对象时，系统会自动调用该构造函数初始化新对象， 如果没有写定义，那么系统会自动提供一个不带任何参数的public 构造函数</p>
 <h2 id="class和struct的区别"><a class="header" href="#class和struct的区别">class和struct的区别?</a></h2>
 <p>相同点 都可以实现接口</p>
 <p>不同点</p>
@@ -184,8 +178,6 @@
 <li>继承：是通过子类继承基类、继承抽象类、继承接口实现的。</li>
 <li>多态：是通过重写基类的override 方法、重写虚方法实现的。 好处是：方便维护、易扩展。 缺点是：比面向过程性能低。</li>
 </ul>
-<h2 id="构造函数是否能被重写"><a class="header" href="#构造函数是否能被重写">构造函数是否能被重写？</a></h2>
-<p>构造器Constructor不能被继承，因此不能重写，但可以被重载</p>
 <h2 id="抽象类和接口有什么区别"><a class="header" href="#抽象类和接口有什么区别">抽象类和接口有什么区别？</a></h2>
 <p>相同点：都不能直接实例化</p>
 <p>不同点：</p>
@@ -196,6 +188,27 @@
 <li>抽象类有构造方法，接口不能有构造方法</li>
 <li>接口只负责功能的定义，通过接口来规范类的，（有哪些功能），而抽象类即负责功能的定义有可以实现功能（实现了哪些功能）</li>
 </ol>
+<h2 id="什么是虚函数什么是抽象函数"><a class="header" href="#什么是虚函数什么是抽象函数">什么是虚函数？什么是抽象函数？</a></h2>
+<h6 id="定义方式"><a class="header" href="#定义方式">定义方式：</a></h6>
+<ul>
+<li>虚函数：在基类中使用 virtual 关键字定义，可以在派生类中被重写。</li>
+<li>抽象函数：在抽象类或接口中使用abstract 关键字定义，必须在派生类中被实现。</li>
+</ul>
+<h6 id="实现方式"><a class="header" href="#实现方式">实现方式：</a></h6>
+<ul>
+<li>虚函数：在基类中提供默认的实现，派生类可以选择性地重写该函数来提供自己的实现。</li>
+<li>抽象函数：在抽象类或接口中只定义函数的签名，没有具体的实现，派生类必须实现该函数。</li>
+</ul>
+<h6 id="使用场景"><a class="header" href="#使用场景">使用场景：</a></h6>
+<ul>
+<li>虚函数：适用于基类已经有默认实现，但允许派生类根据需要进行修改或扩展的情况。</li>
+<li>抽象函数：适用于基类无法提供默认实现，而需要派生类必须实现的情况。</li>
+</ul>
+<h6 id="调用方式"><a class="header" href="#调用方式">调用方式：</a></h6>
+<ul>
+<li>虚函数：可以通过基类的引用或指针来调用，实际执行的是派生类的重写版本。</li>
+<li>抽象函数：必须通过派生类的实例来调用。</li>
+</ul>
 <h2 id="类的执行顺序"><a class="header" href="#类的执行顺序">类的执行顺序？</a></h2>
 <p>执行顺序：父类，子类，静态块，静态字段，非静态块，非静态字段，构造器，方法</p>
 <h2 id="接口是否可继承接口抽象类是否可实现implements接口抽象类是否可继承实现类concrete-class"><a class="header" href="#接口是否可继承接口抽象类是否可实现implements接口抽象类是否可继承实现类concrete-class">接口是否可继承接口？抽象类是否可实现（implements）接口？抽象类是否可继承实现类（concrete class）？</a></h2>
@@ -206,17 +219,19 @@
 <p>对象和引用时分不开的，对象生成一个地址，放在堆里面，引用则指向这个地址，放在栈里面</p>
 <h2 id="什么是匿名类有什么好处"><a class="header" href="#什么是匿名类有什么好处">什么是匿名类，有什么好处？</a></h2>
 <p>不用定义、没有名字的类，使用一次便可丢弃。好处是简单、随意、临时的。</p>
+<pre><code class="language-csharp">var x = new {Name="张三",Age=20,Like="LOL"};
+</code></pre>
 <h2 id="重写和重载的区别"><a class="header" href="#重写和重载的区别">重写和重载的区别?</a></h2>
 <ul>
 <li>重写方法：关键字用override修饰，派生类重写基类的方法，方法命名、返回类型，参数必须相同</li>
 <li>重载方法：方法名必须相同，参数列表必须不相同，返回类型可以不相同。</li>
 <li>作用：重写主要是实现面向对象的多态性、重载主要是实现实例化不同的对象</li>
 </ul>
+<h2 id="c实现多态的过程中overload-重载与override-重写的区别"><a class="header" href="#c实现多态的过程中overload-重载与override-重写的区别">C#实现多态的过程中overload 重载与override 重写的区别？</a></h2>
+<p>重载：是方法的名称相同，参数或参数类型不同；重载是面向过程的概念。</p>
+<p>重写：是对基类中的虚方法进行重写。重写是面向对象的概念。</p>
 <h2 id="什么时候用重载什么时候用重写"><a class="header" href="#什么时候用重载什么时候用重写">什么时候用重载？什么时候用重写？</a></h2>
 <p>当一个类需要用不同的实现来做同一件事情，此时应该用重写，而重载是用不同的输入做同一件事情</p>
-<h2 id="c中有没有静态构造函数如果有是做什么用的"><a class="header" href="#c中有没有静态构造函数如果有是做什么用的">C#中有没有静态构造函数，如果有是做什么用的？</a></h2>
-<p>特点： 静态构造函数既没有访问修饰符，也没有参数。在创建第一个实例或引用任何静态成员之前，将自动调用静态构造函数来初始化类。无法直接调用静态构造函数。在程序中，用户无法控制何时执行静态构造函数。</p>
-<p>用途 : 当类使用日志文件时，将使用这种构造函数向日志文件中写入项。</p>
 <h2 id="怎样理解静态变量静态成员和非静态成员的区别"><a class="header" href="#怎样理解静态变量静态成员和非静态成员的区别">怎样理解静态变量？静态成员和非静态成员的区别？</a></h2>
 <p>静态变量属于类，而不属于对象；并对所有对象所享；静态成员在加类的时候就被加载。</p>
 <h2 id="属性能在接口中声明吗"><a class="header" href="#属性能在接口中声明吗">属性能在接口中声明吗？</a></h2>
@@ -267,11 +282,11 @@ class B:A
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="basic/datatype.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../basic/datatype.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="collection.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../object-oriented/constructor.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -281,11 +296,11 @@ class B:A
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="basic/datatype.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../basic/datatype.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="collection.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../object-oriented/constructor.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -300,16 +315,16 @@ class B:A
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="theme/pagetoc.js"></script>
+        <script src="../theme/pagetoc.js"></script>
 
 
     </div>

@@ -201,12 +201,9 @@
 </code></pre>
 <h2 id="ctsclsclr分别作何解释"><a class="header" href="#ctsclsclr分别作何解释">CTS、CLS、CLR分别作何解释</a></h2>
 <p>CTS：通用语言系统。CLS：通用语言规范。CLR：公共语言运行库。</p>
-<p>CTS：Common Type System 通用类型系统。Int32、Int16→int、String→string、Boolean→bool。
-每种语言都定义了自己的类型，.Net通过CTS提供了公共的类型，然后翻译生成对应的.Net类型。</p>
-<p>CLS：Common Language Specification 通用语言规范。不同语言语法的不同。每种语言都有自己的
-语法，.Net通过CLS提供了公共的语法，然后不同语言翻译生成对应的.Net语法。</p>
-<p>CLR：Common Language Runtime 公共语言运行时，就是GC、JIT等这些。有不同的CLR，比如服务
-器CLR、Linux CLR（Mono）、Silverlight CLR(CoreCLR)。相当于一个发动机，负责执行IL。</p>
+<p>CTS：Common Type System 通用类型系统。Int32、Int16→int、String→string、Boolean→bool。每种语言都定义了自己的类型，.Net通过CTS提供了公共的类型，然后翻译生成对应的.Net类型。</p>
+<p>CLS：Common Language Specification 通用语言规范。不同语言语法的不同。每种语言都有自己的语法，.Net通过CLS提供了公共的语法，然后不同语言翻译生成对应的.Net语法。</p>
+<p>CLR：Common Language Runtime 公共语言运行时，就是GC、JIT等这些。有不同的CLR，比如服务器CLR、Linux CLR（Mono）、Silverlight CLR(CoreCLR)。相当于一个发动机，负责执行IL。</p>
 <h2 id="在net中配件的意思是-1"><a class="header" href="#在net中配件的意思是-1">在.net中，配件的意思是？</a></h2>
 <p>程序集。（中间语言，源数据，资源，装配清单）</p>
 <h2 id="c可否对内存直接操作"><a class="header" href="#c可否对内存直接操作">c#可否对内存直接操作</a></h2>
@@ -239,15 +236,6 @@ Class1 o2 = new Class1();
 </code></pre>
 <p>o1.count的值是多少？</p>
 <p>答案：3，静态 构造方法计算一次，两个实例化对象计算两次。</p>
-<h2 id="关于构造函数说法正确的是哪个"><a class="header" href="#关于构造函数说法正确的是哪个">关于构造函数说法正确的是哪个？</a></h2>
-<ul>
-<li>a)构造函数可以声明返回类型。</li>
-<li>b)构造函数不可以用private修饰</li>
-<li>c)构造函数必须与类名相同</li>
-<li>d)构造函数不能带参数</li>
-</ul>
-<p>答案：c ，构造函数必须与类名相同，可以传递多个传递，作用就是便于初始化对象成员，不能有任何
-返回类型</p>
 <h2 id="mathround115等於多少-mathround-115等於多少"><a class="header" href="#mathround115等於多少-mathround-115等於多少">Math.Round(11.5)等於多少? Math.Round(-11.5)等於多少?</a></h2>
 <p>Math.Round(11.5)=12</p>
 <p>Math.Round(-11.5)=-12</p>
@@ -261,10 +249,10 @@ Class1 o2 = new Class1();
 <p>&amp; 是用作位运算的。</p>
 <p>总结</p>
 <p>&amp;是位运算，返回结果是int类型 &amp;&amp;是逻辑运算，返回结果是bool类型</p>
-<h2 id="i和i有什么区别"><a class="header" href="#i和i有什么区别">i和i有什么区别？</a></h2>
+<h2 id="i和i有什么区别"><a class="header" href="#i和i有什么区别">i++和++i有什么区别？</a></h2>
 <ol>
 <li>i++是先赋值，然后再自增；++i是先自增，后赋值。</li>
-<li>i=0，i++=0，++i=1； Console.WriteLine(i==i); 结果位true</li>
+<li>i=0，i++=0，++i=1； Console.WriteLine(++i==i++); 结果位true</li>
 </ol>
 <h2 id="什么是协变和逆变"><a class="header" href="#什么是协变和逆变">什么是协变和逆变?</a></h2>
 <p>可变性是以一种类型安全的方式，将一个对象作为另一个对象来使用。其对应的术语则是不变性（invariant）。</p>
