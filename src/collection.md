@@ -29,6 +29,16 @@ foreach( object arr in array)
 }
 ```
 
+## 数组和 list 和 arraylist 的区别?
+
+**数组：**是存储同类型数据列表，数组在内存中是连续存储的。优点:存储、修改、读取速度快。缺点:初始化需要指定长度，无法扩展，插入数据麻烦
+
+**ArrayList:**ArrayList是.Net Framework提供的用于数据存储和检索的专用类，它是命名空间System.Collections下的一部分。它的大小是按照其中存储的数据来动态扩充与收缩的。优点:可扩展，无指定长度，可插入删除
+
+缺点:因存储不同类型，执行装箱拆箱操作，读取、存储速度慢。
+
+**List:**在数组和ArrayList基础上优化，存储通用类型数据列表。优点:可扩展示，初始化无需指定长度，可插入指定位置数据
+
 ## List, Set, Map是否继承自Collection接口?
 
 List，Set是，Map不是

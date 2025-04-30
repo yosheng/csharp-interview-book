@@ -217,3 +217,9 @@ interface IStorage<T>
 ## Server.UrlEncode、HttpUtility.UrlDecode的区别
 
 Server.UrlEncode的编码方式是按照本地程序设置的编码方式进行编码的，而HttpUtility.UrlEncode是默认的按照.net的utf-8格式进行编码的。
+
+## Debug.Write()和Trace.Write()之间有什么区别？二者分别应该用于何处？
+
+Debug.Write是调试的时候向跟踪窗口输出信息。
+
+当编译模式为debug的时候才有效，为release的时候Debug.Write在编译的时候会忽略,而Trace则是在debug和release两种模式下均可以向跟踪窗口输出信息。

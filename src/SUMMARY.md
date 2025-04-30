@@ -18,6 +18,7 @@
     - [ADO.NET](./orm/ado.md)
 - [多线程与异步](./thread/thread-async.md)
     - [Task与异步](./thread/task-async.md)
+    - [Task与并行](./thread/task-parallel.md)
 - [反射](./reflection.md)
 - [.NET](./dotnet/dotnet.md)
     - [WebForm](./dotnet/webform.md)

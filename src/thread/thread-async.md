@@ -94,38 +94,38 @@ Task和Thread都能创建用多线程的方式执行代码，但它们有较大�
 这道题就是说有两个线程，一个名为偶数线程，一个名为奇数线程，偶数线程只打印偶数，奇数线程只打印奇数，两个线程按顺序交替打印。
 
 ```csharp
-publicclassThreadExample
+public class ThreadExample
 {
     ///<summary>
     ///两个线程交替打印0~100的奇偶数
     ///</summary>
     public static void PrintOddEvenNumber
     {
-        varwork = newTheadWorkTest;
-        varthread1 = newThread(work.PrintOddNumer) { Name = "奇数线程"};
-        varthread2 = newThread(work.PrintEvenNumber) { Name = "偶数线程"};
+        var work = newTheadWorkTest;
+        var thread1 = new Thread(work.PrintOddNumber) { Name = "奇数线程"};
+        var thread2 = new Thread(work.PrintEvenNumber) { Name = "偶数线程"};
         thread1.Start;
         thread2.Start;
     }
 }
-publicclassTheadWorkTest
+public class TheadWorkTest
 {
-    privatestaticreadonlyAutoResetEvent oddAre = newAutoResetEvent( false);
-    privatestaticreadonlyAutoResetEvent evenAre = newAutoResetEvent( false);
-    publicvoidPrintOddNumer
+    private static readonly AutoResetEvent oddAre = new AutoResetEvent(false);
+    private static readonly AutoResetEvent evenAre = new AutoResetEvent(false);
+    public void PrintOddNumber
     {
         oddAre.WaitOne;
-        for( var0; i < 100; i++ )
+        for( var 0; i < 100; i++ )
         {
-        if(i % 2!= 1) continue;
-        Console.WriteLine($"{Thread.CurrentThread.Name}：{i}");
-        evenAre.Set;
-        oddAre.WaitOne;
+            if(i % 2!= 1) continue;
+            Console.WriteLine($"{Thread.CurrentThread.Name}：{i}");
+            evenAre.Set;
+            oddAre.WaitOne;
     	}
 	}
-	publicvoidPrintEvenNumber
+	public void PrintEvenNumber
 	{
-		for( vari = 0; i < 100; i++ )
+		for( var i = 0; i < 100; i++ )
 		{
             if(i % 2!= 0) continue;
             Console.WriteLine($"{Thread.CurrentThread.Name}：{i}");
